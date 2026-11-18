@@ -50,6 +50,7 @@ Bütün bölümler baştan açıktır, kilit yoktur. Bağlantı başta yalnızca
 ## Kullanıcı adı ve lider tablosu
 
 - Oyunu ilk açan herkes önce bir kullanıcı adı seçer (3-16 harf; uygunsuz kelimeler kabul edilmez). Ad, menüdeki **Değiştir** ile değiştirilebilir.
+- Her bölüm bitince sonuç kartında da kısa bir lider tablosu çıkar: ilk 5 oyuncu ve oyuncunun kendi sırası.
 - **Lider Tablosu**, her oyuncunun bölümlerdeki en iyi puanlarının toplamına göre ilk 50 kişiyi gösterir (hurma 1, kayıp ışık 5, iyilik 10 puan).
 - Puanlar ücretsiz Firebase (Google) projesinde saklanır: `fener-yolu-99e3b`. Her oyuncu isimsiz (anonim) bir girişle yalnızca kendi satırını yazabilir. Güvenlik kuralları `firebase/firestore.rules` dosyasındadır.
 - Uygunsuz bir adı silmek için Firebase konsolunda **Firestore Database → skorlar** altından o satır silinir.

@@ -156,6 +156,12 @@
   .lb .nm { font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
   .lb .st { opacity: .8; font-size: 14px; }
   .lb .pt { font-weight: 800; }
+  .minilb { margin: 12px 0 4px; padding: 10px 10px 6px; border-radius: 16px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,213,107,.2); }
+  .minilb h3 { margin: 0 0 4px; font-size: 16px; color: var(--gold); }
+  .lb.mini { max-height: none; margin-top: 4px; }
+  .lb.mini li { padding: 5px 8px; font-size: 14px; }
+  .lb li.gap { background: none; padding: 0 8px; opacity: .6; }
+  .minilb .sub { margin: 6px 0 2px; font-size: 14px; }
   .grid2 .btn { font-size: 16px; padding: 11px 8px; }
   .st-on { color: #ffd56b; text-shadow: 0 0 6px rgba(255,213,107,.6); }
   .st-off { color: rgba(255,255,255,.22); }
@@ -1568,7 +1574,7 @@ function finishLevel() {
   // Bölüm kayıtları
   const done = store.get('bitti', {}); done[S.li] = 1; store.set('bitti', done);
   if (S.deeds === S.deedsTotal) { const it = store.get('iyilikTam', {}); it[S.li] = 1; store.set('iyilikTam', it); }
-  lbCache = null; lbSend(false);
+  lbCache = null; lbPending = lbSend(false);
   const earned = checkBadges({
     ilk: true,
     saglam: S.lives === S.maxLives,
@@ -4291,7 +4297,7 @@ const totalScore = () => { const b = store.get('rekor', {}); return LEVELS.reduc
 const totalStars = () => { const b = store.get('yildiz', {}); return LEVELS.reduce((a, _, i) => a + (b[i] || 0), 0); };
 const esc = (t) => String(t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 // Puan arttıkça (ya da ad değişince) oyuncunun tek satırı güncellenir
-let lbSending = false;
+let lbSending = false, lbPending = Promise.resolve();
 async function lbSend(force) {
   const ad = store.get('ad', ''); const puan = totalScore();
   if (!ad || lbSending) return;
@@ -4317,6 +4323,29 @@ async function lbFetch() {
   lbCache = { at: Date.now(), list };
   return list;
 }
+// Bölüm sonu kartı için kısa lider tablosu: ilk 5 ve oyuncunun kendi sırası
+function lbRowsHtml(list, from, to) {
+  const me = myUid();
+  return list.slice(from, to).map((o, j) => `<li class="${o.oyuncu === me ? 'me' : ''}"><span class="rk">${from + j + 1}.</span><span class="nm">${esc(o.ad)}</span><span class="st">${o.yildiz} ★</span><span class="pt">${o.puan}</span></li>`).join('');
+}
+function fillMiniBoard() {
+  const box = $('lbMini'); if (!box) return;
+  let done = false;
+  const fail = () => { if ($('lbMini') && !done) { done = true; box.innerHTML = '<p class="sub">Lider tablosu şu an yüklenemedi.</p>'; } };
+  const timer = setTimeout(fail, 10000);
+  lbPending.then(() => { lbCache = null; return lbFetch(); }).then((list) => {
+    clearTimeout(timer); if (done || !$('lbMini')) return; done = true;
+    if (!list.length) { box.innerHTML = '<p class="sub">Lider tablosunda henüz kimse yok.</p>'; return; }
+    const me = myUid(), idx = list.findIndex(o => o.oyuncu === me);
+    let html = `<ol class="lb mini">${lbRowsHtml(list, 0, 5)}`;
+    if (idx >= 5) html += `<li class="gap"><span></span><span class="nm">…</span><span></span><span></span></li>${lbRowsHtml(list, idx, idx + 1)}`;
+    html += '</ol>';
+    if (idx < 0) html += `<p class="sub">Sen: <b>${totalScore()}</b> puan — ilk 50'ye girmek için bölümleri tekrar oynayıp puanını artırabilirsin.</p>`;
+    else html += `<p class="sub">Sıran: <b>${idx + 1}.</b> · Toplam puanın: <b>${totalScore()}</b></p>`;
+    box.innerHTML = html;
+  }).catch(() => { clearTimeout(timer); fail(); });
+}
+
 function showNameScreen(next, canCancel) {
   S.mode = 'menu';
   const cur = store.get('ad', '');
@@ -4546,12 +4575,14 @@ function showComplete(score, prev, stars = 1, prevStars = 0, extra = {}) {
     ${allDeeds ? (stars < 3 ? `<p class="sub">Üçüncü yıldız için bütün ışıkları ve ${S.lv.trash ? 'çöplerin' : 'hurmaların'} en az dörtte üçünü topla.</p>` : '') : ((S.race || S.r3) ? '<p class="sub">Bazı güzel huyları kaçırdın. İkinci yıldız için hepsini topla.</p>' : '<p class="sub">Bir iyiliği atladın. İkinci yıldız için bütün iyilikleri yap.</p>')}
     <div class="quote"><div class="q">${q.text}</div><div class="src">${q.src}</div></div>
     ${S.lv.outro ? `<p class="sub">${S.lv.outro}</p>` : ''}
+    <div class="minilb"><h3>🏆 Lider Tablosu</h3><div id="lbMini"><p class="sub">Yükleniyor…</p></div><button class="linkbtn" data-act="leader">Tüm tabloyu gör</button></div>
     <div class="btns">
       ${lastLevel ? '<button class="btn" data-act="menu" data-primary>Ana Menü</button>' : '<button class="btn" data-act="next" data-primary>Sonraki Bölüm</button>'}
       <div class="row"><button class="btn alt" data-act="again">Tekrar Oyna</button>${lastLevel ? '' : '<button class="btn alt" data-act="menu">Ana Menü</button>'}</div>
     </div>
   `);
-  bind({ next: () => startLevel(S.li + 1), again: () => startLevel(S.li), menu: showMenu });
+  bind({ next: () => startLevel(S.li + 1), again: () => startLevel(S.li), menu: showMenu, leader: showLeaderboard });
+  fillMiniBoard();
 }
 
 function showOver() {
