@@ -3570,7 +3570,7 @@ function updateMaze(dt) {
   if (ix && iy) z.dir = Math.atan2(iy, ix);
   if (z.mdir && z.stun <= 0 && Math.abs(z.x - ox) < 0.01 && Math.abs(z.y - oy) < 0.01) { z.mdir = null; ix = iy = 0; }
   z.walkT = (ix || iy) ? z.walkT + dt * 10 : 0;
-  if (!z.swHint && isTouch() && S.time > 3.4) { z.swHint = true; toast('Parmağını kaydır: Kerem o yöne duvara kadar yürür. Yolda başka yöne kaydırırsan ilk açıklıkta döner. Dokununca durur.', 4200); }
+  if (!z.swHint && isTouch() && S.time > 3.4) { z.swHint = true; toast('Parmağını kaydır: Kerem o yöne duvara kadar yürür. Parmağını kaldırmadan başka yöne çekersen ilk açıklıkta döner. Dokununca durur.', 4600); }
   // Gezilen yerler haritada açılır
   const ptx = Math.floor(z.x / T), pty = Math.floor(z.y / T);
   for (let y = pty - 2; y <= pty + 2; y++) for (let x = ptx - 2; x <= ptx + 2; x++) if (z.seen[y] && z.seen[y][x] !== undefined) z.seen[y][x] = true;
@@ -3953,7 +3953,7 @@ function showHelp(back) {
       <li><b>Yıldızlar:</b> ★ Bölümü bitir · ★ Bütün iyilikleri yap · ★ Bütün ışıkları ve hurmaların en az dörtte üçünü de topla.</li>
       <li><b>Kolay mod:</b> 5 can olur, engeller daha yavaş hareket eder. Ana menüden açabilirsin.</li>
       <li><b>7. bölüm (yarış):</b> Kamera arabanın arkasında, yolda 3 şerit var. Araba kendiliğinden ilerler. ◀ ▶ ile şerit değiştirirsin, ↑ / Boşluk ile zıplarsın (havada bir kez daha), ↓ ile kayarsın. Telefonda tuş yoktur: parmağını sağa-sola kaydırınca şerit değişir, yukarı kaydırınca (ya da dokununca) zıplarsın, aşağı kaydırınca kayarsın. Yüksekte duran bulutların altından kayarak geçilir. Kötü huy bulutlarına çarparsan yavaşlarsın; güzel huyları toplarsan hızlanırsın. Arkadan gelen kara bulut (dikiz aynasında görünür) sana yetişirse bir can gider.</li>
-      <li><b>8. bölüm (labirent):</b> Kuş bakışı bir labirentte ok tuşları ya da W A S D ile dört yöne yürürsün. Telefonda parmağını kaydırırsın: Kerem o yöne duvara kadar yürür, yolda başka yöne kaydırırsan ilk açıklıkta döner, dokununca durur. Sağ üstteki harita gezdiğin yerleri ve kursun kapısını gösterir. Kötü huy bulutları labirentte serbestçe dolaşır; can almaz, sadece seni geri iter.</li>
+      <li><b>8. bölüm (labirent):</b> Kuş bakışı bir labirentte ok tuşları ya da W A S D ile dört yöne yürürsün. Telefonda parmağını kaydırırsın: Kerem o yöne duvara kadar yürür. Parmağını kaldırmadan başka yöne çekersen ilk açıklıkta o yöne döner. Dokununca durur. Sağ üstteki harita gezdiğin yerleri ve kursun kapısını gösterir. Kötü huy bulutları labirentte serbestçe dolaşır; can almaz, sadece seni geri iter.</li>
       <li><b>11. bölüm (kızak):</b> 7. bölüm gibi oynanır; bu sefer Kerem karlı dağdan kızakla iner. Buz parçaları yavaşlatır.</li>
       <li><b>9. bölüm (uçurtma):</b> ZIPLA / Boşluk tuşuna basılı tutunca yükselirsin, bırakınca süzülürsün. Ağaçlara takılan uçurtmaları kurtarmak iyiliktir.</li>
       <li><b>10. bölüm (karanlık labirent):</b> Sadece fenerinin ışığı etrafı aydınlatır. Kapı ve kayıp ışıklar uzaktan hafifçe parlar.</li>
@@ -4103,18 +4103,24 @@ for (const [id, key] of [['padU', 'up'], ['padD', 'down']]) {
 for (const el of [padZone, padL, padR, padJ, cv]) el.addEventListener('contextmenu', (e) => e.preventDefault());
 // Yarışta parmak hareketi: sağa/sola kaydır = şerit, yukarı = zıpla, aşağı = kay, dokun = zıpla
 let swipe = null;
+// Parmak kalkmadan yön değiştirilebilir: her yeni yöne ~26 piksel kayınca o yön işlenir, başlangıç noktası oraya taşınır
 window.addEventListener('pointerdown', (e) => {
   if ((!S.r3 && !S.mz) || S.mode !== 'play') return;
   if (e.target.closest && e.target.closest('button, #overlay, #hud')) return;
   Sound.init();
-  swipe = { id: e.pointerId, x: e.clientX, y: e.clientY, t: performance.now(), done: false };
+  swipe = { id: e.pointerId, ax: e.clientX, ay: e.clientY, t: performance.now(), moved: false, last: null };
 });
 window.addEventListener('pointermove', (e) => {
-  if (!swipe || swipe.id !== e.pointerId || swipe.done) return;
-  const dx = e.clientX - swipe.x, dy = e.clientY - swipe.y;
-  if (Math.max(Math.abs(dx), Math.abs(dy)) > 26) { swipeQ.push(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 'R' : 'L') : (dy > 0 ? 'D' : 'U')); swipe.done = true; }
+  if (!swipe || swipe.id !== e.pointerId) return;
+  const dx = e.clientX - swipe.ax, dy = e.clientY - swipe.ay, adx = Math.abs(dx), ady = Math.abs(dy);
+  const dir = adx > ady ? (dx > 0 ? 'R' : 'L') : (dy > 0 ? 'D' : 'U');
+  const th = (S.r3 && dir === swipe.last) ? 44 : 26;   // yarışta aynı yöne devam edince bir şerit daha
+  if (Math.max(adx, ady) < th) return;
+  if (dir !== swipe.last && Math.max(adx, ady) < 1.2 * Math.min(adx, ady)) return;   // çapraz kararsızlıkta bekle
+  if (dir !== swipe.last || S.r3) swipeQ.push(dir);
+  swipe.last = dir; swipe.moved = true; swipe.ax = e.clientX; swipe.ay = e.clientY;
 });
-const swipeEnd = (e) => { if (!swipe || swipe.id !== e.pointerId) return; if (!swipe.done && performance.now() - swipe.t < 320) swipeQ.push('T'); swipe = null; };
+const swipeEnd = (e) => { if (!swipe || swipe.id !== e.pointerId) return; if (!swipe.moved && performance.now() - swipe.t < 320) swipeQ.push('T'); swipe = null; };
 window.addEventListener('pointerup', swipeEnd); window.addEventListener('pointercancel', swipeEnd);
 document.addEventListener('gesturestart', (e) => e.preventDefault());
 // Telefonda çift dokunuşun ekranı yakınlaştırmasını engelle (iPhone Safari user-scalable=no'yu yok sayar)
