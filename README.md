@@ -44,6 +44,7 @@ Bütün bölümler baştan açıktır, kilit yoktur. Bağlantı başta yalnızca
 10. **Gece Bekçisi Fener (karanlık labirent):** 8. bölüm gibi, ama elektrikler gitmiş; yalnızca Kerem'in feneri etrafı aydınlatır. Kapı, kayıp ışıklar ve bilgi yaprakları uzaktan hafifçe parlar. Üç iyilik: yavru kediyi annesine, mumu yaşlı komşunun karanlık evine, battaniyeli kutuyu üşüyen yavru kediye götürmek. Her oyunda yeni labirent.
 11. **Kızak Yarışı:** 7. bölümün kamerası ve şeritleri, bu sefer karlı dağda kızakla. Buz parçaları yavaşlatır; sonunda sıcak çorbalı dağ evi var.
 12. **Ağaç Dikme Şenliği:** Çorak bir tepeye fidan dikilir ve çöp toplanır (hurma yerine çöp). Her dikilen fidanla çimen, tepeler ve çiçekler biraz daha yeşerir. Kuru dal topları yuvarlanır.
+13. **Kuzular Ağıla (yılan tarzı):** Kuş bakışı bir çayırda Kerem kendiliğinden yürür; ok tuşlarıyla ya da telefonda parmak kaydırarak yön verilir. Topladığı her kayıp kuzu arkasına dizilir. Çite, taşa, kendi kuzu sırasına ya da kötü huy bulutuna çarpınca bir can gider. Her 4 kuzu bir iyilik sayılır; 12 kuzu toplanınca ağılın kapısı açılır. Çayır her oyunda yeniden kurulur, telefon dik tutulunca dik bir çayır çıkar.
 
 ## Kullanıcı adı ve lider tablosu
 
@@ -79,8 +80,9 @@ Her bölüm bitince kaynağıyla birlikte bir âyet ya da hadis gösterilir:
 - “Allah göklerin ve yerin nûrudur…” (Nûr Sûresi, 24/35)
 - “Sizden biri, kendisi için istediğini kardeşi için de istemedikçe iman etmiş olmaz.” (Buhârî, Îmân 7; Müslim, Îmân 71)
 - “Bir Müslüman bir ağaç diker veya ekin eker de ondan bir insan, hayvan veya kuş yerse, bu onun için sadaka olur.” (Buhârî, Hars 1; Müslim, Müsâkât 12)
+- “Hepiniz çobansınız; hepiniz güttüğünüz sürüden sorumlusunuz…” (Buhârî, Cum’a 11; Müslim, İmâre 20)
 
-Bilgi yapraklarındaki 24 metnin kaynakları: Buhârî, Fezâilü’l-Kur’ân 21 · Zümer 39/9 · Buhârî, Menâkıb 23 · Buhârî, Edeb 69 · Tirmizî, Birr 36 · Ebû Dâvûd, Zekât 41 · Buhârî, Edeb 18 · Buhârî, İlim 11 · Bakara 2/183 · Buhârî, Savm 2 · Buhârî, Savm 45 · Ebû Dâvûd, Savm 21 · Buhârî, Leyletü’l-Kadr 3 · Buhârî, Îmân 25 · Bakara 2/185 · Buhârî, Edeb 28 · Müslim, Îmân 147 · Buhârî, Îmân 4 · Ebû Dâvûd, Salât 50; Tirmizî, Salât 51 · Buhârî, Salât 88; Müslim, Birr 65 · Müslim, Îmân 93 · Müslim, Zikir 38 · Müslim, Tahâret 1 · Rahmân 55/6.
+Bilgi yapraklarındaki 26 metnin kaynakları: Buhârî, Fezâilü’l-Kur’ân 21 · Zümer 39/9 · Buhârî, Menâkıb 23 · Buhârî, Edeb 69 · Tirmizî, Birr 36 · Ebû Dâvûd, Zekât 41 · Buhârî, Edeb 18 · Buhârî, İlim 11 · Bakara 2/183 · Buhârî, Savm 2 · Buhârî, Savm 45 · Ebû Dâvûd, Savm 21 · Buhârî, Leyletü’l-Kadr 3 · Buhârî, Îmân 25 · Bakara 2/185 · Buhârî, Edeb 28 · Müslim, Îmân 147 · Buhârî, Îmân 4 · Ebû Dâvûd, Salât 50; Tirmizî, Salât 51 · Buhârî, Salât 88; Müslim, Birr 65 · Müslim, Îmân 93 · Müslim, Zikir 38 · Müslim, Tahâret 1 · Rahmân 55/6 · Tirmizî, Birr 16 · Müslim, Sayd 57.
 
 ## İçerik ilkeleri
 
