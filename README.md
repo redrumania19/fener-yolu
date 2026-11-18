@@ -20,7 +20,9 @@ Ardından tarayıcıda `http://localhost:8765` adresine gidin.
 
 ## İnternette
 
-Oyun Claude üzerinde ücretsiz olarak yayında: https://claude.ai/artifact/Y4vJUqVt2ywSxhfa6818Np
+Oyun GitHub Pages'te herkese açık olarak yayında: https://redrumania19.github.io/fener-yolu/
+
+Ayrıca Claude üzerinde de bir kopyası var: https://claude.ai/artifact/Y4vJUqVt2ywSxhfa6818Np
 Bütün bölümler baştan açıktır, kilit yoktur. Bağlantı başta yalnızca sahibine açıktır; başkalarının açabilmesi için sayfadaki **Paylaş (Share)** menüsünden herkese açık yapılmalıdır.
 
 ## Kontroller
