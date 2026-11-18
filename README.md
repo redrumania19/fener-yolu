@@ -45,6 +45,7 @@ Bütün bölümler baştan açıktır, kilit yoktur. Bağlantı başta yalnızca
 11. **Kızak Yarışı:** 7. bölümün kamerası ve şeritleri, bu sefer karlı dağda kızakla. Buz parçaları yavaşlatır; sonunda sıcak çorbalı dağ evi var.
 12. **Ağaç Dikme Şenliği:** Çorak bir tepeye fidan dikilir ve çöp toplanır (hurma yerine çöp). Her dikilen fidanla çimen, tepeler ve çiçekler biraz daha yeşerir. Kuru dal topları yuvarlanır.
 13. **Kuzular Ağıla (yılan tarzı):** Kuş bakışı bir çayırda Kerem kendiliğinden yürür; ok tuşlarıyla ya da telefonda parmak kaydırarak yön verilir. Topladığı her kayıp kuzu arkasına dizilir. Çite, taşa, kendi kuzu sırasına ya da kötü huy bulutuna çarpınca bir can gider. Her 4 kuzu bir iyilik sayılır; 12 kuzu toplanınca ağılın kapısı açılır. Çayır her oyunda yeniden kurulur, telefon dik tutulunca dik bir çayır çıkar.
+14. **Deniz Yolculuğu:** 7. ve 11. bölümün şeritli yolculuğu, bu kez kayıkla denizde. Kenarlarda deniz fenerleri, yelkenliler ve adacıklar var; dalgalar yavaşlatır. Sonunda liman var.
 
 ## Kullanıcı adı ve lider tablosu
 
@@ -81,8 +82,9 @@ Her bölüm bitince kaynağıyla birlikte bir âyet ya da hadis gösterilir:
 - “Sizden biri, kendisi için istediğini kardeşi için de istemedikçe iman etmiş olmaz.” (Buhârî, Îmân 7; Müslim, Îmân 71)
 - “Bir Müslüman bir ağaç diker veya ekin eker de ondan bir insan, hayvan veya kuş yerse, bu onun için sadaka olur.” (Buhârî, Hars 1; Müslim, Müsâkât 12)
 - “Hepiniz çobansınız; hepiniz güttüğünüz sürüden sorumlusunuz…” (Buhârî, Cum’a 11; Müslim, İmâre 20)
+- “Denizde yüce dağlar gibi yükselen gemiler de O’nundur.” (Rahmân Sûresi, 55/24)
 
-Bilgi yapraklarındaki 26 metnin kaynakları: Buhârî, Fezâilü’l-Kur’ân 21 · Zümer 39/9 · Buhârî, Menâkıb 23 · Buhârî, Edeb 69 · Tirmizî, Birr 36 · Ebû Dâvûd, Zekât 41 · Buhârî, Edeb 18 · Buhârî, İlim 11 · Bakara 2/183 · Buhârî, Savm 2 · Buhârî, Savm 45 · Ebû Dâvûd, Savm 21 · Buhârî, Leyletü’l-Kadr 3 · Buhârî, Îmân 25 · Bakara 2/185 · Buhârî, Edeb 28 · Müslim, Îmân 147 · Buhârî, Îmân 4 · Ebû Dâvûd, Salât 50; Tirmizî, Salât 51 · Buhârî, Salât 88; Müslim, Birr 65 · Müslim, Îmân 93 · Müslim, Zikir 38 · Müslim, Tahâret 1 · Rahmân 55/6 · Tirmizî, Birr 16 · Müslim, Sayd 57.
+Bilgi yapraklarındaki 28 metnin kaynakları: Buhârî, Fezâilü’l-Kur’ân 21 · Zümer 39/9 · Buhârî, Menâkıb 23 · Buhârî, Edeb 69 · Tirmizî, Birr 36 · Ebû Dâvûd, Zekât 41 · Buhârî, Edeb 18 · Buhârî, İlim 11 · Bakara 2/183 · Buhârî, Savm 2 · Buhârî, Savm 45 · Ebû Dâvûd, Savm 21 · Buhârî, Leyletü’l-Kadr 3 · Buhârî, Îmân 25 · Bakara 2/185 · Buhârî, Edeb 28 · Müslim, Îmân 147 · Buhârî, Îmân 4 · Ebû Dâvûd, Salât 50; Tirmizî, Salât 51 · Buhârî, Salât 88; Müslim, Birr 65 · Müslim, Îmân 93 · Müslim, Zikir 38 · Müslim, Tahâret 1 · Rahmân 55/6 · Tirmizî, Birr 16 · Müslim, Sayd 57 · Buhârî, Edeb 76; Müslim, Birr 107 · Bakara 2/153.
 
 ## İçerik ilkeleri
 

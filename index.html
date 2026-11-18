@@ -749,12 +749,22 @@ function level13() {
     name: 'Kuzular Ağıla', sub: 'Kuzuları topla, ağıla götür', theme: 7, w: L.w, grid: L.g, snake: true, cardIds: ['c25', 'c26'],
     quote: { text: '“Hepiniz çobansınız; hepiniz güttüğünüz sürüden sorumlusunuz…”', src: 'Hadis-i şerif — Buhârî, Cum’a 11; Müslim, İmâre 20' },
     intro: 'Bölüm 13: Kuzular Ağıla — Çobanın kuzuları kaybolmuş! 12 kuzuyu topla; her kuzu arkana dizilir. Sonra hepsini ağıla götür.',
-    outro: 'Kerem bütün kuzuları ağıla getirdi; çoban ona dua etti. Bütün bölümleri bitirdin!'
+    outro: 'Kerem bütün kuzuları ağıla getirdi; çoban ona dua etti.'
   };
 }
 
-const LEVELS = [level1(), level2(), level3(), level4(), level5(), level6(), level7(), level8(), level9(), level10(), level11(), level12(), level13()];
-const LEVEL_PAR = [55, 70, 85, 65, 80, 75, 55, 130, 65, 210, 55, 45, 100];   // "Rüzgâr Gibi" rozeti için hedef süre (saniye)
+function level14() {
+  const L = new LB(20); L.ground(0, 20); L.set(2, 10, 'S');
+  return {
+    name: 'Deniz Yolculuğu', sub: 'Kayıkla limana', theme: 10, w: L.w, grid: L.g, mode3d: true, r3v: 'sea', cardIds: ['c27', 'c28'],
+    quote: { text: '“Denizde yüce dağlar gibi yükselen gemiler de O’nundur.”', src: 'Rahmân Sûresi, 55/24' },
+    intro: 'Bölüm 14: Deniz Yolculuğu — Kayıkla limana! ◀ ▶ ile şerit değiştir, ↑ ile zıpla, ↓ ile kay. Dalgalardan ve kötü huy bulutlarından kaç!',
+    outro: 'Kerem kayığıyla limana vardı; balıkçı amca ona el salladı. Bütün bölümleri bitirdin!'
+  };
+}
+
+const LEVELS = [level1(), level2(), level3(), level4(), level5(), level6(), level7(), level8(), level9(), level10(), level11(), level12(), level13(), level14()];
+const LEVEL_PAR = [55, 70, 85, 65, 80, 75, 55, 130, 65, 210, 55, 45, 100, 55];   // "Rüzgâr Gibi" rozeti için hedef süre (saniye)
 
 // Bilgi yaprakları: her bölümde iki tane; kaynakları doğrulandı
 const CARDS = [
@@ -783,6 +793,8 @@ const CARDS = [
   { id: 'c24', title: 'Yıldızlar ve ağaçlar', text: '“Yıldızlar ve ağaçlar secde ederler.”', src: 'Rahmân Sûresi, 55/6' },
   { id: 'c25', title: 'Merhamet', text: '“Merhamet edenlere Rahmân da merhamet eder. Siz yeryüzündekilere merhamet edin ki göktekiler de size merhamet etsin.”', src: 'Hadis-i şerif — Tirmizî, Birr 16' },
   { id: 'c26', title: 'Güzel davranmak', text: '“Yüce Allah her şeyde ihsanı (güzel davranmayı) emretmiştir…”', src: 'Hadis-i şerif — Müslim, Sayd 57' },
+  { id: 'c27', title: 'Gerçek güç', text: '“Kuvvetli kimse, güreşte başkalarını yenen kimse değildir. Asıl kuvvetli olan, öfke anında kendine hâkim olan kimsedir.”', src: 'Hadis-i şerif — Buhârî, Edeb 76; Müslim, Birr 107' },
+  { id: 'c28', title: 'Sabır', text: '“Ey iman edenler! Sabır ve namazla yardım dileyin. Şüphesiz Allah sabredenlerle beraberdir.”', src: 'Bakara Sûresi, 2/153' },
   { id: 'c12', title: 'Komşu hakkı', text: '“Cebrail bana komşu hakkında o kadar çok tavsiyede bulundu ki, komşuyu komşuya mirasçı kılacak zannettim.”', src: 'Hadis-i şerif — Buhârî, Edeb 28; Müslim, Birr 140' },
 ];
 const CARD_POS = [
@@ -799,6 +811,7 @@ const CARD_POS = [
   [[0, 0, 'c21'], [0, 0, 'c22']],
   [[46, 4, 'c23'], [150, 3, 'c24']],
   [[0, 0, 'c25'], [0, 0, 'c26']],
+  [[0, 0, 'c27'], [0, 0, 'c28']],
 ];
 
 const BADGES = [
@@ -825,6 +838,7 @@ const THEMES = [
   { skyA: '#4fa8e6', skyB: '#a8dcf5', skyC: '#fff3d8', far: '#9ccf94', mid: '#7dbb6e', win: '#6f8fae', starA: 0, day: true, country: true, amb: 'gunduz' },
   { skyA: '#7fb6e6', skyB: '#c4e0f5', skyC: '#f4f8ff', far: '#dfe9f3', mid: '#cfdcea', win: '#6f8fae', starA: 0, day: true, snow: true, amb: 'kar' },
   { skyA: '#6aaee0', skyB: '#b8dcf0', skyC: '#fbefd6', far: '#c9b98a', mid: '#a89a6a', win: '#6f8fae', starA: 0, day: true, country: true, greening: true, amb: 'gunduz' },
+  { skyA: '#3f97dc', skyB: '#9ad2f2', skyC: '#eaf7ff', far: '#7fb59a', mid: '#5f9f7f', win: '#6f8fae', starA: 0, day: true, amb: 'gunduz' },
 ];
 
 // =====================================================================
@@ -3008,6 +3022,59 @@ function spr(key) {
       g.fillStyle = 'rgba(255,255,255,.7)'; for (let i = 0; i < 3; i++) { g.beginPath(); g.arc(430 + i * 8, 40 - i * 18, 10 + i * 4, 0, Math.PI * 2); g.fill(); }
       g.fillStyle = '#5a3a1e'; g.fillRect(410, 50, 30, 90);
     }); break;
+    case 'boat': c = mkCv(240, 190, (g) => {
+      // Kerem arkadan, tahta kayıkta kürek çekiyor
+      g.fillStyle = 'rgba(255,255,255,.7)'; g.beginPath(); g.ellipse(120, 178, 112, 10, 0, 0, Math.PI * 2); g.fill();
+      g.fillStyle = '#f3e6c8'; rr(g, 70, 64, 100, 60, 18); g.fill();
+      g.fillStyle = '#9a5b26'; rr(g, 86, 62, 68, 64, 12); g.fill();
+      g.fillStyle = '#f2c9a0'; g.beginPath(); g.arc(88, 38, 7, 0, Math.PI * 2); g.arc(152, 38, 7, 0, Math.PI * 2); g.fill();
+      g.fillStyle = '#2a1e18'; g.beginPath(); g.arc(120, 36, 30, 0, Math.PI * 2); g.fill();
+      g.fillStyle = '#ffffff'; g.beginPath(); g.ellipse(120, 16, 27, 14, 0, Math.PI, 0); g.fill(); g.fillRect(93, 14, 54, 9);
+      g.strokeStyle = '#f3e6c8'; g.lineWidth = 12; g.lineCap = 'round'; g.beginPath(); g.moveTo(74, 82); g.lineTo(50, 110); g.moveTo(166, 82); g.lineTo(190, 110); g.stroke();
+      g.strokeStyle = '#c9a46a'; g.lineWidth = 7; g.beginPath(); g.moveTo(50, 110); g.lineTo(6, 150); g.moveTo(190, 110); g.lineTo(234, 150); g.stroke();
+      g.fillStyle = '#c9a46a'; g.beginPath(); g.ellipse(8, 154, 10, 5, -0.6, 0, Math.PI * 2); g.ellipse(232, 154, 10, 5, 0.6, 0, Math.PI * 2); g.fill();
+      g.fillStyle = '#2f6fa8'; g.beginPath(); g.moveTo(22, 112); g.lineTo(218, 112); g.lineTo(196, 170); g.quadraticCurveTo(120, 186, 44, 170); g.closePath(); g.fill();
+      g.fillStyle = '#ffffff'; g.fillRect(26, 112, 188, 8);
+      g.fillStyle = '#d63b30'; g.fillRect(36, 134, 168, 6);
+    }); break;
+    case 'wave': c = mkCv(280, 90, (g) => {
+      g.fillStyle = '#2f80ba'; g.beginPath(); g.moveTo(0, 90); g.quadraticCurveTo(60, 20, 140, 26); g.quadraticCurveTo(220, 30, 280, 90); g.fill();
+      g.fillStyle = '#ffffff'; g.beginPath(); g.moveTo(40, 52); g.quadraticCurveTo(100, 8, 160, 22); g.quadraticCurveTo(200, 30, 224, 54); g.quadraticCurveTo(190, 40, 160, 42); g.quadraticCurveTo(110, 40, 40, 52); g.fill();
+      g.fillStyle = 'rgba(255,255,255,.6)'; for (let i = 0; i < 6; i++) { g.beginPath(); g.arc(60 + i * 30, 60 + (i % 2) * 6, 5, 0, Math.PI * 2); g.fill(); }
+    }); break;
+    case 'lighthouse': c = mkCv(180, 460, (g) => {
+      g.fillStyle = '#8a8e98'; g.beginPath(); g.ellipse(90, 440, 88, 20, 0, 0, Math.PI * 2); g.fill();
+      for (let i = 0; i < 6; i++) { g.fillStyle = i % 2 ? '#ffffff' : '#d63b30'; g.beginPath(); const y0 = 430 - i * 55, y1 = y0 - 55, w0 = 44 - i * 4, w1 = 44 - (i + 1) * 4; g.moveTo(90 - w0, y0); g.lineTo(90 + w0, y0); g.lineTo(90 + w1, y1); g.lineTo(90 - w1, y1); g.fill(); }
+      g.fillStyle = '#2a2a3a'; g.fillRect(60, 80, 60, 20);
+      const gr = g.createRadialGradient(90, 64, 0, 90, 64, 80); gr.addColorStop(0, 'rgba(255,240,170,.95)'); gr.addColorStop(1, 'rgba(255,240,170,0)'); g.fillStyle = gr; g.fillRect(10, 0, 160, 140);
+      g.fillStyle = '#ffd56b'; g.fillRect(70, 48, 40, 32); g.fillStyle = '#2a2a3a'; g.beginPath(); g.moveTo(62, 48); g.lineTo(90, 22); g.lineTo(118, 48); g.fill();
+    }); break;
+    case 'sail': c = mkCv(220, 260, (g) => {
+      g.fillStyle = '#8a5a2b'; g.fillRect(106, 30, 6, 180);
+      g.fillStyle = '#ffffff'; g.beginPath(); g.moveTo(112, 34); g.lineTo(112, 196); g.lineTo(196, 196); g.fill();
+      g.fillStyle = '#ffe7a8'; g.beginPath(); g.moveTo(104, 60); g.lineTo(104, 196); g.lineTo(40, 196); g.fill();
+      g.fillStyle = '#b5443a'; g.beginPath(); g.moveTo(20, 206); g.lineTo(200, 206); g.lineTo(176, 240); g.lineTo(44, 240); g.fill();
+      g.fillStyle = 'rgba(255,255,255,.7)'; g.fillRect(30, 244, 160, 6);
+    }); break;
+    case 'rockisle': c = mkCv(320, 170, (g) => {
+      g.fillStyle = '#8a8e98'; g.beginPath(); g.moveTo(0, 170); g.lineTo(40, 90); g.lineTo(110, 60); g.lineTo(180, 74); g.lineTo(250, 50); g.lineTo(320, 170); g.fill();
+      g.fillStyle = '#5f9f5a'; g.beginPath(); g.moveTo(50, 92); g.quadraticCurveTo(110, 40, 180, 74); g.quadraticCurveTo(220, 40, 262, 64); g.lineTo(250, 80); g.quadraticCurveTo(180, 90, 60, 104); g.fill();
+      g.fillStyle = '#3f7a3a'; for (const [x, y] of [[120, 50], [200, 48], [160, 58]]) { g.beginPath(); g.arc(x, y, 16, 0, Math.PI * 2); g.fill(); }
+      g.fillStyle = 'rgba(255,255,255,.75)'; g.fillRect(0, 160, 320, 10);
+    }); break;
+    case 'buoy': c = mkCv(80, 120, (g) => {
+      g.fillStyle = '#d63b30'; g.beginPath(); g.moveTo(16, 100); g.lineTo(64, 100); g.lineTo(52, 30); g.lineTo(28, 30); g.fill();
+      g.fillStyle = '#ffffff'; g.fillRect(22, 56, 36, 12);
+      g.fillStyle = '#ffd56b'; g.beginPath(); g.arc(40, 22, 9, 0, Math.PI * 2); g.fill();
+      g.fillStyle = 'rgba(255,255,255,.7)'; g.beginPath(); g.ellipse(40, 104, 34, 8, 0, 0, Math.PI * 2); g.fill();
+    }); break;
+    case 'harbor': c = mkCv(560, 440, (g) => {
+      g.fillStyle = '#8a5a2b'; g.fillRect(0, 330, 560, 30); for (let i = 0; i < 8; i++) g.fillRect(20 + i * 72, 360, 12, 80);
+      const cols = ['#f2e2c4', '#cfe3f2', '#f7d9c4', '#e2f0d8'];
+      for (let i = 0; i < 4; i++) { const x = 30 + i * 130; g.fillStyle = cols[i]; g.fillRect(x, 170, 110, 160); g.fillStyle = '#b5443a'; g.beginPath(); g.moveTo(x - 8, 170); g.lineTo(x + 55, 120); g.lineTo(x + 118, 170); g.fill(); g.fillStyle = '#4d7a8f'; g.fillRect(x + 18, 210, 26, 30); g.fillRect(x + 66, 210, 26, 30); g.fillStyle = '#6b4220'; g.fillRect(x + 42, 270, 26, 60); }
+      g.fillStyle = '#fffbe8'; g.fillRect(120, 60, 320, 56); g.strokeStyle = '#2f6fa8'; g.lineWidth = 5; g.strokeRect(120, 60, 320, 56);
+      g.fillStyle = '#1f4f7a'; g.font = 'bold 34px "Segoe UI", sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText('Limana hoş geldin!', 280, 89, 300);
+    }); break;
     case 'sled': c = mkCv(240, 190, (g) => {
       // Kerem arkadan, kırmızı atkı; tahta kızak
       g.fillStyle = '#f3e6c8'; rr(g, 70, 70, 100, 60, 18); g.fill();
@@ -3058,8 +3125,26 @@ function build3DTrack() {
     for (let i = 0; i < hold; i++) add(curve, y0 + hill * ease(++k / tot));
     for (let i = 0; i < leave; i++) add(curve * (1 - i / leave), y0 + hill * ease(++k / tot));
   };
-  const snow = S.lv && S.lv.r3v === 'snow';
-  if (snow) {
+  const snow = S.lv && S.lv.r3v === 'snow', sea = S.lv && S.lv.r3v === 'sea';
+  if (sea) {
+    // Deniz: yumuşak kıvrımlar, dalga gibi hafif inip çıkan yol
+    road(0, 60, 0, 0, 0);
+    road(25, 40, 25, 1.5, 500);
+    road(25, 40, 25, -2, -500);
+    road(20, 40, 20, 0, 700);
+    road(25, 50, 25, 2.5, -700);
+    road(0, 50, 0, 0, 0);
+    road(25, 40, 25, -3, 400);
+    road(20, 40, 20, 1.5, -400);
+    road(25, 40, 25, -1.5, 600);
+    road(20, 40, 20, 3, -600);
+    road(25, 50, 25, 0, 500);
+    road(25, 40, 25, -2.5, -500);
+    road(25, 40, 25, 2, 0);
+    road(25, 50, 25, -1.5, 300);
+    road(10, 20, 10, 1, -300);
+    road(0, 170, 0, 0, 0);
+  } else if (snow) {
     // Karlı dağ: çoğu yokuş aşağı, kıvrımlı
     road(0, 60, 0, 0, 0);
     road(25, 40, 25, -2, -1500);
@@ -3101,11 +3186,18 @@ function build3DTrack() {
   for (const i of [6, 7, finishIdx, finishIdx + 1]) segs[i].checker = true;
   deco(9, { key: 'arch:BAŞLANGIÇ', ww: 5400 });
   deco(finishIdx + 2, { key: 'arch:BİTİŞ', ww: 5400 });
-  deco(N - 12, { key: snow ? 'soup' : 'house', ww: 4200 });
+  deco(N - 12, { key: sea ? 'harbor' : snow ? 'soup' : 'house', ww: 4200 });
   // Yol kenarı süsleri
   const r = rand(2024);
   for (let i = 12; i < N - 14; i++) {
     const side = (i % 2) ? 1 : -1;
+    if (sea) {
+      if (i % 60 === 0) deco(i, { key: 'lighthouse', ww: 900, x: side * 3.2 });
+      else if (i % 45 === 20) deco(i, { key: 'rockisle', ww: 2400, x: -side * (3.0 + r()) });
+      if (i % 8 === 0) deco(i, { key: 'sail', ww: 1100, x: side * (1.9 + r() * 1.6) });
+      if (i % 12 === 5) deco(i, { key: 'buoy', ww: 220, x: (r() < 0.5 ? -1 : 1) * 1.3 });
+      continue;
+    }
     if (snow) {
       if (i % 45 === 0) deco(i, { key: 'chalet', ww: 3200, x: side * 3.0 });
       else if (i % 60 === 11) deco(i, { key: 'snowman', ww: 700, x: -side * 1.7 });
@@ -3256,7 +3348,7 @@ function update3D(dt) {
         case 'good': if (dx < 0.3 && Math.abs(r.y - o.h) < 450) { o.got = true; S.deeds++; r.boostT = 1.3; r.chase -= 25 * R3.SEG; Sound.play('boost'); r3Float(o.label, '#fff2a0'); updateHud(); } break;
         case 'bad': if (!o.hit && dx < 0.24 && r.y < 300 && r.hitCool <= 0) { o.hit = true; r.slowT = 0.6; r.hitCool = 1; Sound.play('bonk'); r3Float(o.label + '!', '#d8d0f0'); } break;
         case 'bar': if (!o.hit && dx < 0.3 && !(r.slideT > 0 && r.y <= 0) && r.y < 650 && r.hitCool <= 0) { o.hit = true; r.slowT = 0.8; r.hitCool = 1; Sound.play('bonk'); r3Float(o.label + '!', '#d8d0f0'); } break;
-        case 'mud': if (dx < 0.4 && r.y < 60) { r.slowT = Math.max(r.slowT, 0.3); if (!S.hints.camur) { S.hints.camur = true; toast(S.lv.r3v === 'snow' ? 'Buz kızağını yavaşlatır! Üstünden zıpla ya da kenarından geç.' : 'Çamur arabanı yavaşlatır! Üstünden zıpla ya da kenarından geç.'); } } break;
+        case 'mud': if (dx < 0.4 && r.y < 60) { r.slowT = Math.max(r.slowT, 0.3); if (!S.hints.camur) { S.hints.camur = true; toast(S.lv.r3v === 'sea' ? 'Dalgalar kayığını yavaşlatır! Üstünden zıpla ya da şerit değiştir.' : S.lv.r3v === 'snow' ? 'Buz kızağını yavaşlatır! Üstünden zıpla ya da kenarından geç.' : 'Çamur arabanı yavaşlatır! Üstünden zıpla ya da kenarından geç.'); } } break;
         case 'flag': if (!o.lit) { o.lit = true; r.checkZ = o.z - R3.playerZ; Sound.play('check'); toast('Fener yandı — buradan devam edeceksin.'); } break;
       }
     }
@@ -3315,11 +3407,12 @@ function render3D() {
     for (let x = 0; x <= W + 20; x += 14) ctx.lineTo(x, hor - hgt * VH - Math.sin((x + sh) / (W * f)) * VH * 0.03 - Math.sin((x + sh) / (W * f * 0.37)) * VH * 0.012);
     ctx.lineTo(W, hor + 2); ctx.fill();
   };
-  if (S.lv.r3v === 'snow') { hill('#e6eef8', 1.2, 0.12, 0.22); hill('#d4e0ee', 2.0, 0.05, 0.15); }
+  if (S.lv.r3v === 'sea') { hill('#8fbfae', 1.2, 0.05, 0.22); hill('#6ea892', 2.0, 0.025, 0.15); }
+  else if (S.lv.r3v === 'snow') { hill('#e6eef8', 1.2, 0.12, 0.22); hill('#d4e0ee', 2.0, 0.05, 0.15); }
   else { hill('#a8d4a0', 1.2, 0.07, 0.22); hill('#86c27a', 2.0, 0.03, 0.15); }
   // Yol
   const segs = r.segs, N = r.N, pos = r.pos;
-  const snowy = S.lv.r3v === 'snow';
+  const snowy = S.lv.r3v === 'snow', sea = S.lv.r3v === 'sea';
   const baseI = Math.floor(pos / R3.SEG);
   const basePct = (pos % R3.SEG) / R3.SEG;
   const ps = r3Seg(pos + R3.playerZ), pPct = ((pos + R3.playerZ) % R3.SEG) / R3.SEG;
@@ -3338,18 +3431,19 @@ function render3D() {
     s.vis = true; s.sx = a[0]; s.sy = a[1]; s.sc = a[3];
     const [x1, y1b, w1] = a, [x2, y2, w2] = b;
     const y1 = y1b + 1;   // komşu dilimlerle hafif üst üste binme: ince çizgi kalmasın
-    ctx.fillStyle = snowy ? (s.c ? '#f4f8fc' : '#e8eff8') : (s.c ? '#6cbf5a' : '#62b450'); ctx.fillRect(0, y2, W, y1b - y2);
+    ctx.fillStyle = sea ? (s.c ? '#2f80ba' : '#2b78b0') : snowy ? (s.c ? '#f4f8fc' : '#e8eff8') : (s.c ? '#6cbf5a' : '#62b450'); ctx.fillRect(0, y2, W, y1b - y2);
     const r1 = w1 * 1.14, r2 = w2 * 1.14;
-    quad(x1 - r1, y1, x1 - w1, y1, x2 - w2, y2, x2 - r2, y2, s.c ? '#d63b30' : '#f4f4f0');
-    quad(x1 + w1, y1, x1 + r1, y1, x2 + r2, y2, x2 + w2, y2, s.c ? '#d63b30' : '#f4f4f0');
+    const rc = sea ? (s.c ? '#ff8a3d' : '#ffffff') : (s.c ? '#d63b30' : '#f4f4f0');
+    quad(x1 - r1, y1, x1 - w1, y1, x2 - w2, y2, x2 - r2, y2, rc);
+    quad(x1 + w1, y1, x1 + r1, y1, x2 + r2, y2, x2 + w2, y2, rc);
     if (s.checker) {
       for (let k = 0; k < 10; k++) {
         const t0 = -1 + k * 0.2, t1 = t0 + 0.2;
         quad(x1 + w1 * t0, y1, x1 + w1 * t1, y1, x2 + w2 * t1, y2, x2 + w2 * t0, y2, (k + s.i) % 2 ? '#1e1e1e' : '#f4f4f0');
       }
     } else {
-      quad(x1 - w1, y1, x1 + w1, y1, x2 + w2, y2, x2 - w2, y2, snowy ? (s.c ? '#d3dde9' : '#c9d4e2') : (s.c ? '#4a4d55' : '#44474f'));
-      if (s.c) for (const lx of [-1 / 3, 1 / 3]) { const l1 = w1 / 40, l2 = w2 / 40; quad(x1 + w1 * lx - l1, y1, x1 + w1 * lx + l1, y1, x2 + w2 * lx + l2, y2, x2 + w2 * lx - l2, y2, snowy ? '#9fb7d6' : '#f4f4f0'); }
+      quad(x1 - w1, y1, x1 + w1, y1, x2 + w2, y2, x2 - w2, y2, sea ? (s.c ? '#4ea7dc' : '#479fd3') : snowy ? (s.c ? '#d3dde9' : '#c9d4e2') : (s.c ? '#4a4d55' : '#44474f'));
+      if (s.c) for (const lx of [-1 / 3, 1 / 3]) { const l1 = w1 / 40, l2 = w2 / 40; quad(x1 + w1 * lx - l1, y1, x1 + w1 * lx + l1, y1, x2 + w2 * lx + l2, y2, x2 + w2 * lx - l2, y2, sea ? '#d8f2ff' : snowy ? '#9fb7d6' : '#f4f4f0'); }
     }
     maxy = y2;
   }
@@ -3370,18 +3464,18 @@ function render3D() {
     for (const o of s.deco) drawS(s, o, o.key);
     for (const o of s.objs) {
       if (o.got) continue;
-      const key = o.kind === 'bad' ? 'bad:' + o.label : o.kind === 'bar' ? 'bar:' + o.label : o.kind === 'good' ? 'good:' + o.label : o.kind === 'flag' ? 'flag:' + (o.lit ? 1 : 0) : (o.kind === 'mud' && snowy) ? 'ice' : o.kind;
+      const key = o.kind === 'bad' ? 'bad:' + o.label : o.kind === 'bar' ? 'bar:' + o.label : o.kind === 'good' ? 'good:' + o.label : o.kind === 'flag' ? 'flag:' + (o.lit ? 1 : 0) : (o.kind === 'mud' && snowy) ? 'ice' : (o.kind === 'mud' && sea) ? 'wave' : o.kind;
       drawS(s, o, key);
     }
   }
   // Araba (arkadan)
-  const car = spr(snowy ? 'sled' : 'car');
+  const car = spr(sea ? 'boat' : snowy ? 'sled' : 'car');
   const cw = Math.min(W * 0.21, VH * 0.42), ch = cw * car.height / car.width;
   const jumpOff = r.y / R3.CAMH * VH / 2 * 0.9;
   const shake = (Math.abs(r.x) > 1.08 && r.y <= 0) ? Math.sin(r.wobble) * 3 : 0;
   const cx = W / 2 + r.steer * cw * 0.08, cy = VH - 6 - jumpOff + shake - r.bump * 4;
   ctx.fillStyle = 'rgba(0,0,0,.25)'; ctx.beginPath(); ctx.ellipse(W / 2, VH - 8, cw * 0.42 * (1 - Math.min(0.5, r.y / 2000)), cw * 0.06, 0, 0, Math.PI * 2); ctx.fill();
-  for (const q of r.puffs) { ctx.globalAlpha = q.life * 1.4; ctx.fillStyle = snowy ? '#ffffff' : '#c9a874'; ctx.beginPath(); ctx.arc(W / 2 + q.x * cw * 2, VH - 14 - (0.5 - q.life) * 40, cw * 0.06 * (1.5 - q.life), 0, Math.PI * 2); ctx.fill(); }
+  for (const q of r.puffs) { ctx.globalAlpha = q.life * 1.4; ctx.fillStyle = (snowy || sea) ? '#ffffff' : '#c9a874'; ctx.beginPath(); ctx.arc(W / 2 + q.x * cw * 2, VH - 14 - (0.5 - q.life) * 40, cw * 0.06 * (1.5 - q.life), 0, Math.PI * 2); ctx.fill(); }
   ctx.globalAlpha = 1;
   if (S.mode === 'dying') ctx.globalAlpha = Math.max(0, S.dieT / 0.75);
   ctx.save(); ctx.translate(cx, cy); ctx.rotate(r.steer * 0.08 + (r.spin > 0 ? (1 - r.spin) * Math.PI * 2 : 0));
@@ -3403,6 +3497,12 @@ function render3D() {
     const vg = ctx.createRadialGradient(W / 2, VH * 0.6, Math.min(W, VH) * 0.3, W / 2, VH * 0.6, Math.max(W, VH) * 0.75);
     vg.addColorStop(0, 'rgba(20,16,36,0)'); vg.addColorStop(1, `rgba(20,16,36,${0.75 * close})`);
     ctx.fillStyle = vg; ctx.fillRect(0, 0, W, VH);
+  }
+  if (sea) {
+    // Suda parıltılar
+    ctx.fillStyle = 'rgba(255,255,255,.55)';
+    const tt = performance.now() / 1000;
+    for (let i = 0; i < 40; i++) { const a = (i * 0.618) % 1, b2 = (i * 0.377) % 1; const fy = hor + (VH - hor) * (0.08 + b2 * 0.9); const fx = (((a * W + Math.sin(tt * 1.3 + i) * 30 - r.steer * tt * 40) % W) + W) % W; const wl = 6 + b2 * 18; if ((tt * 2 + i * 0.37) % 1 < 0.6) ctx.fillRect(fx, fy, wl, 2); }
   }
   if (snowy) {
     ctx.fillStyle = 'rgba(255,255,255,.8)';
@@ -3428,9 +3528,9 @@ function draw3DHud(VH, close) {
   const mw = Math.min(130, W * 0.3), mh = mw * 0.32, mx = (W - mw) / 2, my = by + 14;
   ctx.fillStyle = '#2a2d36'; rr(ctx, mx - 4, my - 4, mw + 8, mh + 8, 10); ctx.fill();
   ctx.save(); rr(ctx, mx, my, mw, mh, 7); ctx.clip();
-  const mg = ctx.createLinearGradient(0, my, 0, my + mh); mg.addColorStop(0, '#9fd6f4'); mg.addColorStop(0.55, '#cfeaf8'); mg.addColorStop(0.56, '#6cbf5a'); mg.addColorStop(1, '#5fb24f');
+  const mg = ctx.createLinearGradient(0, my, 0, my + mh); mg.addColorStop(0, '#9fd6f4'); mg.addColorStop(0.55, '#cfeaf8'); const mv = S.lv.r3v; mg.addColorStop(0.56, mv === 'sea' ? '#2f80ba' : mv === 'snow' ? '#f4f8fc' : '#6cbf5a'); mg.addColorStop(1, mv === 'sea' ? '#2b78b0' : mv === 'snow' ? '#e8eff8' : '#5fb24f');
   ctx.fillStyle = mg; ctx.fillRect(mx, my, mw, mh);
-  ctx.fillStyle = '#4a4d55'; ctx.beginPath(); ctx.moveTo(mx + mw * 0.47, my + mh * 0.56); ctx.lineTo(mx + mw * 0.53, my + mh * 0.56); ctx.lineTo(mx + mw * 0.85, my + mh); ctx.lineTo(mx + mw * 0.15, my + mh); ctx.fill();
+  ctx.fillStyle = mv === 'sea' ? '#4ea7dc' : mv === 'snow' ? '#d3dde9' : '#4a4d55'; ctx.beginPath(); ctx.moveTo(mx + mw * 0.47, my + mh * 0.56); ctx.lineTo(mx + mw * 0.53, my + mh * 0.56); ctx.lineTo(mx + mw * 0.85, my + mh); ctx.lineTo(mx + mw * 0.15, my + mh); ctx.fill();
   const cl = clamp(1 - (r.pos - r.chase) / (90 * R3.SEG), 0, 1);
   if (cl > 0.02) {
     ctx.fillStyle = 'rgba(52,46,72,.95)';
@@ -4378,6 +4478,7 @@ function showHelp(back) {
       <li><b>9. bölüm (uçurtma):</b> ZIPLA / Boşluk tuşuna basılı tutunca yükselirsin, bırakınca süzülürsün. Ağaçlara takılan uçurtmaları kurtarmak iyiliktir.</li>
       <li><b>10. bölüm (karanlık labirent):</b> Sadece fenerinin ışığı etrafı aydınlatır. Kapı ve kayıp ışıklar uzaktan hafifçe parlar.</li>
       <li><b>12. bölüm (ağaç dikme):</b> Fidanı al, çukura dik; her dikilen fidanla tepe biraz daha yeşerir.</li>
+      <li><b>14. bölüm (deniz):</b> 7. ve 11. bölüm gibi şeritli bir yolculuk; bu kez Kerem kayıkla limana gider. Dalgalar yavaşlatır.</li>
       <li><b>13. bölüm (kuzular):</b> Kerem kendiliğinden yürür; ok tuşlarıyla ya da telefonda parmağını kaydırarak yön verirsin. Topladığın her kuzu arkana dizilir. Çite, taşa, kendi kuzu sırana ya da kötü huy bulutuna çarparsan bir can gider. 12 kuzu toplanınca ağılın kapısı açılır.</li>
       <li><b>Bilgi yaprakları:</b> Her bölümde iki tane parlayan yaprak saklı. Bazılarına ulaşmak için ikinci zıplama gerekir. Topladıkların <b>Bilgi Defteri</b>'nde birikir.</li>
       <li><b>Rozetler ve süre:</b> Hiç can kaybetmeden ya da hızlı bitirerek rozet kazanırsın. Her bölümün en iyi süresi saklanır.</li>
