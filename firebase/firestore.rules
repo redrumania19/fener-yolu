@@ -1,0 +1,21 @@
+rules_version = '2';
+// Fener Yolu lider tablosu: herkes okur; her oyuncu (anonim giriş) yalnızca kendi satırını yazar.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /skorlar/{uid} {
+      allow read: if true;
+      allow create, update: if request.auth != null && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['ad', 'puan', 'yildiz', 't'])
+        && request.resource.data.keys().hasAll(['ad', 'puan', 'yildiz', 't'])
+        && request.resource.data.ad is string
+        && request.resource.data.ad.matches('^[A-Za-z0-9ÇĞİÖŞÜÂÎÛçğıöşüâîû _.-]{3,16}$')
+        && request.resource.data.puan is int && request.resource.data.puan >= 0 && request.resource.data.puan <= 5000
+        && request.resource.data.yildiz is int && request.resource.data.yildiz >= 0 && request.resource.data.yildiz <= 36
+        && request.resource.data.t == request.time;
+      allow delete: if false;
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

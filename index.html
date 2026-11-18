@@ -140,6 +140,22 @@
   .muted { font-size: 13px; opacity: .7; margin-top: 12px; }
   .levels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px; }
   .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  input, textarea { -webkit-user-select: text; user-select: text; }
+  .namein { width: 100%; font: inherit; font-size: 20px; font-weight: 700; text-align: center; padding: 12px 14px; border-radius: 14px;
+    border: 2px solid var(--panel-edge); background: rgba(255,255,255,.08); color: var(--ink); outline: none; }
+  .namein:focus { border-color: var(--gold); }
+  .err { color: #ff9a9a; min-height: 1.3em; margin: 6px 0 0; font-weight: 600; }
+  .who { margin: 0 0 10px; font-size: 15px; opacity: .9; }
+  .who b { color: var(--gold); }
+  .linkbtn { background: none; border: 0; color: var(--gold); font: inherit; font-weight: 700; text-decoration: underline; cursor: pointer; padding: 2px 4px; }
+  .lb { list-style: none; margin: 10px 0 0; padding: 0; text-align: left; max-height: 52vh; overflow-y: auto; }
+  .lb li { display: grid; grid-template-columns: 2.2em 1fr auto auto; gap: 10px; align-items: center; padding: 8px 10px; border-radius: 12px; font-variant-numeric: tabular-nums; }
+  .lb li:nth-child(odd) { background: rgba(255,255,255,.05); }
+  .lb li.me { background: rgba(255,213,107,.18); outline: 1px solid rgba(255,213,107,.5); }
+  .lb .rk { font-weight: 800; color: var(--gold); text-align: right; }
+  .lb .nm { font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+  .lb .st { opacity: .8; font-size: 14px; }
+  .lb .pt { font-weight: 800; }
   .grid2 .btn { font-size: 16px; padding: 11px 8px; }
   .st-on { color: #ffd56b; text-shadow: 0 0 6px rgba(255,213,107,.6); }
   .st-off { color: rgba(255,255,255,.22); }
@@ -1524,6 +1540,7 @@ function finishLevel() {
   // Bölüm kayıtları
   const done = store.get('bitti', {}); done[S.li] = 1; store.set('bitti', done);
   if (S.deeds === S.deedsTotal) { const it = store.get('iyilikTam', {}); it[S.li] = 1; store.set('iyilikTam', it); }
+  lbCache = null; lbSend(false);
   const earned = checkBadges({
     ilk: true,
     saglam: S.lives === S.maxLives,
@@ -3863,6 +3880,129 @@ function bind(map) {
     ev.preventDefault(); Sound.init(); const f = map[b.dataset.act]; if (f) f(b);
   }));
 }
+// =====================================================================
+//  Kullanıcı adı ve lider tablosu (Firebase Firestore, REST)
+// =====================================================================
+const LB_CFG = { project: 'fener-yolu-99e3b', key: 'AIzaSyDwuL2YeJP8sz7OQ0keRsrFKUsEHNlRVq4' };
+const LB_URL = `https://firestore.googleapis.com/v1/projects/${LB_CFG.project}/databases/(default)/documents`;
+const NAME_RE = /^[A-Za-z0-9ÇĞİÖŞÜÂÎÛçğıöşüâîû _.\-]{3,16}$/;
+const BAD_LONG = ['siktir', 'orospu', 'yarrak', 'pezevenk', 'amcik', 'amina', 'anani', 'kahpe', 'gavat', 'serefsiz', 'yavsak', 'surtuk', 'fuck', 'shit', 'bitch'];
+const BAD_TOKEN = ['amk', 'aq', 'oc', 'sik', 'got', 'pic', 'ibne', 'mal', 'salak', 'gerizekali', 'aptal', 'dangalak', 'it'];
+const trNorm = (t) => t.toLocaleLowerCase('tr').replace(/[ıİ]/g, 'i').replace(/ğ/g, 'g').replace(/ü/g, 'u').replace(/ş/g, 's').replace(/ö/g, 'o').replace(/ç/g, 'c').replace(/[âà]/g, 'a').replace(/[îì]/g, 'i').replace(/[ûù]/g, 'u');
+function nameProblem(n) {
+  if (n.length < 3) return 'Ad en az 3 harf olmalı.';
+  if (n.length > 16) return 'Ad en fazla 16 harf olabilir.';
+  if (!NAME_RE.test(n)) return 'Sadece harf, rakam, boşluk, nokta, tire ve alt çizgi kullanabilirsin.';
+  const z = trNorm(n), flat = z.replace(/[^a-z0-9]/g, '');
+  if (BAD_LONG.some(w => flat.includes(w)) || z.split(/[^a-z0-9]+/).some(t => BAD_TOKEN.includes(t))) return 'Bu ad uygun değil. Güzel bir ad seç.';
+  return '';
+}
+// Her oyuncu isimsiz (anonim) bir Firebase hesabıyla yazar; kimse başkasının satırını değiştiremez
+async function lbAuth() {
+  const a = store.get('fbauth', null);
+  if (a && a.uid && a.idToken && a.exp > Date.now() + 60000) return a;
+  let r;
+  if (a && a.refresh) {
+    r = await fetch(`https://securetoken.googleapis.com/v1/token?key=${LB_CFG.key}`, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: 'grant_type=refresh_token&refresh_token=' + encodeURIComponent(a.refresh) });
+    if (r.ok) { const j = await r.json(); const n = { uid: j.user_id, idToken: j.id_token, refresh: j.refresh_token, exp: Date.now() + (+j.expires_in) * 1000 }; store.set('fbauth', n); return n; }
+  }
+  r = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${LB_CFG.key}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{"returnSecureToken":true}' });
+  if (!r.ok) throw new Error('auth ' + r.status);
+  const j = await r.json();
+  const n = { uid: j.localId, idToken: j.idToken, refresh: j.refreshToken, exp: Date.now() + (+j.expiresIn) * 1000 };
+  store.set('fbauth', n); return n;
+}
+const myUid = () => (store.get('fbauth', null) || {}).uid || '';
+const totalScore = () => { const b = store.get('rekor', {}); return LEVELS.reduce((a, _, i) => a + (b[i] || 0), 0); };
+const totalStars = () => { const b = store.get('yildiz', {}); return LEVELS.reduce((a, _, i) => a + (b[i] || 0), 0); };
+const esc = (t) => String(t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+// Puan arttıkça (ya da ad değişince) oyuncunun tek satırı güncellenir
+let lbSending = false;
+async function lbSend(force) {
+  const ad = store.get('ad', ''); const puan = totalScore();
+  if (!ad || lbSending) return;
+  if (!force && puan <= store.get('gonderilen', -1)) return;
+  lbSending = true;
+  try {
+    const a = await lbAuth();
+    const name = `projects/${LB_CFG.project}/databases/(default)/documents/skorlar/${a.uid}`;
+    const body = { writes: [{ update: { name, fields: { ad: { stringValue: ad }, puan: { integerValue: String(puan) }, yildiz: { integerValue: String(totalStars()) } } }, updateTransforms: [{ fieldPath: 't', setToServerValue: 'REQUEST_TIME' }] }] };
+    const r = await fetch(`${LB_URL}:commit?key=${LB_CFG.key}`, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + a.idToken }, body: JSON.stringify(body) });
+    if (r.ok) { store.set('gonderilen', puan); store.set('bekleyen', false); } else store.set('bekleyen', true);
+  } catch (e) { store.set('bekleyen', true); }
+  lbSending = false;
+}
+let lbCache = null;
+async function lbFetch() {
+  if (lbCache && Date.now() - lbCache.at < 30000) return lbCache.list;
+  const r = await fetch(`${LB_URL}:runQuery?key=${LB_CFG.key}`, { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ structuredQuery: { from: [{ collectionId: 'skorlar' }], where: { fieldFilter: { field: { fieldPath: 'puan' }, op: 'GREATER_THAN', value: { integerValue: '0' } } }, orderBy: [{ field: { fieldPath: 'puan' }, direction: 'DESCENDING' }], limit: 50 } }) });
+  if (!r.ok) throw new Error('http ' + r.status);
+  const rows = await r.json();
+  const list = rows.filter(x => x.document).map(x => { const f = x.document.fields || {}; return { ad: (f.ad || {}).stringValue || '?', oyuncu: x.document.name.split('/').pop(), puan: +((f.puan || {}).integerValue || 0), yildiz: +((f.yildiz || {}).integerValue || 0) }; });
+  lbCache = { at: Date.now(), list };
+  return list;
+}
+function showNameScreen(next, canCancel) {
+  S.mode = 'menu';
+  const cur = store.get('ad', '');
+  showOverlay(`
+    <h2>${cur ? 'Adını değiştir' : 'Hoş geldin!'}</h2>
+    <p class="sub">${cur ? 'Lider tablosunda görünecek yeni adını yaz.' : 'Oyuna başlamadan önce bir kullanıcı adı seç. Bu ad lider tablosunda görünecek.'}</p>
+    <form id="nameForm" autocomplete="off">
+      <input id="adInput" class="namein" maxlength="16" placeholder="Örneğin: Kerem07" value="${esc(cur)}" aria-label="Kullanıcı adı" enterkeyhint="done" autocapitalize="words" spellcheck="false">
+      <p class="err" id="adErr" aria-live="polite"></p>
+      <div class="btns">
+        <button class="btn" type="submit" data-primary>Kaydet ve devam et</button>
+        ${canCancel ? '<button class="btn alt" type="button" data-act="back">Vazgeç</button>' : ''}
+      </div>
+    </form>
+    <p class="muted">Lütfen gerçek adını ve soyadını yazma; bir takma ad yeter.</p>
+  `);
+  const inp = $('adInput'), err = $('adErr');
+  if (!isTouch()) setTimeout(() => inp.focus(), 50);
+  inp.addEventListener('input', () => { err.textContent = ''; });
+  $('nameForm').addEventListener('submit', (ev) => {
+    ev.preventDefault();
+    const n = inp.value.trim().replace(/\s+/g, ' ');
+    const p = nameProblem(n);
+    if (p) { err.textContent = p; inp.focus(); return; }
+    const changed = n !== cur;
+    store.set('ad', n);
+    if (changed) { lbCache = null; lbSend(true); }
+    next();
+  });
+  bind({ back: next });
+}
+function showLeaderboard() {
+  S.mode = 'menu';
+  const me = myUid();
+  const offline = false;
+  showOverlay(`
+    <h2>Lider Tablosu</h2>
+    <p class="sub">Puanın her bölümdeki en iyi puanlarının toplamıdır. Hurma 1, kayıp ışık 5, iyilik 10 puan.</p>
+    <p class="who">Sen: <b>${esc(store.get('ad', '') || '—')}</b> · ${totalScore()} puan · ${totalStars()} ★</p>
+    <div id="lbBox"><p class="sub">${offline ? 'Lider tablosu henüz hazır değil.' : 'Yükleniyor…'}</p></div>
+    <div class="btns"><button class="btn" data-act="back" data-primary>Ana menü</button></div>
+  `);
+  bind({ back: showMenu });
+  if (offline) return;
+  const box = $('lbBox');
+  let doneLoading = false;
+  const timer = setTimeout(() => { if (!doneLoading) box.innerHTML = '<p class="err">Lider tablosu yüklenemedi. İnternet bağlantını kontrol edip tekrar dene.</p>'; }, 10000);
+  const pre = (store.get('bekleyen', false) || totalScore() > store.get('gonderilen', -1)) ? lbSend(true).then(() => { lbCache = null; }) : Promise.resolve();
+  pre.then(lbFetch).then((list) => {
+    doneLoading = true; clearTimeout(timer);
+    if (!$('lbBox')) return;
+    if (!list.length) { box.innerHTML = '<p class="sub">Henüz kimse yok. Bir bölüm bitir, ilk sen ol!</p>'; return; }
+    const meNow = myUid();
+    box.innerHTML = `<ol class="lb">${list.map((o, i) => `<li class="${o.oyuncu === meNow ? 'me' : ''}"><span class="rk">${i + 1}.</span><span class="nm">${esc(o.ad)}</span><span class="st">${o.yildiz} ★</span><span class="pt">${o.puan}</span></li>`).join('')}</ol>`;
+  }).catch(() => {
+    doneLoading = true; clearTimeout(timer);
+    if ($('lbBox')) box.innerHTML = '<p class="err">Lider tablosu yüklenemedi. İnternet bağlantını kontrol edip tekrar dene.</p>';
+  });
+}
+
 const soundLabel = () => Sound.on ? 'Efektler: Açık' : 'Efektler: Kapalı';
 const ambLabel = () => Amb.on ? 'Ortam sesi: Açık' : 'Ortam sesi: Kapalı';
 const easyLabel = () => store.get('kolay', false) ? 'Zorluk: Kolay' : 'Zorluk: Normal';
@@ -3874,6 +4014,8 @@ const toggles = {
 
 function showMenu() {
   S.mode = 'menu'; showHud(false); Amb.stop();
+  if (!store.get('ad', '')) { showNameScreen(showMenu, false); return; }
+  if (store.get('bekleyen', false)) lbSend(true);
   const bitti = store.get('bitti', {});
   const un = Math.min(LEVELS.length, Math.max(store.get('acik', 1), ...Object.keys(bitti).map(k => +k + 2)));
   const sb = store.get('yildiz', {});
@@ -3885,7 +4027,9 @@ function showMenu() {
     <p class="sub">Ramazan gecesi, küçük Kerem elinde feneriyle kasabada yolunu buluyor.</p>
     <p class="sub">Hurma topla, iyilik yap, engellerden kaç ve cami avlusundaki şadırvana ulaş.</p>
     <div class="btns">
+      <p class="who">Oyuncu: <b>${esc(store.get('ad', ''))}</b> <button class="linkbtn" data-act="rename">Değiştir</button></p>
       <button class="btn" data-act="play" data-primary>${un > 1 ? 'Devam Et' : 'Başla'}</button>
+      <button class="btn alt" data-act="leader">🏆 Lider Tablosu</button>
       <div class="levels">
         ${LEVELS.map((l, i) => `<button class="btn alt" data-act="lvl" data-i="${i}">${i + 1}. ${l.name}<small>${l.sub}</small><small class="stars">${starStr(sb[i] || 0) + (tm[i] ? ` <span class="besttime">⏱ ${fmtTime(tm[i])}</span>` : '')}</small></button>`).join('')}
       </div>
@@ -3908,6 +4052,8 @@ function showMenu() {
     help: () => showHelp(showMenu),
     badges: showBadges,
     notebook: showNotebook,
+    leader: showLeaderboard,
+    rename: () => showNameScreen(showMenu, true),
     ...toggles,
   });
 }

@@ -45,6 +45,14 @@ Bütün bölümler baştan açıktır, kilit yoktur. Bağlantı başta yalnızca
 11. **Kızak Yarışı:** 7. bölümün kamerası ve şeritleri, bu sefer karlı dağda kızakla. Buz parçaları yavaşlatır; sonunda sıcak çorbalı dağ evi var.
 12. **Ağaç Dikme Şenliği:** Çorak bir tepeye fidan dikilir ve çöp toplanır (hurma yerine çöp). Her dikilen fidanla çimen, tepeler ve çiçekler biraz daha yeşerir. Kuru dal topları yuvarlanır.
 
+## Kullanıcı adı ve lider tablosu
+
+- Oyunu ilk açan herkes önce bir kullanıcı adı seçer (3-16 harf; uygunsuz kelimeler kabul edilmez). Ad, menüdeki **Değiştir** ile değiştirilebilir.
+- **Lider Tablosu**, her oyuncunun bölümlerdeki en iyi puanlarının toplamına göre ilk 50 kişiyi gösterir (hurma 1, kayıp ışık 5, iyilik 10 puan).
+- Puanlar ücretsiz Firebase (Google) projesinde saklanır: `fener-yolu-99e3b`. Her oyuncu isimsiz (anonim) bir girişle yalnızca kendi satırını yazabilir. Güvenlik kuralları `firebase/firestore.rules` dosyasındadır.
+- Uygunsuz bir adı silmek için Firebase konsolunda **Firestore Database → skorlar** altından o satır silinir.
+- Lider tablosu GitHub sitesinde çalışır; Claude linkindeki kopyada güvenlik kısıtları yüzünden bağlanamaz.
+
 ## Yıldızlar ve zorluk
 
 - Her bölümde 3 yıldız var: bölümü bitirmek, bütün iyilikleri yapmak, bütün ışıkları ve hurmaların (12. bölümde çöplerin) en az dörtte üçünü toplamak.
