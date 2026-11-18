@@ -94,7 +94,7 @@
   #padD { bottom: calc(18px + env(safe-area-inset-bottom)); }
   body.maze #padU, body.maze #padD { display: flex; }
   body.maze #padJ { display: none; }
-  body.race3d #touch .tbtn, body.race3d #padZone { display: none !important; }
+  body.race3d #touch .tbtn, body.race3d #padZone, body.maze #touch .tbtn, body.maze #padZone { display: none !important; }
   #padZone { position: absolute; pointer-events: auto; touch-action: none;
     left: 0; bottom: 0; width: calc(200px + env(safe-area-inset-left)); height: 130px; }
 
@@ -3156,7 +3156,7 @@ function update3D(dt) {
   if (input.right && !r.pr) dl++;
   if (input.down && !r.pd) r.slideQ = true;
   r.pl = input.left; r.pr = input.right; r.pd = input.down;
-  while (swipeQ.length) { const q = swipeQ.shift(); if (q === 'L') dl--; else if (q === 'R') dl++; else if (q === 'U') r.jumpQ = true; else if (q === 'D') r.slideQ = true; }
+  while (swipeQ.length) { const q = swipeQ.shift(); if (q === 'L') dl--; else if (q === 'R') dl++; else if (q === 'U' || q === 'T') r.jumpQ = true; else if (q === 'D') r.slideQ = true; }
   if (dl) {
     const nl = clamp(r.lane + dl, 0, 2);
     if (nl !== r.lane) { r.lane = nl; Sound.tone(dl > 0 ? 660 : 600, 0.06, 'triangle', 0.035); }
@@ -3507,7 +3507,7 @@ function setupMaze() {
   // Durum
   const seenT = m.g.map(row => row.map(() => false));
   S.ents = ents; S.barrels = [];
-  S.mz = { m, seen: seenT, x: 1 * T2 + 16, y: 1 * T2 + 16, dir: 0, walkT: 0, stun: 0, kx: 0, ky: 0, carry: null, hitCool: 0, mapHint: 4 };
+  S.mz = { m, seen: seenT, x: 1 * T2 + 16, y: 1 * T2 + 16, dir: 0, walkT: 0, stun: 0, kx: 0, ky: 0, carry: null, hitCool: 0, mapHint: isTouch() ? 9 : 4, mdir: null, qdir: null, swHint: false };
   S.datesTotal = dates; S.lightsTotal = ents.filter(e => e.k === 'light').length; S.deedsTotal = ents.filter(e => e.k === 'recv').length;
   S.cardsTotal = ents.filter(e => e.k === 'card').length; S.cardsGot = 0;
   const bil = store.get('bilgi', []);
@@ -3527,6 +3527,24 @@ function updateMaze(dt) {
   const z = S.mz, m = z.m;
   S.time += dt; S.ht += dt;
   let ix = (input.right ? 1 : 0) - (input.left ? 1 : 0), iy = (input.down ? 1 : 0) - (input.up ? 1 : 0);
+  // Parmak hareketi: kaydırılan yöne duvara kadar yürür; yeni yön ilk açıklıkta alınır, dokununca durur
+  const DIRS = { L: [-1, 0], R: [1, 0], U: [0, -1], D: [0, 1] };
+  while (swipeQ.length) {
+    const q = swipeQ.shift();
+    if (q === 'T') { z.mdir = null; z.qdir = null; continue; }
+    const d = DIRS[q]; if (!d) continue;
+    if (!z.mdir || (z.mdir[0] === -d[0] && z.mdir[1] === -d[1])) { z.mdir = d; z.qdir = null; } else z.qdir = d;
+  }
+  if (ix || iy) { z.mdir = null; z.qdir = null; }
+  else if (z.mdir && z.stun <= 0) {
+    const ctx0 = Math.floor(z.x / T), cty = Math.floor(z.y / T);
+    if (z.qdir && !mzWall(ctx0 + z.qdir[0], cty + z.qdir[1])) {
+      const off = z.qdir[0] ? Math.abs(z.y - (cty * T + 16)) : Math.abs(z.x - (ctx0 * T + 16));
+      if (off < 12) { z.mdir = z.qdir; z.qdir = null; }
+    }
+    ix = z.mdir[0]; iy = z.mdir[1];
+  }
+  const ox = z.x, oy = z.y;
   if (z.stun > 0) { z.stun -= dt; ix = 0; iy = 0; z.x += z.kx * dt; z.y += z.ky * dt; z.kx *= Math.pow(0.02, dt); z.ky *= Math.pow(0.02, dt); if (mzBlocked(z.x, z.y)) { z.x -= z.kx * dt; z.y -= z.ky * dt; z.kx = z.ky = 0; } }
   if (ix && iy) { ix *= 0.7071; iy *= 0.7071; }
   const sp = MZ.SPEED * dt;
@@ -3549,7 +3567,9 @@ function updateMaze(dt) {
     z.dir = iy > 0 ? Math.PI / 2 : -Math.PI / 2;
   }
   if (ix && iy) z.dir = Math.atan2(iy, ix);
+  if (z.mdir && z.stun <= 0 && Math.abs(z.x - ox) < 0.01 && Math.abs(z.y - oy) < 0.01) { z.mdir = null; ix = iy = 0; }
   z.walkT = (ix || iy) ? z.walkT + dt * 10 : 0;
+  if (!z.swHint && isTouch() && S.time > 3.4) { z.swHint = true; toast('Parmağını kaydır: Kerem o yöne duvara kadar yürür. Yolda başka yöne kaydırırsan ilk açıklıkta döner. Dokununca durur.', 4200); }
   // Gezilen yerler haritada açılır
   const ptx = Math.floor(z.x / T), pty = Math.floor(z.y / T);
   for (let y = pty - 2; y <= pty + 2; y++) for (let x = ptx - 2; x <= ptx + 2; x++) if (z.seen[y] && z.seen[y][x] !== undefined) z.seen[y][x] = true;
@@ -3604,7 +3624,7 @@ function updateMaze(dt) {
         }
         if (!S.hints.mbulut && Math.hypot(e.x - z.x, e.y - z.y) < 160) { S.hints.mbulut = true; toast('Kötü huy bulutları labirentte dolaşıyor! Çarparsan geri itilirsin. Uzaklaşmalarını bekle ya da başka yoldan git.', 3600); }
         if (z.hitCool <= 0 && Math.hypot(e.x - z.x, e.y - z.y) < 24) {
-          z.hitCool = 1.2; z.stun = 0.5; e.flee = 2.5; e.nx = e.cx; e.ny = e.cy;
+          z.hitCool = 1.2; z.stun = 0.5; z.mdir = null; z.qdir = null; e.flee = 2.5; e.nx = e.cx; e.ny = e.cy;
           const a = Math.atan2(z.y - e.y, z.x - e.x); z.kx = Math.cos(a) * 260; z.ky = Math.sin(a) * 260;
           Sound.play('bonk'); floatText(z.x, z.y - 30, e.label + '! Sabırlı ol.');
         }
@@ -3932,7 +3952,7 @@ function showHelp(back) {
       <li><b>Yıldızlar:</b> ★ Bölümü bitir · ★ Bütün iyilikleri yap · ★ Bütün ışıkları ve hurmaların en az dörtte üçünü de topla.</li>
       <li><b>Kolay mod:</b> 5 can olur, engeller daha yavaş hareket eder. Ana menüden açabilirsin.</li>
       <li><b>7. bölüm (yarış):</b> Kamera arabanın arkasında, yolda 3 şerit var. Araba kendiliğinden ilerler. ◀ ▶ ile şerit değiştirirsin, ↑ / Boşluk ile zıplarsın (havada bir kez daha), ↓ ile kayarsın. Telefonda tuş yoktur: parmağını sağa-sola kaydırınca şerit değişir, yukarı kaydırınca (ya da dokununca) zıplarsın, aşağı kaydırınca kayarsın. Yüksekte duran bulutların altından kayarak geçilir. Kötü huy bulutlarına çarparsan yavaşlarsın; güzel huyları toplarsan hızlanırsın. Arkadan gelen kara bulut (dikiz aynasında görünür) sana yetişirse bir can gider.</li>
-      <li><b>8. bölüm (labirent):</b> Kuş bakışı bir labirentte ok tuşları ya da W A S D ile dört yöne yürürsün; telefonda ◀ ▶ ▲ ▼ tuşları çıkar. Sağ üstteki harita gezdiğin yerleri ve kursun kapısını gösterir. Kötü huy bulutları labirentte serbestçe dolaşır; can almaz, sadece seni geri iter.</li>
+      <li><b>8. bölüm (labirent):</b> Kuş bakışı bir labirentte ok tuşları ya da W A S D ile dört yöne yürürsün. Telefonda parmağını kaydırırsın: Kerem o yöne duvara kadar yürür, yolda başka yöne kaydırırsan ilk açıklıkta döner, dokununca durur. Sağ üstteki harita gezdiğin yerleri ve kursun kapısını gösterir. Kötü huy bulutları labirentte serbestçe dolaşır; can almaz, sadece seni geri iter.</li>
       <li><b>11. bölüm (kızak):</b> 7. bölüm gibi oynanır; bu sefer Kerem karlı dağdan kızakla iner. Buz parçaları yavaşlatır.</li>
       <li><b>9. bölüm (uçurtma):</b> ZIPLA / Boşluk tuşuna basılı tutunca yükselirsin, bırakınca süzülürsün. Ağaçlara takılan uçurtmaları kurtarmak iyiliktir.</li>
       <li><b>10. bölüm (karanlık labirent):</b> Sadece fenerinin ışığı etrafı aydınlatır. Kapı ve kayıp ışıklar uzaktan hafifçe parlar.</li>
@@ -4083,7 +4103,7 @@ for (const el of [padZone, padL, padR, padJ, cv]) el.addEventListener('contextme
 // Yarışta parmak hareketi: sağa/sola kaydır = şerit, yukarı = zıpla, aşağı = kay, dokun = zıpla
 let swipe = null;
 window.addEventListener('pointerdown', (e) => {
-  if (!S.r3 || S.mode !== 'play') return;
+  if ((!S.r3 && !S.mz) || S.mode !== 'play') return;
   if (e.target.closest && e.target.closest('button, #overlay, #hud')) return;
   Sound.init();
   swipe = { id: e.pointerId, x: e.clientX, y: e.clientY, t: performance.now(), done: false };
@@ -4093,7 +4113,7 @@ window.addEventListener('pointermove', (e) => {
   const dx = e.clientX - swipe.x, dy = e.clientY - swipe.y;
   if (Math.max(Math.abs(dx), Math.abs(dy)) > 26) { swipeQ.push(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 'R' : 'L') : (dy > 0 ? 'D' : 'U')); swipe.done = true; }
 });
-const swipeEnd = (e) => { if (!swipe || swipe.id !== e.pointerId) return; if (!swipe.done && performance.now() - swipe.t < 320) swipeQ.push('U'); swipe = null; };
+const swipeEnd = (e) => { if (!swipe || swipe.id !== e.pointerId) return; if (!swipe.done && performance.now() - swipe.t < 320) swipeQ.push('T'); swipe = null; };
 window.addEventListener('pointerup', swipeEnd); window.addEventListener('pointercancel', swipeEnd);
 document.addEventListener('gesturestart', (e) => e.preventDefault());
 
