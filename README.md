@@ -28,7 +28,7 @@ Bütün bölümler baştan açıktır, kilit yoktur. Bağlantı başta yalnızca
 ## Kontroller
 
 - **Bilgisayar:** ◀ ▶ ok tuşları veya A / D ile yürünür. Boşluk, ↑ veya W ile zıplanır (uzun basınca daha yükseğe). Havadayken bir kez daha basınca ikinci kez zıplanır. P veya Esc ile oyun duraklatılır.
-- **Telefon:** Sol alttaki ◀ ▶ tuşları ile yürünür, sağ alttaki ZIPLA tuşu ile zıplanır; havadayken bir kez daha dokununca ikinci kez zıplanır. Parmak ◀ ile ▶ arasında kaydırılabilir. Telefon yan tutulunca en rahat şekilde oynanır.
+- **Telefon:** (Yarış bölümleri 7 ve 11 parmak hareketiyle oynanır, aşağıya bakın.) Sol alttaki ◀ ▶ tuşları ile yürünür, sağ alttaki ZIPLA tuşu ile zıplanır; havadayken bir kez daha dokununca ikinci kez zıplanır. Parmak ◀ ile ▶ arasında kaydırılabilir. Telefon yan tutulunca en rahat şekilde oynanır.
 
 ## Bölümler
 
@@ -38,11 +38,11 @@ Bütün bölümler baştan açıktır, kilit yoktur. Bağlantı başta yalnızca
 4. **İftar Sofrası:** Gün batarken kediye su, yaşlı komşuya iftarlık pide götür. Zıplama minderleri var.
 5. **Kadir Gecesi:** Karlı tepelerde güvercinlere yem ver, üşüyen yavru kediye battaniyeli kutu götür. Saçaktan kar düşer, kartopları yuvarlanır.
 6. **Bayram Sabahı:** Süslü sokaklarda yaşlı komşuyla bayramlaş, komşu çocuklarına bayram şekeri dağıt.
-7. **Dede Evine Yolculuk (yarış):** Kamera Kerem'in tahta arabasının arkasında; yol virajlarla ve tepelerle ufka doğru uzanır. Araba kendiliğinden hızlanır, ◀ ▶ ile direksiyon çevrilir, zıplama aynıdır. Yoldan çıkınca ve Yalan, Öfke, Kıskançlık gibi kötü huy bulutlarına çarpınca yavaşlanır; Sabır, Doğruluk, Merhamet gibi güzel huylar hızlandırır ve arkadan kovalayan kara bulutu geri iter. Kara bulut dikiz aynasında görünür; yetişirse bir can gider. 3-2-1 geri sayımıyla başlar.
+7. **Dede Evine Yolculuk (yarış):** Kamera Kerem'in tahta arabasının arkasında; yol virajlarla ve tepelerle ufka doğru uzanır. Yolda 3 şerit var. Araba kendiliğinden ilerler; ◀ ▶ ile şerit değiştirilir, ↑ / Boşluk ile zıplanır, ↓ ile kayılır. Yüksekte duran bulutların altından kayarak geçilir. Telefonda tuş yoktur, parmak hareketiyle oynanır: sağa-sola kaydırınca şerit değişir, yukarı kaydırınca ya da dokununca zıplanır, aşağı kaydırınca kayılır. Yalan, Öfke, Kıskançlık gibi kötü huy bulutlarına çarpınca yavaşlanır; Sabır, Doğruluk, Merhamet gibi güzel huylar hızlandırır ve arkadan kovalayan kara bulutu geri iter. Kara bulut dikiz aynasında görünür; yetişirse bir can gider. 3-2-1 geri sayımıyla başlar.
 8. **Kursa Giden Yol (labirent):** Kuş bakışı, çiçekli çitlerden bir bahçe labirenti; her oyunda yeni bir labirent kurulur. Ok tuşları / W A S D ile dört yöne yürünür (telefonda ◀ ▶ ▲ ▼). Sağ üstteki harita gezilen yerleri ve kursun kapısını gösterir. Üç iyilik: yavru kediyi annesine götürmek, kurumuş fidanı sulamak, güvercinlere yem vermek. Kötü huy bulutları can almaz, sadece geri iter.
 9. **Uçurtma Bayramı (uçuş):** Kerem uçurtmaya tutunup kendiliğinden ilerler. ZIPLA / Boşluk basılı tutulunca yükselir, bırakılınca süzülür. Ağaç dallarına ve kötü huy bulutlarına çarpınca bir can gider. Ağaçlara takılmış üç uçurtmayı kurtarmak iyiliktir.
 10. **Gece Bekçisi Fener (karanlık labirent):** 8. bölüm gibi, ama elektrikler gitmiş; yalnızca Kerem'in feneri etrafı aydınlatır. Kapı, kayıp ışıklar ve bilgi yaprakları uzaktan hafifçe parlar. Üç iyilik: yavru kediyi annesine, mumu yaşlı komşunun karanlık evine, battaniyeli kutuyu üşüyen yavru kediye götürmek. Her oyunda yeni labirent.
-11. **Kızak Yarışı:** 7. bölümün kamerası, bu sefer karlı dağda kızakla. Buz parçaları yavaşlatır; sonunda sıcak çorbalı dağ evi var.
+11. **Kızak Yarışı:** 7. bölümün kamerası ve şeritleri, bu sefer karlı dağda kızakla. Buz parçaları yavaşlatır; sonunda sıcak çorbalı dağ evi var.
 12. **Ağaç Dikme Şenliği:** Çorak bir tepeye fidan dikilir ve çöp toplanır (hurma yerine çöp). Her dikilen fidanla çimen, tepeler ve çiçekler biraz daha yeşerir. Kuru dal topları yuvarlanır.
 
 ## Yıldızlar ve zorluk

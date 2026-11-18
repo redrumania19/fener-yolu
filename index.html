@@ -94,6 +94,7 @@
   #padD { bottom: calc(18px + env(safe-area-inset-bottom)); }
   body.maze #padU, body.maze #padD { display: flex; }
   body.maze #padJ { display: none; }
+  body.race3d #touch .tbtn, body.race3d #padZone { display: none !important; }
   #padZone { position: absolute; pointer-events: auto; touch-action: none;
     left: 0; bottom: 0; width: calc(200px + env(safe-area-inset-left)); height: 130px; }
 
@@ -600,7 +601,7 @@ function level7() {
   return {
     name: 'Dede Evine Yolculuk', sub: 'Arkadan kamerayla yarış', theme: 6, w: L.w, grid: L.g, mode3d: true,
     quote: { text: '“…Şüphesiz iyilikler, kötülükleri giderir.”', src: 'Hûd Sûresi, 11/114' },
-    intro: 'Bölüm 7: Dede Evine Yolculuk — ◀ ▶ ile direksiyonu çevir, zıplayarak kötü huylardan kaç, güzel huyları topla!',
+    intro: 'Bölüm 7: Dede Evine Yolculuk — ◀ ▶ ile şerit değiştir, ↑ ile zıpla, ↓ ile kay. Kötü huylardan kaç, güzel huyları topla!',
     outro: 'Kerem bayramda dedesine ve ninesine kavuştu. Büyükleri ziyaret etmek ne güzel!'
   };
 }
@@ -678,7 +679,7 @@ function level11() {
   return {
     name: 'Kızak Yarışı', sub: 'Karlı dağdan kızakla', theme: 8, w: L.w, grid: L.g, mode3d: true, r3v: 'snow', cardIds: ['c21', 'c22'],
     quote: { text: '“Sizden biri, kendisi için istediğini kardeşi için de istemedikçe iman etmiş olmaz.”', src: 'Hadis-i şerif — Buhârî, Îmân 7; Müslim, Îmân 71' },
-    intro: 'Bölüm 11: Kızak Yarışı — ◀ ▶ ile kızağı yönlendir, buz ve kötü huy bulutlarından kaç!',
+    intro: 'Bölüm 11: Kızak Yarışı — ◀ ▶ ile şerit değiştir, ↑ ile zıpla, ↓ ile kay. Buzdan ve kötü huy bulutlarından kaç!',
     outro: 'Kerem dağ evine vardı; sıcak çorbasını arkadaşlarıyla paylaştı.'
   };
 }
@@ -949,6 +950,7 @@ const S = {
   easy: false, maxLives: 3, ht: 0, runTime: 0, cardsGot: 0, cardsTotal: 0, hudSec: -1,
 };
 const input = { left: false, right: false, jump: false, up: false, down: false, _jumpPrev: false };
+const swipeQ = [];
 
 function tileAt(tx, ty) {
   if (tx < 0 || tx >= S.w) return '#';
@@ -2806,6 +2808,7 @@ function drawParts() {
 const R3 = { SEG: 200, ROADW: 2000, CAMH: 1000, DRAW: 210, MAXV: 7020, V0: 2500, G: 6200 };
 R3.depth = 1 / Math.tan(50 * Math.PI / 180);
 R3.playerZ = R3.CAMH * R3.depth;
+R3.LANES = [-0.6, 0, 0.6];
 
 // --- Önceden çizilmiş görseller (her biri bir kez çizilir) ---
 const SPR = {};
@@ -2863,6 +2866,15 @@ function spr(key) {
       g.strokeStyle = '#ffd56b'; g.lineWidth = 6; g.beginPath(); g.moveTo(130, 140); g.lineTo(115, 158); g.lineTo(132, 158); g.lineTo(118, 170); g.stroke();
       g.fillStyle = '#ece8f8'; g.font = 'bold 34px "Segoe UI", sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
       g.fillText(arg, 120, 92, 210);
+    }); break;
+    case 'bar': c = mkCv(300, 270, (g) => {
+      g.fillStyle = '#8a7f9e'; g.fillRect(14, 60, 12, 210); g.fillRect(274, 60, 12, 210);
+      g.fillStyle = '#4a4460';
+      for (const [x, y, r] of [[50, 70, 46], [110, 52, 54], [170, 50, 56], [232, 66, 48], [150, 90, 50]]) { g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.fill(); }
+      g.fillStyle = '#3a3450'; g.fillRect(10, 86, 280, 40); g.beginPath(); g.ellipse(150, 126, 140, 14, 0, 0, Math.PI); g.fill();
+      g.fillStyle = 'rgba(255,213,107,.9)'; for (let i = 0; i < 3; i++) { g.beginPath(); g.moveTo(110 + i * 40, 160); g.lineTo(130 + i * 40, 160); g.lineTo(120 + i * 40, 176); g.fill(); }
+      g.fillStyle = '#ece8f8'; g.font = 'bold 34px "Segoe UI", sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+      g.fillText(arg, 150, 84, 250);
     }); break;
     case 'good': c = mkCv(220, 230, (g) => {
       const gr = g.createRadialGradient(110, 130, 0, 110, 130, 100); gr.addColorStop(0, 'rgba(255,245,170,.95)'); gr.addColorStop(1, 'rgba(255,230,120,0)');
@@ -3083,7 +3095,8 @@ function build3DTrack() {
   const cids = (S.lv && S.lv.cardIds) || ['c13', 'c14'];
   put(640, { kind: 'card', id: cids[0], x: 0.6, h: 700, ww: 340 });
   put(1230, { kind: 'card', id: cids[1], x: -0.6, h: 700, ww: 340 });
-  const pattern = ['dates', 'bad1', 'mud', 'bad2', 'datesHigh', 'bad3', 'dates', 'bad2'];
+  const bar = (i, lane) => { put(i, { kind: 'bar', x: L[lane], ww: 980, label: BAD_TRAITS[bad++ % BAD_TRAITS.length] }); };
+  const pattern = ['dates', 'bad1', 'bar', 'mud', 'bad2', 'datesHigh', 'bar2', 'bad3', 'dates', 'bad2'];
   let pi = 0;
   for (let i = 90; i < finishIdx - 60; i += 42) {
     const p = pattern[pi++ % pattern.length], lane = Math.floor(r() * 3);
@@ -3091,6 +3104,8 @@ function build3DTrack() {
     else if (p === 'datesHigh') lineOf(i, lane, 420);
     else if (p === 'mud') put(i, { kind: 'mud', x: L[lane], ww: 1000 });
     else if (p === 'bad1') cloud(i, lane);
+    else if (p === 'bar') { bar(i, lane); lineOf(i + 3, lane); }
+    else if (p === 'bar2') { bar(i, lane); bar(i, (lane + 1) % 3); lineOf(i - 8, (lane + 2) % 3); }
     else if (p === 'bad2') { cloud(i, lane); cloud(i + 18, (lane + 1 + Math.floor(r() * 2)) % 3); }
     else if (p === 'bad3') { const d = r() < 0.5 ? 1 : -1; cloud(i, d > 0 ? 0 : 2); cloud(i + 16, 1); cloud(i + 32, d > 0 ? 2 : 0); }
   }
@@ -3102,7 +3117,7 @@ function setup3D() {
   S.ents = []; S.barrels = [];
   S.r3 = {
     segs: tr.segs, N: tr.N, finishZ: tr.finishZ,
-    pos: 0, speed: 0, x: 0, y: 0, vy: 0, airJumps: 1, spin: 0, steer: 0,
+    pos: 0, speed: 0, x: 0, y: 0, vy: 0, airJumps: 1, spin: 0, steer: 0, lane: 1, pl: false, pr: false, pd: false, slideT: 0, slideAfter: false, jumpQ: false, slideQ: false,
     slowT: 0, boostT: 0, hitCool: 0, chase: -60 * R3.SEG, checkZ: 0, caught: false,
     count: 3.0, beep: 4, skyX: 0, floats: [], puffs: [], bump: 0, wobble: 0,
   };
@@ -3127,22 +3142,32 @@ function update3D(dt) {
     r.count -= dt;
     const n = Math.ceil(r.count);
     if (n < r.beep) { r.beep = n; if (n > 0) Sound.tone(520, 0.18, 'square', 0.05); else Sound.tone(1040, 0.35, 'square', 0.06); }
-    input._jumpPrev = input.jump;
+    input._jumpPrev = input.jump; swipeQ.length = 0;
+    r.pl = input.left; r.pr = input.right; r.pd = input.down;
+    if (r.count <= 0 && !S.hints.serit) { S.hints.serit = true; toast(isTouch() ? 'Parmağını sağa-sola kaydır: şerit değiştir. Yukarı kaydır: zıpla. Aşağı kaydır: kay.' : '◀ ▶ şerit değiştir · ↑ / Boşluk zıpla · ↓ kay', 3600); }
     return;
   }
   const carZ = r.pos + R3.playerZ;
   const ps = r3Seg(carZ);
   const sp = r.speed / R3.MAXV;
-  // Direksiyon ve virajda dışa kayma
-  const steer = (input.right ? 1 : 0) - (input.left ? 1 : 0);
-  r.steer = lerp(r.steer, steer, Math.min(1, dt * 10));
-  r.x += steer * dt * 3.0 * Math.max(0.5, sp);
-  r.x -= dt * 2 * sp * ps.curve * 0.22;
-  r.x = clamp(r.x, -2.3, 2.3);
+  // Üç şerit: tuşa bir kez basınca (ya da parmağı kaydırınca) bir şerit kayar
+  let dl = 0;
+  if (input.left && !r.pl) dl--;
+  if (input.right && !r.pr) dl++;
+  if (input.down && !r.pd) r.slideQ = true;
+  r.pl = input.left; r.pr = input.right; r.pd = input.down;
+  while (swipeQ.length) { const q = swipeQ.shift(); if (q === 'L') dl--; else if (q === 'R') dl++; else if (q === 'U') r.jumpQ = true; else if (q === 'D') r.slideQ = true; }
+  if (dl) {
+    const nl = clamp(r.lane + dl, 0, 2);
+    if (nl !== r.lane) { r.lane = nl; Sound.tone(dl > 0 ? 660 : 600, 0.06, 'triangle', 0.035); }
+    else { r.bump = 0.6; Sound.tone(220, 0.08, 'square', 0.03); }
+  }
+  const laneX = R3.LANES[r.lane];
+  r.x += clamp(laneX - r.x, -dt * 7.5, dt * 7.5);
+  r.steer = lerp(r.steer, clamp((laneX - r.x) * 4, -1, 1), Math.min(1, dt * 12));
   // Hız
   let target = R3.MAXV;
-  const off = Math.abs(r.x) > 1.08 && r.y <= 0;
-  if (off) { target = R3.MAXV * 0.62; if (!S.hints.yol) { S.hints.yol = true; toast('Yoldan çıkınca yavaşlarsın! ◀ ▶ ile yola dön.'); } }
+  const off = false;
   if (r.slowT > 0) { r.slowT -= dt; target = Math.min(target, R3.MAXV * 0.6); }
   if (r.boostT > 0) { r.boostT -= dt; target = R3.MAXV * 1.25; }
   r.speed += clamp(target - r.speed, -9000 * dt, (target > r.speed ? 4200 : 9000) * dt);
@@ -3150,9 +3175,17 @@ function update3D(dt) {
   r.skyX += ps.curve * sp * dt * 0.025;
   if (r.hitCool > 0) r.hitCool -= dt;
   // Zıplama (havada bir kez daha)
-  const pressed = input.jump && !input._jumpPrev;
-  input._jumpPrev = input.jump;
+  const pressed = (input.jump && !input._jumpPrev) || r.jumpQ;
+  input._jumpPrev = input.jump; r.jumpQ = false;
+  // Kayma: yerdeyken kısa bir süre eğilir; havadaysa hızla yere iner, sonra kayar
+  if (r.slideQ) {
+    r.slideQ = false;
+    if (r.y > 0) { r.vy = -5200; r.slideAfter = true; }
+    else { r.slideT = 0.7; Sound.tone(300, 0.12, 'sawtooth', 0.03); }
+  }
+  if (r.slideT > 0) { r.slideT -= dt; if (Math.random() < 0.6) r.puffs.push({ x: (Math.random() - 0.5) * 0.4, life: 0.4 }); }
   if (pressed) {
+    r.slideT = 0; r.slideAfter = false;
     if (r.y <= 0) { r.vy = R3.V0; Sound.play('jump'); }
     else if (r.airJumps > 0) { r.airJumps--; r.vy = R3.V0 * 0.95; r.spin = 1; Sound.play('jump2'); }
   }
@@ -3160,7 +3193,7 @@ function update3D(dt) {
     r.vy -= R3.G * dt;
     if (!input.jump && r.vy > 1100) r.vy = 1100;
     r.y += r.vy * dt;
-    if (r.y <= 0) { r.y = 0; r.vy = 0; r.airJumps = 1; r.bump = 1; }
+    if (r.y <= 0) { r.y = 0; r.vy = 0; r.airJumps = 1; r.bump = 1; if (r.slideAfter) { r.slideAfter = false; r.slideT = 0.7; } }
   }
   if (r.spin > 0) r.spin = Math.max(0, r.spin - dt * 2.6);
   if (r.bump > 0) r.bump = Math.max(0, r.bump - dt * 5);
@@ -3183,6 +3216,7 @@ function update3D(dt) {
         case 'card': if (dx < 0.3 && Math.abs(r.y - o.h) < 350) { o.got = true; S.cardsGot++; updateHud(); Sound.play('light'); if (o.seen) toast('Bu bilgi yaprağını daha önce okumuştun.'); else openCard(o.id); } break;
         case 'good': if (dx < 0.3 && Math.abs(r.y - o.h) < 450) { o.got = true; S.deeds++; r.boostT = 1.3; r.chase -= 25 * R3.SEG; Sound.play('boost'); r3Float(o.label, '#fff2a0'); updateHud(); } break;
         case 'bad': if (!o.hit && dx < 0.24 && r.y < 300 && r.hitCool <= 0) { o.hit = true; r.slowT = 0.6; r.hitCool = 1; Sound.play('bonk'); r3Float(o.label + '!', '#d8d0f0'); } break;
+        case 'bar': if (!o.hit && dx < 0.3 && !(r.slideT > 0 && r.y <= 0) && r.y < 650 && r.hitCool <= 0) { o.hit = true; r.slowT = 0.8; r.hitCool = 1; Sound.play('bonk'); r3Float(o.label + '!', '#d8d0f0'); } break;
         case 'mud': if (dx < 0.4 && r.y < 60) { r.slowT = Math.max(r.slowT, 0.3); if (!S.hints.camur) { S.hints.camur = true; toast(S.lv.r3v === 'snow' ? 'Buz kızağını yavaşlatır! Üstünden zıpla ya da kenarından geç.' : 'Çamur arabanı yavaşlatır! Üstünden zıpla ya da kenarından geç.'); } } break;
         case 'flag': if (!o.lit) { o.lit = true; r.checkZ = o.z - R3.playerZ; Sound.play('check'); toast('Fener yandı — buradan devam edeceksin.'); } break;
       }
@@ -3192,6 +3226,7 @@ function update3D(dt) {
   for (let i = i0 + 4; i < i0 + 26; i++) {
     const s = r.segs[i]; if (!s) break;
     for (const o of s.objs) {
+      if (o.kind === 'bar' && !S.hints.bar) { S.hints.bar = true; toast(isTouch() ? 'Yüksek bulut! Altından geçmek için parmağını aşağı kaydır.' : 'Yüksek bulut! Altından geçmek için ↓ tuşuna bas.', 3200); }
       if (o.kind === 'bad' && !S.hints.kotu) { S.hints.kotu = true; toast('Kötü huy bulutlarına çarparsan yavaşlarsın. Şerit değiştir ya da zıpla!', 3200); }
       if (o.kind === 'good' && !S.hints.guzel) { S.hints.guzel = true; toast('Güzel huyları topla: hızlanırsın, kara bulut geri çekilir!', 3200); }
     }
@@ -3207,13 +3242,13 @@ function update3D(dt) {
 function respawn3D() {
   const r = S.r3;
   if (S.lives <= 0) { S.mode = 'over'; showOver(); return; }
-  r.pos = r.checkZ; r.speed = R3.MAXV * 0.3; r.x = 0; r.y = 0; r.vy = 0;
+  r.pos = r.checkZ; r.speed = R3.MAXV * 0.3; r.x = 0; r.y = 0; r.vy = 0; r.lane = 1; r.slideT = 0; r.slideAfter = false;
   r.chase = r.pos - 80 * R3.SEG; r.slowT = 0; r.boostT = 0;
   S.mode = 'play'; S.fade = 0.6;
   if (r.caught) { r.caught = false; toast('Kötü huylar bulutu yetişti! Güzel huyları topla, hızını koru.', 3000); }
 }
 
-function view3DH() { return (H > W && isTouch()) ? H - Math.min(H * 0.34, 230) : H; }
+function view3DH() { return H; }
 
 function render3D() {
   const r = S.r3, th = THEMES[S.lv.theme];
@@ -3296,7 +3331,7 @@ function render3D() {
     for (const o of s.deco) drawS(s, o, o.key);
     for (const o of s.objs) {
       if (o.got) continue;
-      const key = o.kind === 'bad' ? 'bad:' + o.label : o.kind === 'good' ? 'good:' + o.label : o.kind === 'flag' ? 'flag:' + (o.lit ? 1 : 0) : (o.kind === 'mud' && snowy) ? 'ice' : o.kind;
+      const key = o.kind === 'bad' ? 'bad:' + o.label : o.kind === 'bar' ? 'bar:' + o.label : o.kind === 'good' ? 'good:' + o.label : o.kind === 'flag' ? 'flag:' + (o.lit ? 1 : 0) : (o.kind === 'mud' && snowy) ? 'ice' : o.kind;
       drawS(s, o, key);
     }
   }
@@ -3311,6 +3346,7 @@ function render3D() {
   ctx.globalAlpha = 1;
   if (S.mode === 'dying') ctx.globalAlpha = Math.max(0, S.dieT / 0.75);
   ctx.save(); ctx.translate(cx, cy); ctx.rotate(r.steer * 0.08 + (r.spin > 0 ? (1 - r.spin) * Math.PI * 2 : 0));
+  if (r.slideT > 0 && r.y <= 0) ctx.scale(1.1, 0.68);
   ctx.drawImage(car, -cw / 2, -ch, cw, ch);
   ctx.restore(); ctx.globalAlpha = 1;
   // Hızlanma çizgileri
@@ -3895,7 +3931,7 @@ function showHelp(back) {
       <li><b>Zıplama minderine</b> basarsan çok yükseğe fırlarsın.</li>
       <li><b>Yıldızlar:</b> ★ Bölümü bitir · ★ Bütün iyilikleri yap · ★ Bütün ışıkları ve hurmaların en az dörtte üçünü de topla.</li>
       <li><b>Kolay mod:</b> 5 can olur, engeller daha yavaş hareket eder. Ana menüden açabilirsin.</li>
-      <li><b>7. bölüm (yarış):</b> Kamera arabanın arkasında. Araba kendiliğinden hızlanır; ◀ ▶ ile direksiyonu çevirirsin, zıplama aynıdır. Yoldan çıkarsan yavaşlarsın. Kötü huy bulutlarına çarparsan yavaşlarsın; güzel huyları toplarsan hızlanırsın. Arkadan gelen kara bulut (dikiz aynasında görünür) sana yetişirse bir can gider.</li>
+      <li><b>7. bölüm (yarış):</b> Kamera arabanın arkasında, yolda 3 şerit var. Araba kendiliğinden ilerler. ◀ ▶ ile şerit değiştirirsin, ↑ / Boşluk ile zıplarsın (havada bir kez daha), ↓ ile kayarsın. Telefonda tuş yoktur: parmağını sağa-sola kaydırınca şerit değişir, yukarı kaydırınca (ya da dokununca) zıplarsın, aşağı kaydırınca kayarsın. Yüksekte duran bulutların altından kayarak geçilir. Kötü huy bulutlarına çarparsan yavaşlarsın; güzel huyları toplarsan hızlanırsın. Arkadan gelen kara bulut (dikiz aynasında görünür) sana yetişirse bir can gider.</li>
       <li><b>8. bölüm (labirent):</b> Kuş bakışı bir labirentte ok tuşları ya da W A S D ile dört yöne yürürsün; telefonda ◀ ▶ ▲ ▼ tuşları çıkar. Sağ üstteki harita gezdiğin yerleri ve kursun kapısını gösterir. Kötü huy bulutları labirentte serbestçe dolaşır; can almaz, sadece seni geri iter.</li>
       <li><b>11. bölüm (kızak):</b> 7. bölüm gibi oynanır; bu sefer Kerem karlı dağdan kızakla iner. Buz parçaları yavaşlatır.</li>
       <li><b>9. bölüm (uçurtma):</b> ZIPLA / Boşluk tuşuna basılı tutunca yükselirsin, bırakınca süzülürsün. Ağaçlara takılan uçurtmaları kurtarmak iyiliktir.</li>
@@ -4044,6 +4080,21 @@ for (const [id, key] of [['padU', 'up'], ['padD', 'down']]) {
   el.addEventListener('contextmenu', (e) => e.preventDefault());
 }
 for (const el of [padZone, padL, padR, padJ, cv]) el.addEventListener('contextmenu', (e) => e.preventDefault());
+// Yarışta parmak hareketi: sağa/sola kaydır = şerit, yukarı = zıpla, aşağı = kay, dokun = zıpla
+let swipe = null;
+window.addEventListener('pointerdown', (e) => {
+  if (!S.r3 || S.mode !== 'play') return;
+  if (e.target.closest && e.target.closest('button, #overlay, #hud')) return;
+  Sound.init();
+  swipe = { id: e.pointerId, x: e.clientX, y: e.clientY, t: performance.now(), done: false };
+});
+window.addEventListener('pointermove', (e) => {
+  if (!swipe || swipe.id !== e.pointerId || swipe.done) return;
+  const dx = e.clientX - swipe.x, dy = e.clientY - swipe.y;
+  if (Math.max(Math.abs(dx), Math.abs(dy)) > 26) { swipeQ.push(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 'R' : 'L') : (dy > 0 ? 'D' : 'U')); swipe.done = true; }
+});
+const swipeEnd = (e) => { if (!swipe || swipe.id !== e.pointerId) return; if (!swipe.done && performance.now() - swipe.t < 320) swipeQ.push('U'); swipe = null; };
+window.addEventListener('pointerup', swipeEnd); window.addEventListener('pointercancel', swipeEnd);
 document.addEventListener('gesturestart', (e) => e.preventDefault());
 
 // =====================================================================
@@ -4060,6 +4111,7 @@ window.FY = {
     const p = S.p;
     return { mode: S.mode, x: +(p.x / T).toFixed(2), y: +(p.y / T).toFixed(2), ground: p.onGround, lives: S.lives, dates: S.dates, lights: S.lights, deeds: S.deeds, carry: p.carry && p.carry.item };
   },
+  swipe(d) { swipeQ.push(d); },
   tp(tx, ty) { const p = S.p; p.x = tx * T + (T - PW) / 2; p.y = ty * T + T - PH; p.vx = p.vy = 0; },
 };
 
