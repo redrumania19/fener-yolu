@@ -3299,16 +3299,16 @@ const HERO_DH = 52;   // çizim yüksekliği (dünya birimi)
 //  Seçilebilir karakterler (Kling): Kerem ve 9 arkadaşı
 // ---------------------------------------------------------------------
 const CHAR_INFO = [
-  { id: 'kerem', ad: 'Kerem', top: { cap: '#ffffff', ring: '#d9d9d9', hair: '#2a1e18', body: '#9a5b26', arm: '#f3e6c8' } },
-  { id: 'emir', ad: 'Emir', top: { cap: '#24366e', ring: '#1a284f', hair: '#6b4220', body: '#e8742c', arm: '#e8742c' } },
-  { id: 'mert', ad: 'Mert', top: { cap: '#d63b30', ring: '#a82a22', hair: '#1e1a18', body: '#3f8a4a', arm: '#3f8a4a' } },
-  { id: 'berk', ad: 'Berk', top: { hair: '#e8c76a', body: '#f2c230', arm: '#f2c230' } },
-  { id: 'eren', ad: 'Eren', top: { hair: '#151212', body: '#8a8e98', arm: '#8a8e98', band: '#7a3fa8' } },
-  { id: 'elif', ad: 'Elif', top: { hair: '#1a1414', body: '#e87aa8', arm: '#e87aa8', tail: 2 } },
-  { id: 'selin', ad: 'Selin', top: { hair: '#7a4a24', body: '#8ec5ea', arm: '#8ec5ea', band: '#ffd23a', tail: 1 } },
-  { id: 'deniz', ad: 'Deniz', top: { hair: '#a0462a', body: '#2a9a96', arm: '#2a9a96', band: '#e8506a' } },
-  { id: 'ipek', ad: 'İpek', top: { hair: '#141010', body: '#8a4ab0', arm: '#8a4ab0', tail: 1 } },
-  { id: 'ceren', ad: 'Ceren', top: { hair: '#2a1a12', body: '#f08a2a', arm: '#f08a2a', buns: true } },
+  { id: 'kerem', ad: 'Kerem', gen: '’in', top: { cap: '#ffffff', ring: '#d9d9d9', hair: '#2a1e18', body: '#9a5b26', arm: '#f3e6c8' } },
+  { id: 'emir', ad: 'Emre', gen: '’nin', top: { cap: '#24366e', ring: '#1a284f', hair: '#6b4220', body: '#e8742c', arm: '#e8742c' } },
+  { id: 'mert', ad: 'Selim', gen: '’in', top: { cap: '#d63b30', ring: '#a82a22', hair: '#1e1a18', body: '#3f8a4a', arm: '#3f8a4a' } },
+  { id: 'berk', ad: 'Furkan', gen: '’ın', top: { hair: '#e8c76a', body: '#f2c230', arm: '#f2c230' } },
+  { id: 'eren', ad: 'Tarık', gen: '’ın', top: { hair: '#151212', body: '#8a8e98', arm: '#8a8e98', band: '#7a3fa8' } },
+  { id: 'elif', ad: 'Büşra', gen: '’nın', top: { hair: '#1a1414', body: '#e87aa8', arm: '#e87aa8', tail: 2 } },
+  { id: 'selin', ad: 'Merve', gen: '’nin', top: { hair: '#7a4a24', body: '#8ec5ea', arm: '#8ec5ea', band: '#ffd23a', tail: 1 } },
+  { id: 'deniz', ad: 'Sena', gen: '’nın', top: { hair: '#a0462a', body: '#2a9a96', arm: '#2a9a96', band: '#e8506a' } },
+  { id: 'ipek', ad: 'Rabia', gen: '’nın', top: { hair: '#141010', body: '#8a4ab0', arm: '#8a4ab0', tail: 1 } },
+  { id: 'ceren', ad: 'Kübra', gen: '’nın', top: { hair: '#2a1a12', body: '#f08a2a', arm: '#f08a2a', buns: true } },
 ];
 const KEREM_HERO = { img: HERO.img, meta: HERO.meta };
 const CHAR_IMG = {};
@@ -3318,7 +3318,8 @@ for (const c of CHAR_INFO) {
 }
 let CUR_CHAR = CHAR_INFO[0];
 const heroName = () => CUR_CHAR.ad;
-// Oyundaki yazılarda "Kerem" yerine seçilen çocuğun adı (seçilen adların ekleri Kerem'le aynıdır)
+const heroText = (t) => t.replace(/Kerem’in/g, CUR_CHAR.ad + CUR_CHAR.gen).replace(/Kerem/g, CUR_CHAR.ad);
+// Oyundaki yazılarda "Kerem" yerine seçilen çocuğun adı; "Kerem’in" ise adın kendi ekiyle yazılır
 const NAME_SRC = [];
 function collectNames(o, depth = 0) {
   if (!o || typeof o !== 'object' || depth > 3) return;
@@ -3334,7 +3335,7 @@ function setHero(id) {
   if (c.id === 'kerem') { HERO.img = KEREM_HERO.img; HERO.meta = KEREM_HERO.meta; HERO.ok = HERO.img.complete && !!HERO.meta; }
   else { const D = window.CHARS[c.id]; HERO.img = CHAR_IMG[c.id]; HERO.meta = { h: D.h, frames: D.frames }; HERO.ok = HERO.img.complete && HERO.img.naturalWidth > 0; }
   if (!NAME_SRC.length) { LEVELS.forEach(l => collectNames(l)); CARDS.forEach(k => collectNames(k)); }
-  for (const [o, k, v] of NAME_SRC) o[k] = v.replace(/Kerem/g, c.ad);
+  for (const [o, k, v] of NAME_SRC) o[k] = heroText(v);
   for (const k in SPR) delete SPR[k];
 }
 // Karakterin bir karesini CSS arka planı olarak göster (seçim ekranı için)
@@ -7087,7 +7088,7 @@ const $ = (id) => document.getElementById(id);
 const overlay = $('overlay');
 let toastTimer = 0;
 function toast(msg, ms = 2600) {
-  if (typeof msg === 'string' && CUR_CHAR.id !== 'kerem') msg = msg.replace(/Kerem/g, heroName());
+  if (typeof msg === 'string' && CUR_CHAR.id !== 'kerem') msg = heroText(msg);
   const el = $('toast'); el.textContent = msg; el.classList.add('show');
   clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove('show'), ms);
 }
