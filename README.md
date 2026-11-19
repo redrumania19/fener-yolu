@@ -8,7 +8,7 @@ Oyunda düşman yok, kimseye zarar verilmiyor.
 
 Oyunun tamamı tek bir dosyada: `index.html`. Bu dosyaya çift tıklayınca tarayıcıda açılır.
 İnternete ya da ücretli bir servise ihtiyaç duymaz.
-Kerem'in görselleri Kling ile üretildi (toplam 16 kredi); güvercin ve meyve görselleri de Kling ile üretildi (2 kredi) ve dosyanın içine gömüldü. Diğer görseller ve sesler kodla üretilir. Ortam sesi çalgısızdır; yalnızca rüzgâr, cırcır böceği ve kuş sesinden oluşur.
+Kerem'in görselleri Kling ile üretildi (toplam 16 kredi); güvercin ve meyve görselleri de Kling ile üretildi (2 kredi) ve dosyanın içine gömüldü. Menüdeki kapak resmi, 50 bölümün küçük resimleri ve mini oyunların 4 arka planı (gündüz, gece, gün batımı, kar) da Kling ile üretildi (11 kredi). Bölüm resimleri 3x3 ızgaralar hâlinde üretilip kesildi. "Fener Yolu" yazısı resim değil, sayfa yazısıdır. Diğer görseller ve sesler kodla üretilir. Ortam sesi çalgısızdır; yalnızca rüzgâr, cırcır böceği ve kuş sesinden oluşur.
 
 Bilgisayarda yerel bir sunucuyla açmak için:
 
