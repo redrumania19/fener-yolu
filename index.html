@@ -5060,12 +5060,26 @@ MG.match3 = {
   },
   resolve(z) {
     const gr = this.grid(z); let first = true;
+    z.fx = z.fx || [];
     for (let guard = 0; guard < 30; guard++) {
       const { m, runs } = this.matches(z); if (!m.size) break;
-      if (runs.some(n => n >= 4)) mgLight(W / 2, gr.y + 20);
+      const big = runs.some(n => n >= 4);
+      if (big) mgLight(W / 2, gr.y + 20);
       z.combo++;
-      for (const id of m) { const r = Math.floor(id / 10), c = id % 10; burst(gr.x + (c + 0.5) * gr.cell, gr.y + (r + 0.5) * gr.cell, 5, ['#c47a3a', '#a24bc0', '#d61f45', '#b0507a', '#7a9a2a'][z.g[r][c].k], 120); z.g[r][c].k = -1; }
-      z.cleared += m.size; S.dates = Math.min(S.datesTotal, z.cleared); Sound.play(first ? 'date' : 'pick'); first = false;
+      // Her zincir bir öncekinden biraz sonra patlar; ses de zincirle yükselir
+      const delay = guard * 0.2;
+      Sound.tone(520 + guard * 110, 0.1, 'sine', 0.06, 260, delay);
+      if (big) Sound.tone(880 + guard * 110, 0.22, 'triangle', 0.05, 440, delay + 0.05);
+      let sx = 0, sy = 0;
+      for (const id of m) {
+        const r = Math.floor(id / 10), c = id % 10;
+        sx += c; sy += r;
+        z.fx.push({ type: 'pop', k: z.g[r][c].k, c, r, t: -delay, big });
+        z.g[r][c].k = -1;
+      }
+      if (big) z.fx.push({ type: 'flash', c: sx / m.size, r: sy / m.size, t: -delay });
+      if (z.combo >= 2) z.fx.push({ type: 'shake', t: -delay, amt: Math.min(7, 1.5 + z.combo * 1.2) });
+      z.cleared += m.size; S.dates = Math.min(S.datesTotal, z.cleared); if (first) Sound.play('date'); first = false;
       if (z.combo >= 2) floatText(W / 2, gr.y + gr.cell * 2, 'Bereket x' + z.combo);
       for (let c = 0; c < z.cols; c++) {
         let w = z.rows - 1;
@@ -5087,15 +5101,71 @@ MG.match3 = {
   },
   update(z, dt) {
     S.time += dt;
-    for (const row of z.g) for (const t of row) { if (t.oy < 0) t.oy = Math.min(0, t.oy + dt * 900); if (t.pop > 0) t.pop -= dt; }
+    for (const row of z.g) for (const t of row) { if (t.oy < 0) { t.oy = Math.min(0, t.oy + dt * 900); if (t.oy === 0) t.bn = 0.2; } if (t.pop > 0) t.pop -= dt; if (t.bn > 0) t.bn -= dt; }
+    this.tickFx(z, dt);
     if (!z.hint && S.time > 3.4) { z.hint = true; toast(isTouch() ? 'Yan yana iki meyveyi parmağınla yer değiştir; aynı meyvelerden 3 tane diz!' : 'Yan yana iki meyveyi fareyle sürükleyip yer değiştir; aynı meyvelerden 3 tane diz!', 3800); }
     mgTickFinish(z, dt);
   },
   down(z, x, y) { const cl = mgCellAt(this.grid(z), x, y); if (!cl) return; if (z.sel && Math.abs(z.sel.r - cl.r) + Math.abs(z.sel.c - cl.c) === 1) { this.trySwap(z, z.sel, cl); z.sel = null; return; } z.sel = cl; z.drag = { x, y }; },
   move(z, x, y) { if (!z.drag || !z.sel) return; const gr = this.grid(z), dx = x - z.drag.x, dy = y - z.drag.y; if (Math.max(Math.abs(dx), Math.abs(dy)) < gr.cell * 0.4) return; const b = Math.abs(dx) > Math.abs(dy) ? { r: z.sel.r, c: z.sel.c + Math.sign(dx) } : { r: z.sel.r + Math.sign(dy), c: z.sel.c }; if (b.r >= 0 && b.c >= 0 && b.r < z.rows && b.c < z.cols) this.trySwap(z, z.sel, b); z.sel = null; z.drag = null; },
   up(z) { z.drag = null; },
+  tickFx(z, dt) {
+    const gr = this.grid(z), COL = ['#c47a3a', '#a24bc0', '#e0284f', '#c0588a', '#8ab03a'];
+    z.fx = z.fx || []; z.pt = z.pt || [];
+    for (const f of z.fx) {
+      f.t += dt;
+      if (!f.on && f.t >= 0) {
+        f.on = true;
+        if (f.type === 'shake') z.shake = Math.max(z.shake || 0, f.amt);
+        if (f.type === 'pop') {
+          // Meyve suyu damlaları ve parıltılar
+          const x = gr.x + (f.c + 0.5) * gr.cell, y = gr.y + (f.r + 0.5) * gr.cell, n = f.big ? 10 : 7;
+          for (let i = 0; i < n; i++) {
+            const a = Math.random() * Math.PI * 2, v = gr.cell * (1.2 + Math.random() * 2.2);
+            z.pt.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - gr.cell * 1.6, life: 0.45 + Math.random() * 0.3, max: 0.75, r: gr.cell * (0.07 + Math.random() * 0.06), c: COL[f.k] });
+          }
+          for (let i = 0; i < (f.big ? 3 : 2); i++) {
+            const a = Math.random() * Math.PI * 2, v = gr.cell * (0.6 + Math.random());
+            z.pt.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - gr.cell, life: 0.55, max: 0.55, r: gr.cell * 0.11, c: i % 2 ? '#ffffff' : '#ffe08a', star: true, rot: Math.random() * 6 });
+          }
+        }
+      }
+    }
+    z.fx = z.fx.filter(f => f.t < (f.type === 'flash' ? 0.55 : 0.35));
+    for (const q of z.pt) { q.vy += gr.cell * 9 * dt; q.x += q.vx * dt; q.y += q.vy * dt; q.life -= dt; if (q.star) q.rot += dt * 8; }
+    z.pt = z.pt.filter(q => q.life > 0);
+    if (z.shake > 0) z.shake = Math.max(0, z.shake - dt * 28);
+  },
+  renderFx(z, gr) {
+    if (S.mode !== 'play' && S.mode !== 'pause') return;
+    for (const f of z.fx || []) {
+      if (f.t < 0) continue;
+      const x = gr.x + (f.c + 0.5) * gr.cell, y = gr.y + (f.r + 0.5) * gr.cell;
+      if (f.type === 'pop') {
+        const p = f.t / 0.35, e = 1 - (1 - p) * (1 - p);
+        // Halka
+        ctx.globalAlpha = (1 - p) * 0.9; ctx.strokeStyle = '#fff8dc'; ctx.lineWidth = Math.max(1, gr.cell * 0.08 * (1 - p));
+        ctx.beginPath(); ctx.arc(x, y, gr.cell * (0.25 + 0.45 * e), 0, Math.PI * 2); ctx.stroke();
+        // Meyve büyüyüp söner
+        ctx.globalAlpha = Math.max(0, 1 - p * 1.4);
+        mgIcon(z.kinds[f.k], x, y, gr.cell * 0.8 * (1 + 0.45 * e));
+        ctx.globalAlpha = 1;
+      } else if (f.type === 'flash') {
+        const p = f.t / 0.55;
+        glow(x, y, gr.cell * (1 + 2.2 * p), 'rgba(255,230,140,.95)', 0.7 * (1 - p));
+      }
+    }
+    for (const q of z.pt || []) {
+      ctx.globalAlpha = Math.max(0, Math.min(1, q.life / q.max * 1.6)); ctx.fillStyle = q.c;
+      if (q.star) { ctx.save(); ctx.translate(q.x, q.y); ctx.rotate(q.rot); mgStar(0, 0, q.r); ctx.fill(); ctx.restore(); }
+      else { ctx.beginPath(); ctx.arc(q.x, q.y, q.r, 0, Math.PI * 2); ctx.fill(); }
+    }
+    ctx.globalAlpha = 1;
+  },
   render(z) {
     const gr = this.grid(z);
+    const shk = z.shake > 0;
+    if (shk) { ctx.save(); ctx.translate((Math.random() - 0.5) * z.shake, (Math.random() - 0.5) * z.shake); }
     mgMsg(`Hamle: ${z.moves}   ·   Hedef: ${Math.min(z.cleared, z.goal)}/${z.goal} meyve`, gr.y - 12, 16);
     ctx.fillStyle = 'rgba(20,40,30,.35)'; rr(ctx, gr.x - 6, gr.y - 6, gr.cell * z.cols + 12, gr.cell * z.rows + 12, 14); ctx.fill();
     ctx.save(); ctx.beginPath(); ctx.rect(gr.x - 6, gr.y - 6, gr.cell * z.cols + 12, gr.cell * z.rows + 12); ctx.clip();
@@ -5103,9 +5173,18 @@ MG.match3 = {
       const x = gr.x + c * gr.cell, y = gr.y + r * gr.cell, t = z.g[r][c];
       ctx.fillStyle = (r + c) % 2 ? 'rgba(255,255,255,.14)' : 'rgba(255,255,255,.08)'; rr(ctx, x + 2, y + 2, gr.cell - 4, gr.cell - 4, 8); ctx.fill();
       if (z.sel && z.sel.r === r && z.sel.c === c) { ctx.strokeStyle = '#ffd56b'; ctx.lineWidth = 3; rr(ctx, x + 2, y + 2, gr.cell - 4, gr.cell - 4, 8); ctx.stroke(); }
-      if (t.k >= 0) { const sh = t.pop > 0 ? Math.sin(t.pop * 40) * 3 : 0; mgIcon(z.kinds[t.k], x + gr.cell / 2 + sh, y + gr.cell / 2 + t.oy, gr.cell * 0.8); }
+      if (t.k >= 0) {
+        const sh = t.pop > 0 ? Math.sin(t.pop * 40) * 3 : 0, cx = x + gr.cell / 2 + sh, cy = y + gr.cell / 2 + t.oy;
+        if (t.bn > 0) {
+          // Yere oturunca küçük esneme
+          const q = Math.sin((1 - t.bn / 0.2) * Math.PI) * 0.16;
+          ctx.save(); ctx.translate(cx, cy + gr.cell * 0.4); ctx.scale(1 + q, 1 - q); mgIcon(z.kinds[t.k], 0, -gr.cell * 0.4, gr.cell * 0.8); ctx.restore();
+        } else mgIcon(z.kinds[t.k], cx, cy, gr.cell * 0.8);
+      }
     }
     ctx.restore();
+    this.renderFx(z, gr);
+    if (shk) ctx.restore();
   },
 };
 
