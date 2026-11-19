@@ -202,6 +202,15 @@
   .levels small { display: block; font-size: 12px; font-weight: 600; opacity: .8; }
   #rotateHint { display: none; font-size: 13px; opacity: .8; margin-top: 8px; }
   /* Kling kapak ve bölüm resimleri */
+  .nextlv { display: flex; align-items: center; gap: 12px; width: 100%; padding: 10px 12px; border-radius: 16px; cursor: pointer; text-align: left;
+    font: inherit; color: var(--ink); background: linear-gradient(rgba(255,213,107,.16), rgba(255,213,107,.08)); border: 1px solid rgba(255,213,107,.45);
+    box-shadow: 0 4px 0 rgba(168,112,30,.55); touch-action: manipulation; }
+  .nextlv:active { transform: translateY(2px); box-shadow: 0 2px 0 rgba(168,112,30,.55); }
+  .nextlv .nth { width: 72px; height: 72px; flex: none; border-radius: 12px; background-image: var(--sheetimg); background-size: 1000% 500%; box-shadow: 0 2px 8px rgba(0,0,0,.4); }
+  .nextlv .ntx { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .nextlv .ntx small { font-size: 12px; opacity: .8; }
+  .nextlv .ntx b { font-size: 17px; color: var(--gold); }
+  .nextlv .nar { font-size: 22px; color: var(--gold); flex: none; }
   #overlay.menubg { background: linear-gradient(rgba(6,8,26,.72), rgba(6,8,26,.86)), var(--coverimg) center / cover no-repeat; }
   .hero { position: relative; margin: -8px -8px 4px; border-radius: 16px; overflow: hidden; aspect-ratio: 16 / 9;
     background: var(--coverimg) center / cover no-repeat; box-shadow: 0 8px 24px rgba(0,0,0,.4); }
@@ -233,6 +242,8 @@
     .levels small:not(.stars) { display: none; }
     .levels .btn { padding: 7px 3px; }
     .levels .th { aspect-ratio: 4 / 3; margin-bottom: 4px; }
+    .nextlv .nth { width: 52px; height: 52px; }
+    .nextlv { padding: 7px 10px; }
     .hero { aspect-ratio: auto; height: 96px; margin: -4px -4px 2px; background-position: center 50%; }
     .hero h1 { bottom: auto; top: 50%; transform: translateY(-50%); text-align: left; padding-left: 18px; }
     .hero::after { background: linear-gradient(90deg, rgba(8,10,30,.85), rgba(0,0,0,0) 38%); }
@@ -7353,6 +7364,13 @@ function pause() {
 }
 function resume() { hideOverlay(); S.mode = 'play'; input.left = input.right = input.jump = false; last = performance.now(); Amb.start(Amb.forLevel()); }
 
+// Sıradaki bölüm düğmesi (bölüm resmiyle)
+function nextLevelHtml(primary) {
+  const i = S.li + 1; if (i >= LEVELS.length) return '';
+  const l = LEVELS[i];
+  return `<button class="nextlv" data-act="next"${primary ? ' data-primary' : ''}><span class="nth" style="${thumbStyle(l)}"></span>`
+    + `<span class="ntx"><small>Sıradaki bölüm</small><b>${i + 1}. ${l.name}</b><small>${l.sub}</small></span><span class="nar">▶</span></button>`;
+}
 function showComplete(score, prev, stars = 1, prevStars = 0, extra = {}) {
   const lastLevel = S.li === LEVELS.length - 1;
   const q = S.lv.quote;
@@ -7375,7 +7393,7 @@ function showComplete(score, prev, stars = 1, prevStars = 0, extra = {}) {
     ${(S.newCards || []).length ? `<div class="newcards"><h3>📜 Bu bölümde bulduğun bilgi yaprakları</h3>${S.newCards.map(id => { const c = CARDS.find(x => x.id === id); return c ? `<div class="quote"><div class="q"><b>${c.title}:</b> ${c.text}</div><div class="src">${c.src}</div></div>` : ''; }).join('')}</div>` : ''}
     <div class="minilb"><h3>🏆 Lider Tablosu</h3><div id="lbMini"><p class="sub">Yükleniyor…</p></div><button class="linkbtn" data-act="leader">Tüm tabloyu gör</button></div>
     <div class="btns">
-      ${lastLevel ? '<button class="btn" data-act="menu" data-primary>Ana Menü</button>' : '<button class="btn" data-act="next" data-primary>Sonraki Bölüm</button>'}
+      ${lastLevel ? '<button class="btn" data-act="menu" data-primary>Ana Menü</button>' : nextLevelHtml(true)}
       <div class="row"><button class="btn alt" data-act="again">Tekrar Oyna</button>${lastLevel ? '' : '<button class="btn alt" data-act="menu">Ana Menü</button>'}</div>
     </div>
   `);
@@ -7389,10 +7407,11 @@ function showOver() {
     <p>Üzülme, Kerem yeniden yola çıkmaya hazır.</p>
     <div class="btns">
       <button class="btn" data-act="again" data-primary>Tekrar Dene</button>
+      ${nextLevelHtml(false)}
       <button class="btn alt" data-act="menu">Ana Menü</button>
     </div>
   `);
-  bind({ again: () => startLevel(S.li), menu: showMenu });
+  bind({ again: () => startLevel(S.li), next: () => startLevel(S.li + 1), menu: showMenu });
 }
 
 // =====================================================================
