@@ -59,6 +59,17 @@ Bütün bölümler baştan açıktır, kilit yoktur. Bağlantı başta yalnızca
 25. **Bahçe Birleştirme:** Kaydırarak aynı bitkiler birleştirilir: tohum, filiz, fidan, genç ağaç, ağaç, meyveli ağaç.
 26. **Kandil Avı:** Pencerelerde beliren kandillere çabuk dokunulur; kötü huy bulutlarına dokunmamak gerekir.
 
+### 27-50. bölümler: eski oyunlardan ilham alan bölümler
+
+Bu bölümler eski (retro) oyun türlerinden ilham alır; karakterleri, adları ve görselleri bu oyuna özgüdür.
+
+27. **Dedeyle Top** (raketli top) · 28. **Karşıya Geçiş** (yol ve dere geçme) · 29. **Hurma Labirenti** (noktaları topla, bulutlardan kaç) · 30. **Bulut Dağıtma** (fenerle ışık at) · 31. **Taş Duvar** (düşen taşlarla sıra tamamlama) · 32. **Fener Sırası** (sırayı hatırla)
+33. **Tarla Taşları** (komşu taş sayıları) · 34. **Işıkları Yak** (fener ve komşularını değiştir) · 35. **Koli İtme** (kolileri yerine it) · 36. **Balon İnişi** (yumuşak iniş) · 37. **Yağmur Kovası** (damla yakalama) · 38. **Kiremit Boyama** (her kiremide bas)
+39. **Pide Dağıtımı** (bisikletle kapılara pide) · 40. **Üç Taş** (dedeyle XOX) · 41. **Dört Fener** (dört tanesini hizala) · 42. **Renk Şifresi** (renk sırasını bul) · 43. **Harf Tahmini** (güzel kelimeyi bul) · 44. **Fener Balonları** (aynı renkleri birleştir)
+45. **Engel Atlama** (koş, zıpla, kay) · 46. **Kutu Kapmaca** (noktaları birleştir) · 47. **Ters Çevir** (bulutları fenere çevir) · 48. **Mangala** (geleneksel Türk zekâ oyunu) · 49. **Buzda Kayma** (kayaya çarpana kadar kay) · 50. **Resim Bulmaca** (sayılarla resmi bul)
+
+Bu bölümlerin sonundaki âyet ve hadisler: Hucurât 49/10 · Tirmizî, Birr 15 · Buhârî, Savm 9 · Nûr 24/43 · Nahl 16/90 · Bakara 2/152 · Mülk 67/15 · Bakara 2/257 · Müslim, İmâre 133 · Âl-i İmrân 3/190 · Kâf 50/9 · İnşirâh 94/5 · Nisâ 4/36 · Müslim, Kader 34 · Âl-i İmrân 3/103 · Rûm 30/22 · Kalem 68/1 · Rahmân 55/13 · Bakara 2/286 · Haşr 59/9 · Fussilet 41/34 · Buhârî, Zekât 18 · Yâsîn 36/40 · Hûd 11/88
+
 ## Kullanıcı adı ve lider tablosu
 
 - Oyunu ilk açan herkes önce bir kullanıcı adı seçer (3-16 harf; uygunsuz kelimeler kabul edilmez). Ad, menüdeki **Değiştir** ile değiştirilebilir.

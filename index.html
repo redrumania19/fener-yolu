@@ -1023,11 +1023,59 @@ function level44() {
   return { name: 'Fener Balonları', sub: 'Aynı renkleri birleştir', theme: 0, w: L.w, grid: L.g, mini: 'bubble', word: 'balonların',
     quote: { text: '“Öyleyse Rabbinizin hangi nimetlerini yalanlayabilirsiniz?”', src: 'Rahmân Sûresi, 55/13' },
     intro: 'Bölüm 44: Fener Balonları — Nişan al ve at; aynı renkten üç balonu birleştirince fenere dönüşürler!',
-    outro: 'Bütün balonlar fenere dönüştü. Bütün bölümleri bitirdin!' };
+    outro: 'Bütün balonlar fenere dönüştü.' };
 }
 
-const LEVELS = [level1(), level2(), level3(), level4(), level5(), level6(), level7(), level8(), level9(), level10(), level11(), level12(), level13(), level14(), level15(), level16(), level17(), level18(), level19(), level20(), level21(), level22(), level23(), level24(), level25(), level26(), level27(), level28(), level29(), level30(), level31(), level32(), level33(), level34(), level35(), level36(), level37(), level38(), level39(), level40(), level41(), level42(), level43(), level44()];
-const LEVEL_PAR = [55, 70, 85, 65, 80, 75, 55, 130, 65, 210, 55, 45, 100, 55, 70, 85, 180, 150, 120, 150, 150, 150, 120, 90, 150, 75, 120, 120, 150, 120, 180, 150, 180, 150, 180, 120, 90, 150, 75, 150, 200, 200, 150, 180];   // "Rüzgâr Gibi" rozeti için hedef süre (saniye)
+function level45() {
+  const L = new LB(20); L.ground(0, 20); L.set(2, 10, 'S');
+  return { name: 'Engel Atlama', sub: 'Koş, zıpla, kay', theme: 5, w: L.w, grid: L.g, mini: 'runner', word: 'hurmaların',
+    quote: { text: '“Allah kişiye ancak gücünün yeteceği kadar yükler…”', src: 'Bakara Sûresi, 2/286' },
+    intro: 'Bölüm 45: Engel Atlama — Kerem koşuyor! Dikenli çalıların üstünden zıpla, yüksek bulutların altından kay.',
+    outro: 'Kerem bitiş çizgisine vardı ve arkadaşlarına su ikram etti.' };
+}
+
+function level46() {
+  const L = new LB(20); L.ground(0, 20); L.set(2, 10, 'S');
+  return { name: 'Kutu Kapmaca', sub: 'Noktaları birleştir, kutuları kap', theme: 5, w: L.w, grid: L.g, mini: 'boxes', hint3: 'Üçüncü yıldız için hiç oyun kaybetmeden üç oyun kazan.',
+    quote: { text: '“…Kendileri ihtiyaç içinde olsalar bile onları kendilerine tercih ederler…”', src: 'Haşr Sûresi, 59/9' },
+    intro: 'Bölüm 46: Kutu Kapmaca — Dedeyle sırayla çizgi çizin. Bir kutunun son kenarını kim çizerse kutu onun olur!',
+    outro: 'Kerem dedesine bir kutu hurma ikram etti.' };
+}
+
+function level47() {
+  const L = new LB(20); L.ground(0, 20); L.set(2, 10, 'S');
+  return { name: 'Ters Çevir', sub: 'Bulutları fenere çevir', theme: 0, w: L.w, grid: L.g, mini: 'reversi', hint3: 'Üçüncü yıldız için iki oyunu da çok fenerle kazan.',
+    quote: { text: '“İyilikle kötülük bir olmaz. Sen kötülüğü en güzel bir şekilde sav…”', src: 'Fussilet Sûresi, 41/34' },
+    intro: 'Bölüm 47: Ters Çevir — Fenerini, bulutları iki fenerin arasına alacak yere koy; aradaki bulutlar fenere döner!',
+    outro: 'Kötülükler iyilikle savuldu, her yer aydınlandı.' };
+}
+
+function level48() {
+  const L = new LB(20); L.ground(0, 20); L.set(2, 10, 'S');
+  return { name: 'Mangala', sub: 'Geleneksel Türk zekâ oyunu', theme: 5, w: L.w, grid: L.g, mini: 'mangala', hint3: 'Üçüncü yıldız için iki kez son taşı hazinene düşür.',
+    quote: { text: '“Üstteki el, alttaki elden hayırlıdır. Üstteki el veren, alttaki el ise dilenip alan eldir.”', src: 'Hadis-i şerif — Buhârî, Zekât 18; Müslim, Zekât 94' },
+    intro: 'Bölüm 48: Mangala — Dedeyle mangala oyna! Kuyudaki taşları al, birer birer dağıt; hazinende en çok taşı topla.',
+    outro: 'Kerem mangalayı kazandı; dede ona bu eski oyunu öğrettiği için çok mutluydu.' };
+}
+
+function level49() {
+  const L = new LB(20); L.ground(0, 20); L.set(2, 10, 'S');
+  return { name: 'Buzda Kayma', sub: 'Kayaya çarpana kadar kay', theme: 8, w: L.w, grid: L.g, mini: 'ice', hint3: 'Üçüncü yıldız için 2. ve 3. gölü en kısa yola yakın bitir.',
+    quote: { text: '“Ne güneş aya yetişebilir, ne de gece gündüzü geçebilir. Her biri bir yörüngede yüzmektedir.”', src: 'Yâsîn Sûresi, 36/40' },
+    intro: 'Bölüm 49: Buzda Kayma — Buzlu gölde Kerem bir kayaya çarpana kadar kayar. Doğru sırayla kayıp bayrağa ulaş!',
+    outro: 'Kerem buzlu gölleri güvenle geçti.' };
+}
+
+function level50() {
+  const L = new LB(20); L.ground(0, 20); L.set(2, 10, 'S');
+  return { name: 'Resim Bulmaca', sub: 'Sayılarla resmi bul', theme: 0, w: L.w, grid: L.g, mini: 'nono', hint3: 'Üçüncü yıldız için 2. ve 3. resmi az dokunuşla bitir.',
+    quote: { text: '“…Başarım ancak Allah’ın yardımı iledir. Yalnız O’na tevekkül ettim ve yalnız O’na yöneliyorum.”', src: 'Hûd Sûresi, 11/88' },
+    intro: 'Bölüm 50: Resim Bulmaca — Sayılar, satır ve sütunda art arda kaç kare boyanacağını söyler. Resmi ortaya çıkar!',
+    outro: 'Kerem son bulmacayı da çözdü; yolculuğunun her adımında iyilik vardı. Bütün bölümleri bitirdin!' };
+}
+
+const LEVELS = [level1(), level2(), level3(), level4(), level5(), level6(), level7(), level8(), level9(), level10(), level11(), level12(), level13(), level14(), level15(), level16(), level17(), level18(), level19(), level20(), level21(), level22(), level23(), level24(), level25(), level26(), level27(), level28(), level29(), level30(), level31(), level32(), level33(), level34(), level35(), level36(), level37(), level38(), level39(), level40(), level41(), level42(), level43(), level44(), level45(), level46(), level47(), level48(), level49(), level50()];
+const LEVEL_PAR = [55, 70, 85, 65, 80, 75, 55, 130, 65, 210, 55, 45, 100, 55, 70, 85, 180, 150, 120, 150, 150, 150, 120, 90, 150, 75, 120, 120, 150, 120, 180, 150, 180, 150, 180, 120, 90, 150, 75, 150, 200, 200, 150, 180, 60, 200, 240, 300, 150, 200];   // "Rüzgâr Gibi" rozeti için hedef süre (saniye)
 
 // Bilgi yaprakları: her bölümde iki tane; kaynakları doğrulandı
 const CARDS = [
@@ -1081,6 +1129,12 @@ const CARD_POS = [
   [[0, 0, 'c27'], [0, 0, 'c28']],
   [[0, 0, 'c29'], [0, 0, 'c30']],
   [[0, 0, 'c31'], [0, 0, 'c32']],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
   [],
   [],
   [],
@@ -4804,7 +4858,7 @@ goBtn.addEventListener('click', (e) => { e.preventDefault(); Sound.init(); if (S
 const MG = {};
 function setupMini() { S.ents = []; S.barrels = []; S.mg = { type: S.lv.mini }; MG[S.lv.mini].setup(S.mg); updateHud(); }
 function mgArea() { const top = W < 560 ? 100 : 70; return { x: 12, y: top, w: W - 24, h: H - top - 12 }; }
-function mgMsg(text, y, size, color) { ctx.font = `bold ${size}px "Segoe UI", sans-serif`; ctx.textAlign = 'center'; ctx.fillStyle = 'rgba(0,0,0,.35)'; ctx.fillText(text, W / 2 + 1.5, y + 1.5); ctx.fillStyle = color || '#fffbe8'; ctx.fillText(text, W / 2, y); }
+function mgMsg(text, y, size, color) { ctx.font = `bold ${size}px "Segoe UI", sans-serif`; const tw = ctx.measureText(text).width; if (tw > W - 24) { size = Math.max(10, Math.floor(size * (W - 24) / tw)); ctx.font = `bold ${size}px "Segoe UI", sans-serif`; } ctx.textAlign = 'center'; ctx.fillStyle = 'rgba(0,0,0,.35)'; ctx.fillText(text, W / 2 + 1.5, y + 1.5); ctx.fillStyle = color || '#fffbe8'; ctx.fillText(text, W / 2, y); }
 function mgWrap(text, maxW, font) { ctx.font = font; const words = text.split(' '), lines = []; let cur = ''; for (const w of words) { const t = cur ? cur + ' ' + w : w; if (ctx.measureText(t).width > maxW && cur) { lines.push(cur); cur = w; } else cur = t; } if (cur) lines.push(cur); return lines; }
 function mgBg() {
   const th = THEMES[S.lv.theme];
@@ -6382,6 +6436,242 @@ MG.bubble = {
     if (z.shot) ball(z.shot.x, z.shot.y, z.shot.c); else ball(W / 2, G.sy, z.cur);
     ball(W / 2 + G.R * 3, G.sy + 6, z.next, 0.7); ctx.fillStyle = '#fffbe8'; ctx.font = '12px "Segoe UI", sans-serif'; ctx.textAlign = 'center'; ctx.fillText('sıradaki', W / 2 + G.R * 3, G.sy + G.R + 18);
     ctx.strokeStyle = 'rgba(255,120,120,.6)'; ctx.beginPath(); ctx.moveTo(G.x0, G.sy - G.R * 2.5); ctx.lineTo(G.x0 + G.w, G.sy - G.R * 2.5); ctx.stroke();
+  },
+};
+
+// ---------------------------------------------------------------------
+//  45. Engel Atlama (koş, zıpla, kay)
+// ---------------------------------------------------------------------
+MG.runner = {
+  setup(z) {
+    z.len = 600; z.x = 0; z.y = 0; z.vy = 0; z.air = 0; z.slide = 0; z.inv = 0; z.sp = S.easy ? 200 : 240; z.obs = []; z.items = []; z.got = 0;
+    for (let d = 400; d < z.len * 10 - 200; d += 230 + Math.random() * 170) { const hi = Math.random() < 0.35; z.obs.push({ d, hi, label: BAD_TRAITS[Math.floor(Math.random() * BAD_TRAITS.length)] }); }
+    let n = 0; for (let d = 300; d < z.len * 10 - 100 && n < 30; d += 190) { if (z.obs.some(o => Math.abs(o.d - d) < 60)) continue; z.items.push({ d, h: Math.random() < 0.5 ? 40 : 110, k: 'date' }); n++; }
+    for (const d of [2200, 4600]) z.items.push({ d, h: 150, k: 'light' });
+    S.datesTotal = n; S.lightsTotal = 2; S.deedsTotal = 3; S.cardsTotal = 0; S.cardsGot = 0;
+  },
+  jump(z) { if (z.finT != null) return; if (z.y <= 0) { z.vy = 620; z.air = 1; z.slide = 0; Sound.play('jump'); } else if (z.air === 1) { z.vy = 560; z.air = 2; Sound.play('jump2'); } },
+  duck(z) { if (z.y <= 0) { z.slide = 0.65; Sound.tone(300, 0.08, 'sawtooth', 0.02); } else z.vy = -900; },
+  update(z, dt) {
+    S.time += dt;
+    if (!z.hint && S.time > 3.4) { z.hint = true; toast(isTouch() ? 'Dokun ya da yukarı kaydır: zıpla (havada bir daha). Aşağı kaydır: kay. Dikenlerin üstünden atla, yüksek bulutların altından kay!' : 'Boşluk / ↑ zıpla (havada bir daha), ↓ kay. Dikenlerin üstünden atla, yüksek bulutların altından kay!', 4600); }
+    if (z.finT != null) { mgTickFinish(z, dt); return; }
+    if (S.time < 3.2) return;
+    const j = input.jump || input.up; if (j && !z.pj) this.jump(z); z.pj = j;
+    const dn = input.down; if (dn && !z.pd) this.duck(z); z.pd = dn;
+    z.x += z.sp * dt; z.sp = Math.min(z.sp + dt * 3, S.easy ? 260 : 330);
+    z.vy -= 1700 * dt; z.y += z.vy * dt; if (z.y <= 0) { z.y = 0; z.vy = 0; z.air = 0; }
+    if (z.slide > 0) z.slide -= dt; if (z.inv > 0) z.inv -= dt;
+    for (const o of z.obs) { if (o.hit || Math.abs(o.d - z.x) > 22) continue; const blocked = o.hi ? !(z.slide > 0 && z.y < 10) && z.y < 60 : z.y < 34; if (blocked && z.inv <= 0) { o.hit = true; z.inv = 1.3; if (mgLoseLife(W * 0.25, H * 0.6, o.hi ? o.label : 'Diken')) return; } }
+    for (const it of z.items) { if (it.got || Math.abs(it.d - z.x) > 22) continue; const ky = z.y + (z.slide > 0 ? 15 : 35); if (Math.abs(ky - it.h) < 40) { it.got = true; if (it.k === 'light') mgLight(W * 0.25, H * 0.5); else { z.got++; S.dates = z.got; Sound.play('date'); updateHud(); } } }
+    const f = z.x / (z.len * 10); if (f > 1 / 3 && S.deeds < 1) mgDeed('İyilik: Yolun üçte biri tamam, yorulma!'); if (f > 2 / 3 && S.deeds < 2) mgDeed('İyilik: Az kaldı, sabırla devam!');
+    if (f >= 1) { mgDeed('İyilik: Koşuyu bitirdin, arkadaşlarına su ikram ettin!'); mgFinish(z, 0.6); }
+    mgTickFinish(z, dt);
+  },
+  key(z, code) { if (code === 'ArrowDown' || code === 'KeyS') { this.duck(z); return true; } return false; },
+  down(z, x, y) { mgSwDown(z, x, y); }, move(z, x, y) { const d = mgSwMove(z, x, y, 28); if (d === 'U') this.jump(z); if (d === 'D') this.duck(z); }, up(z) { if (mgSwUp(z)) this.jump(z); },
+  render(z) {
+    const a = mgArea(), gy = a.y + a.h * 0.78, kx = W * 0.25, sc = Math.min(1.3, a.h / 420);
+    ctx.fillStyle = '#9fcf8a'; ctx.beginPath(); ctx.moveTo(0, gy - 30); for (let x = 0; x <= W; x += 30) ctx.lineTo(x, gy - 30 - Math.sin((x + z.x * 0.3) / 90) * 16); ctx.lineTo(W, gy); ctx.lineTo(0, gy); ctx.fill();
+    ctx.fillStyle = '#c9a66b'; ctx.fillRect(0, gy, W, H - gy); ctx.fillStyle = '#7dbb6e'; ctx.fillRect(0, gy, W, 8);
+    for (let k = 0; k < W / 60 + 2; k++) { const x = ((k * 60 - z.x) % (W + 60) + W + 60) % (W + 60) - 30; ctx.fillStyle = 'rgba(0,0,0,.08)'; ctx.fillRect(x, gy + 20, 20, 4); }
+    const sx = (d) => kx + (d - z.x) * sc;
+    for (const o of z.obs) { const x = sx(o.d); if (x < -60 || x > W + 60) continue; if (o.hi) mgCloud(x, gy - 78 * sc, 26 * sc, o.label, false); else { ctx.fillStyle = '#3f7a3a'; ctx.beginPath(); ctx.arc(x, gy - 12, 16 * sc, Math.PI, 0); ctx.fill(); ctx.strokeStyle = '#2a5a2a'; ctx.lineWidth = 2; for (let i = -3; i <= 3; i++) { ctx.beginPath(); ctx.moveTo(x + i * 4, gy - 12); ctx.lineTo(x + i * 6, gy - 30 * sc); ctx.stroke(); } } }
+    for (const it of z.items) { if (it.got) continue; const x = sx(it.d), y = gy - it.h * sc; if (x < -30 || x > W + 30) continue; if (it.k === 'light') glow(x, y, 22, 'rgba(255,240,170,.95)', 0.7); else { ctx.save(); ctx.translate(x, y); ctx.rotate(-0.4); ctx.fillStyle = '#7a3a18'; ctx.beginPath(); ctx.ellipse(0, 0, 6, 10, 0, 0, Math.PI * 2); ctx.fill(); ctx.restore(); } }
+    // bitiş bayrağı
+    const fx = sx(z.len * 10); if (fx < W + 40) { ctx.fillStyle = '#8a8e98'; ctx.fillRect(fx, gy - 120, 4, 120); ctx.fillStyle = '#e8506a'; ctx.beginPath(); ctx.moveTo(fx + 4, gy - 120); ctx.lineTo(fx + 40, gy - 108); ctx.lineTo(fx + 4, gy - 96); ctx.fill(); }
+    if (!(z.inv > 0 && Math.floor(z.inv * 10) % 2)) {
+      const ky = gy - z.y * sc;
+      if (HERO.ok) { const F = HERO.meta.frames, fi = z.y > 0 ? 5 : 1 + (Math.floor(S.time * 10) % 4), f = F[fi], k = HERO_DH / HERO.meta.h * sc * 1.1; ctx.save(); ctx.translate(kx, ky); ctx.scale(-1, z.slide > 0 && z.y <= 0 ? 0.55 : 1); ctx.drawImage(HERO.img, f.x, f.y, f.w, f.h, -f.w * k / 2, -f.h * k, f.w * k, f.h * k); ctx.restore(); }
+      else { ctx.fillStyle = '#9a5b26'; ctx.fillRect(kx - 10, ky - 40, 20, 40); }
+    }
+    const prog = Math.min(1, z.x / (z.len * 10)); ctx.fillStyle = 'rgba(10,12,36,.5)'; rr(ctx, W / 2 - 120, a.y + 6, 240, 10, 5); ctx.fill(); ctx.fillStyle = '#ffd56b'; rr(ctx, W / 2 - 120, a.y + 6, 240 * prog, 10, 5); ctx.fill();
+  },
+};
+
+// ---------------------------------------------------------------------
+//  46. Kutu Kapmaca (noktaları birleştir)
+// ---------------------------------------------------------------------
+MG.boxes = {
+  setup(z) { z.wins = 0; z.lost = 0; S.datesTotal = 0; S.lightsTotal = 2; S.deedsTotal = 3; S.cardsTotal = 0; S.cardsGot = 0; this.newGame(z); },
+  newGame(z) { z.n = 3; z.h = Array(4 * 3).fill(0); z.v = Array(3 * 4).fill(0); z.box = Array(9).fill(0); z.turn = 1; z.over = false; z.wait = 0; z.last = null; },
+  // yatay çizgi h[r*3+c] (r: 0..3, c: 0..2), dikey çizgi v[r*4+c] (r: 0..2, c: 0..3)
+  sides(z, b) { const r = Math.floor(b / 3), c = b % 3; return [z.h[r * 3 + c], z.h[(r + 1) * 3 + c], z.v[r * 4 + c], z.v[r * 4 + c + 1]].filter(Boolean).length; },
+  boxesOf(t, i) { if (t === 'h') { const r = Math.floor(i / 3), c = i % 3; return [r > 0 ? (r - 1) * 3 + c : -1, r < 3 ? r * 3 + c : -1].filter(b => b >= 0); } const r = Math.floor(i / 4), c = i % 4; return [c > 0 ? r * 3 + c - 1 : -1, c < 3 ? r * 3 + c : -1].filter(b => b >= 0); },
+  draw(z, t, i, p) {
+    const arr = t === 'h' ? z.h : z.v; if (arr[i]) return false; arr[i] = p; z.last = { t, i }; Sound.tone(p === 1 ? 600 : 440, 0.04, 'triangle', 0.03);
+    let made = 0; for (const b of this.boxesOf(t, i)) if (!z.box[b] && this.sides(z, b) === 4) { z.box[b] = p; made++; }
+    if (made) Sound.play(p === 1 ? 'date' : 'pick');
+    if (z.box.every(v => v)) { z.over = true; z.overT = 1.8; const me = z.box.filter(v => v === 1).length, ai = 9 - me;
+      if (me > ai) { z.wins++; Sound.play('star'); mgDeed(['İyilik: İlk oyunu kazandın!', 'İyilik: İkinci oyun da senin!', 'İyilik: Üç oyun kazandın, dede çok sevindi!'][z.wins - 1]); if (z.wins >= 2 && !z.lost) mgLight(W / 2, H * 0.3); if (z.wins >= 3) mgFinish(z, 1.8); }
+      else { z.lost++; mgLoseLife(W / 2, H / 2, 'Dede kazandı'); } return true; }
+    if (!made) z.turn = 3 - p; return true;
+  },
+  aiMove(z) {
+    const all = []; z.h.forEach((v, i) => { if (!v) all.push(['h', i]); }); z.v.forEach((v, i) => { if (!v) all.push(['v', i]); });
+    const gives = (m) => this.boxesOf(m[0], m[1]).some(b => !z.box[b] && this.sides(z, b) === 2);
+    const takes = all.filter(m => this.boxesOf(m[0], m[1]).some(b => !z.box[b] && this.sides(z, b) === 3));
+    let pick = null;
+    if (takes.length && Math.random() < (S.easy ? 0.55 : 0.8)) pick = takes[0];
+    else { const safe = all.filter(m => !gives(m)); const pool = safe.length && Math.random() < (S.easy ? 0.4 : 0.65) ? safe : all; pick = pool[Math.floor(Math.random() * pool.length)]; }
+    this.draw(z, pick[0], pick[1], 2);
+  },
+  update(z, dt) { S.time += dt; if (!z.hint && S.time > 3.4) { z.hint = true; toast('İki noktanın arasına dokunup çizgi çiz. Bir kutunun dördüncü kenarını sen çizersen kutu senin olur ve bir daha oynarsın!', 4600); } if (z.finT != null) { mgTickFinish(z, dt); return; } if (z.over) { z.overT -= dt; if (z.overT <= 0 && S.mode === 'play') this.newGame(z); return; } if (z.turn === 2) { z.wait -= dt; if (z.wait <= 0) { this.aiMove(z); z.wait = 0.55; } } },
+  geo() { const a = mgArea(), s = Math.min(a.w - 40, a.h - 80, 360), x0 = (W - s) / 2, y0 = a.y + 50 + (a.h - 80 - s) / 2; return { x0, y0, s, g: s / 3 }; },
+  down(z, x, y) {
+    if (z.turn !== 1 || z.over || z.finT != null) return; const G = this.geo(); let best = null;
+    for (let i = 0; i < 12; i++) { const r = Math.floor(i / 3), c = i % 3, mx = G.x0 + (c + 0.5) * G.g, my = G.y0 + r * G.g, d = Math.hypot(x - mx, y - my); if (!z.h[i] && (!best || d < best.d)) best = { t: 'h', i, d }; }
+    for (let i = 0; i < 12; i++) { const r = Math.floor(i / 4), c = i % 4, mx = G.x0 + c * G.g, my = G.y0 + (r + 0.5) * G.g, d = Math.hypot(x - mx, y - my); if (!z.v[i] && (!best || d < best.d)) best = { t: 'v', i, d }; }
+    if (best && best.d < G.g * 0.45) { this.draw(z, best.t, best.i, 1); if (z.turn === 2) z.wait = 0.6; }
+  },
+  render(z) {
+    const G = this.geo(), me = z.box.filter(v => v === 1).length, ai = z.box.filter(v => v === 2).length;
+    mgMsg(`Kazanılan: ${z.wins}/3   ·   Kerem ${me} – ${ai} Dede   ·   ${z.over ? '' : z.turn === 1 ? 'Sıra sende' : 'Dede oynuyor…'}`, G.y0 - 28, 15);
+    for (let b = 0; b < 9; b++) if (z.box[b]) { const r = Math.floor(b / 3), c = b % 3, x = G.x0 + (c + 0.5) * G.g, y = G.y0 + (r + 0.5) * G.g; ctx.fillStyle = z.box[b] === 1 ? 'rgba(255,213,107,.35)' : 'rgba(143,216,106,.35)'; ctx.fillRect(G.x0 + c * G.g + 4, G.y0 + r * G.g + 4, G.g - 8, G.g - 8); mgIcon(z.box[b] === 1 ? 'hurma' : 'zeytin', x, y, G.g * 0.5); }
+    const line = (x1, y1, x2, y2, p, isLast) => { ctx.strokeStyle = p ? (p === 1 ? '#ffd56b' : '#8fd86a') : 'rgba(255,255,255,.18)'; ctx.lineWidth = p ? (isLast ? 8 : 6) : 3; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); };
+    for (let i = 0; i < 12; i++) { const r = Math.floor(i / 3), c = i % 3; line(G.x0 + c * G.g + 8, G.y0 + r * G.g, G.x0 + (c + 1) * G.g - 8, G.y0 + r * G.g, z.h[i], z.last && z.last.t === 'h' && z.last.i === i); }
+    for (let i = 0; i < 12; i++) { const r = Math.floor(i / 4), c = i % 4; line(G.x0 + c * G.g, G.y0 + r * G.g + 8, G.x0 + c * G.g, G.y0 + (r + 1) * G.g - 8, z.v[i], z.last && z.last.t === 'v' && z.last.i === i); }
+    ctx.fillStyle = '#fffbe8'; for (let r = 0; r <= 3; r++) for (let c = 0; c <= 3; c++) { ctx.beginPath(); ctx.arc(G.x0 + c * G.g, G.y0 + r * G.g, 6, 0, Math.PI * 2); ctx.fill(); }
+  },
+};
+
+// ---------------------------------------------------------------------
+//  47. Ters Çevir (bulutları fenere çevir)
+// ---------------------------------------------------------------------
+MG.reversi = {
+  setup(z) { z.n = 6; z.wins = 0; z.lost = 0; z.corner = false; S.datesTotal = 0; S.lightsTotal = 2; S.deedsTotal = 3; S.cardsTotal = 0; S.cardsGot = 0; this.newGame(z); },
+  newGame(z) { const n = z.n; z.b = Array(n * n).fill(0); const m = n / 2; z.b[(m - 1) * n + m - 1] = 1; z.b[m * n + m] = 1; z.b[(m - 1) * n + m] = 2; z.b[m * n + m - 1] = 2; z.turn = 1; z.over = false; z.wait = 0; z.flipT = 0; },
+  flips(b, n, i, p) { if (b[i]) return []; const r = Math.floor(i / n), c = i % n, out = []; for (const [dr, dc] of [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [1, -1], [-1, 1], [-1, -1]]) { const line = []; let rr0 = r + dr, cc = c + dc; while (rr0 >= 0 && cc >= 0 && rr0 < n && cc < n && b[rr0 * n + cc] === 3 - p) { line.push(rr0 * n + cc); rr0 += dr; cc += dc; } if (line.length && rr0 >= 0 && cc >= 0 && rr0 < n && cc < n && b[rr0 * n + cc] === p) out.push(...line); } return out; },
+  moves(z, p) { const out = []; for (let i = 0; i < z.n * z.n; i++) { const f = this.flips(z.b, z.n, i, p); if (f.length) out.push({ i, f }); } return out; },
+  place(z, mv, p) { z.b[mv.i] = p; for (const j of mv.f) z.b[j] = p; z.flipT = 0.3; Sound.tone(p === 1 ? 620 : 420, 0.05, 'triangle', 0.03);
+    const n = z.n, corners = [0, n - 1, n * (n - 1), n * n - 1]; if (p === 1 && corners.includes(mv.i) && !z.corner) { z.corner = true; mgDeed('İyilik: Bir köşeyi aydınlattın!'); } },
+  next(z) {
+    const me = this.moves(z, 1), ai = this.moves(z, 2);
+    if (!me.length && !ai.length) { z.over = true; z.overT = 2.2; const a = z.b.filter(v => v === 1).length, b = z.b.filter(v => v === 2).length;
+      if (a > b) { z.wins++; Sound.play('star'); mgDeed(z.wins === 1 ? 'İyilik: Kötülükleri iyilikle savdın!' : 'İyilik: Yine iyilik kazandı!'); if (a >= 24 && S.lights < 2) mgLight(W / 2, H * 0.3); if (z.wins >= 2 && !z.lost && S.lights < 2) mgLight(W / 2, H * 0.3); if (z.wins >= 2 && S.deeds >= 3) mgFinish(z, 2.2); else if (z.wins >= 2) { if (!z.corner) { z.corner = true; mgDeed('İyilik: Bütün tahta aydınlandı!'); } mgFinish(z, 2.2); } }
+      else { z.lost++; mgLoseLife(W / 2, H / 2, a === b ? 'Berabere' : 'Bulutlar kazandı'); } return; }
+    if (z.turn === 1 && !me.length) { z.turn = 2; toast('Hamlen yok, sıra bulutlarda.', 1400); }
+    else if (z.turn === 2 && !ai.length) { z.turn = 1; toast('Bulutların hamlesi yok, sıra sende.', 1400); }
+  },
+  aiMove(z) { const mv = this.moves(z, 2); if (!mv.length) return; const n = z.n, corners = [0, n - 1, n * (n - 1), n * n - 1]; const score = (m) => m.f.length + (corners.includes(m.i) ? 8 : 0) + Math.random() * (S.easy ? 6 : 2); mv.sort((a, b) => score(b) - score(a)); const weak = mv.slice().sort((a, b) => a.f.length - b.f.length); this.place(z, Math.random() < (S.easy ? 0.9 : 0.7) ? (Math.random() < 0.5 ? weak[0] : mv[Math.floor(Math.random() * mv.length)]) : mv[0], 2); z.turn = 1; this.next(z); },
+  grid(z) { const a = mgArea(); a.y += 40; a.h -= 40; return mgGrid(z.n, z.n, a, 76); },
+  down(z, x, y) { if (z.turn !== 1 || z.over || z.finT != null) return; const cl = mgCellAt(this.grid(z), x, y); if (!cl) return; const i = cl.r * z.n + cl.c, f = this.flips(z.b, z.n, i, 1); if (!f.length) { Sound.tone(220, 0.06, 'square', 0.02); return; } this.place(z, { i, f }, 1); z.turn = 2; z.wait = 0.7; this.next(z); },
+  update(z, dt) { S.time += dt; if (z.flipT > 0) z.flipT -= dt; if (!z.hint && S.time > 3.4) { z.hint = true; toast('Bulutları iki fenerin arasına alacak şekilde fener koy; aradaki bulutlar fenere döner! Parlayan karelere koyabilirsin.', 4600); } if (z.finT != null) { mgTickFinish(z, dt); return; } if (z.over) { z.overT -= dt; if (z.overT <= 0 && S.mode === 'play') this.newGame(z); return; } if (z.turn === 2) { z.wait -= dt; if (z.wait <= 0) this.aiMove(z); } },
+  render(z) {
+    const gr = this.grid(z), cs = gr.cell, n = z.n, a = z.b.filter(v => v === 1).length, b = z.b.filter(v => v === 2).length;
+    mgMsg(`Kazanılan: ${z.wins}/2   ·   Fener ${a} – ${b} Bulut   ·   ${z.over ? '' : z.turn === 1 ? 'Sıra sende' : 'Bulutlar oynuyor…'}`, gr.y - 18, 15);
+    ctx.fillStyle = '#2f6a4a'; rr(ctx, gr.x - 6, gr.y - 6, cs * n + 12, cs * n + 12, 10); ctx.fill();
+    const legal = z.turn === 1 && !z.over ? new Set(this.moves(z, 1).map(m => m.i)) : new Set();
+    for (let i = 0; i < n * n; i++) { const x = gr.x + (i % n) * cs, y = gr.y + Math.floor(i / n) * cs; ctx.strokeStyle = 'rgba(0,0,0,.25)'; ctx.lineWidth = 1; ctx.strokeRect(x, y, cs, cs);
+      if (z.b[i] === 1) mgIcon('fener', x + cs / 2, y + cs / 2, cs * 0.7); else if (z.b[i] === 2) mgCloud(x + cs / 2, y + cs / 2, cs * 0.3, '', false); else if (legal.has(i)) { ctx.fillStyle = 'rgba(255,213,107,.35)'; ctx.beginPath(); ctx.arc(x + cs / 2, y + cs / 2, cs * 0.14, 0, Math.PI * 2); ctx.fill(); } }
+  },
+};
+
+// ---------------------------------------------------------------------
+//  48. Mangala (geleneksel Türk zekâ oyunu)
+// ---------------------------------------------------------------------
+// Kuyular: 0-5 Kerem (soldan sağa), 6 Kerem'in hazinesi, 7-12 dede (sağdan sola), 13 dedenin hazinesi
+MG.mangala = {
+  setup(z) { z.wins = 0; z.extra = 0; S.datesTotal = 0; S.lightsTotal = 2; S.deedsTotal = 3; S.cardsTotal = 0; S.cardsGot = 0; this.newGame(z); },
+  newGame(z) { z.p = Array(14).fill(4); z.p[6] = 0; z.p[13] = 0; z.turn = 1; z.over = false; z.wait = 0; z.msg = ''; z.hl = -1; },
+  sow(p, i, me) {
+    const myStore = me === 1 ? 6 : 13, opStore = me === 1 ? 13 : 6, mine = (k) => me === 1 ? k <= 5 : k >= 7 && k <= 12;
+    let st = p[i]; p[i] = 0; let k = i;
+    if (st === 1) { k = (k + 1) % 14; if (k === opStore) k = (k + 1) % 14; p[k]++; }
+    else { p[k]++; st--; while (st > 0) { k = (k + 1) % 14; if (k === opStore) continue; p[k]++; st--; } }
+    let extra = false, cap = 0;
+    if (k === myStore) extra = true;
+    else if (!mine(k) && k !== opStore && p[k] % 2 === 0) { cap = p[k]; p[myStore] += p[k]; p[k] = 0; }
+    else if (mine(k) && p[k] === 1) { const opp = 12 - k; if (p[opp] > 0) { cap = p[opp] + 1; p[myStore] += p[opp] + 1; p[opp] = 0; p[k] = 0; } }
+    const side1 = [0, 1, 2, 3, 4, 5].reduce((s, j) => s + p[j], 0), side2 = [7, 8, 9, 10, 11, 12].reduce((s, j) => s + p[j], 0);
+    let end = false; if (side1 === 0 || side2 === 0) { end = true; if (side1 === 0) { p[6] += side2; [7, 8, 9, 10, 11, 12].forEach(j => p[j] = 0); } else { p[13] += side1; [0, 1, 2, 3, 4, 5].forEach(j => p[j] = 0); } }
+    return { extra, cap, end, last: k };
+  },
+  move(z, i, me) {
+    if (z.p[i] === 0) return false; const r = this.sow(z.p, i, me); z.hl = r.last; Sound.tone(me === 1 ? 600 : 440, 0.05, 'triangle', 0.03);
+    if (r.cap) { Sound.play(me === 1 ? 'date' : 'pick'); z.msg = (me === 1 ? 'Sen ' : 'Dede ') + r.cap + ' taş aldı!'; }
+    if (me === 1) { if (z.p[6] >= 8 && S.deeds < 1) mgDeed('İyilik: Hazinende 8 taş oldu!'); if (z.p[6] >= 16 && S.deeds < 2) mgDeed('İyilik: Hazinende 16 taş oldu!'); if (r.extra && z.extra < 2) { z.extra++; mgLight(W / 2, H * 0.3); } }
+    if (r.end) { z.over = true; z.overT = 2.4; if (z.p[6] > z.p[13]) { Sound.play('star'); mgDeed('İyilik: Mangalayı kazandın, dede alnından öptü!'); mgFinish(z, 2.4); } else { mgLoseLife(W / 2, H / 2, z.p[6] === z.p[13] ? 'Berabere' : 'Dede kazandı'); } return true; }
+    z.turn = r.extra ? me : 3 - me; if (r.extra) z.msg = (me === 1 ? 'Son taş hazineye düştü, bir daha oyna!' : 'Dede bir daha oynuyor.');
+    return true;
+  },
+  aiPick(z) { let best = null; for (let i = 7; i <= 12; i++) { if (!z.p[i]) continue; const p = z.p.slice(), r = this.sow(p, i, 2); const sc = (p[13] - z.p[13]) * 2 + (r.extra ? 3 : 0) - (p[6] - z.p[6]) + Math.random() * (S.easy ? 6 : 1.5); if (!best || sc > best.sc) best = { sc, i }; } return best && best.i; },
+  update(z, dt) { S.time += dt; if (!z.hint && S.time > 3.4) { z.hint = true; toast('Alttaki kuyulardan birine dokun: taşlar sağa doğru birer birer dağılır. Son taş hazinene düşerse bir daha oynarsın!', 4800); } if (z.finT != null) { mgTickFinish(z, dt); return; } if (z.over) { z.overT -= dt; if (z.overT <= 0 && S.mode === 'play') this.newGame(z); return; } if (z.turn === 2) { z.wait -= dt; if (z.wait <= 0) { const i = this.aiPick(z); if (i != null) this.move(z, i, 2); z.wait = 0.9; } } },
+  geo() { const a = mgArea(), w = Math.min(a.w - 10, 640), pw = w / 8, x0 = (W - w) / 2, y0 = a.y + 60 + Math.max(0, (a.h - 60 - pw * 2.6) / 2); return { x0, y0, pw, w }; },
+  pitXY(G, k) { if (k === 6) return [G.x0 + G.pw * 7.5, G.y0 + G.pw * 1.1, true]; if (k === 13) return [G.x0 + G.pw * 0.5, G.y0 + G.pw * 1.1, true]; if (k <= 5) return [G.x0 + G.pw * (1.5 + k), G.y0 + G.pw * 1.75]; return [G.x0 + G.pw * (1.5 + (12 - k)), G.y0 + G.pw * 0.45]; },
+  down(z, x, y) { if (z.turn !== 1 || z.over || z.finT != null) return; const G = this.geo(); for (let k = 0; k <= 5; k++) { const [px, py] = this.pitXY(G, k); if (Math.hypot(x - px, y - py) < G.pw * 0.48) { if (this.move(z, k, 1) && z.turn === 2) z.wait = 1.0; return; } } },
+  key(z, code) { const m = /^(Digit|Numpad)([1-6])$/.exec(code); if (!m || z.turn !== 1 || z.over) return false; if (this.move(z, +m[2] - 1, 1) && z.turn === 2) z.wait = 1.0; return true; },
+  render(z) {
+    const G = this.geo();
+    mgMsg(z.over ? (z.p[6] > z.p[13] ? 'Kazandın!' : 'Oyun bitti') : z.turn === 1 ? 'Sıra sende: alttaki kuyulardan birini seç' : 'Dede düşünüyor…', G.y0 - 30, 16, z.turn === 1 ? '#ffd56b' : '#fffbe8');
+    if (z.msg) mgMsg(z.msg, G.y0 - 8, 14, '#d8f2ff');
+    ctx.fillStyle = '#8a5a2b'; rr(ctx, G.x0, G.y0 - G.pw * 0.1, G.w, G.pw * 2.4, G.pw * 0.5); ctx.fill(); ctx.strokeStyle = '#6b4220'; ctx.lineWidth = 3; ctx.stroke();
+    for (let k = 0; k < 14; k++) {
+      const [x, y, store] = this.pitXY(G, k), rad = G.pw * 0.42, n = z.p[k];
+      ctx.fillStyle = '#5a3a1e'; ctx.beginPath(); if (store) ctx.ellipse(x, y, rad, G.pw * 0.95, 0, 0, Math.PI * 2); else ctx.arc(x, y, rad, 0, Math.PI * 2); ctx.fill();
+      if (k === z.hl) { ctx.strokeStyle = '#ffd56b'; ctx.lineWidth = 3; ctx.stroke(); }
+      for (let s = 0; s < Math.min(n, 18); s++) { const ang = s * 2.4, rr0 = (store ? 0.55 : 0.5) * rad * Math.sqrt((s + 0.5) / Math.min(n, 18)); ctx.fillStyle = ['#e8506a', '#4fb4e8', '#8fd86a', '#ffd56b', '#ffffff'][s % 5]; ctx.beginPath(); ctx.arc(x + Math.cos(ang) * rr0, y + Math.sin(ang) * rr0 * (store ? 2 : 1), Math.max(2.5, G.pw * 0.07), 0, Math.PI * 2); ctx.fill(); }
+      ctx.fillStyle = '#fffbe8'; ctx.font = `bold ${Math.round(G.pw * 0.22)}px "Segoe UI", sans-serif`; ctx.textAlign = 'center';
+      if (store) ctx.fillText(String(n), x, y + (k === 6 ? G.pw * 1.3 : G.pw * 1.3)); else ctx.fillText(String(n), x, k <= 5 ? y + rad + G.pw * 0.25 : y - rad - G.pw * 0.08);
+    }
+    ctx.font = 'bold 12px "Segoe UI", sans-serif'; ctx.fillStyle = '#ffd56b'; ctx.fillText('KEREM', G.x0 + G.pw * 7.5, G.y0 - G.pw * 0.25); ctx.fillStyle = '#d8f2ff'; ctx.fillText('DEDE', G.x0 + G.pw * 0.5, G.y0 - G.pw * 0.25);
+  },
+};
+
+// ---------------------------------------------------------------------
+//  49. Buzda Kayma (duvara kadar kay, hedefe ulaş)
+// ---------------------------------------------------------------------
+MG.ice = {
+  setup(z) { z.n = 7; z.round = 0; S.datesTotal = 0; S.lightsTotal = 2; S.deedsTotal = 3; S.cardsTotal = 0; S.cardsGot = 0; this.newRound(z); },
+  solve(n, rocks, s, g) { const key = (p) => p[0] + ',' + p[1], q = [[s, 0]], seen = new Set([key(s)]); while (q.length) { const [p, d] = q.shift(); if (p[0] === g[0] && p[1] === g[1]) return d; for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { let x = p[0], y = p[1]; while (true) { const nx = x + dx, ny = y + dy; if (nx < 0 || ny < 0 || nx >= n || ny >= n || rocks.has(ny * n + nx)) break; x = nx; y = ny; if (x === g[0] && y === g[1]) break; } const k = key([x, y]); if (!seen.has(k)) { seen.add(k); q.push([[x, y], d + 1]); } } } return -1; },
+  newRound(z) {
+    const n = z.n, want = [[3, 5], [4, 7], [5, 9]][z.round];
+    for (let t = 0; t < 500; t++) { const rocks = new Set(); const k = 6 + Math.floor(Math.random() * 6); while (rocks.size < k) rocks.add(Math.floor(Math.random() * n * n)); const free = [...Array(n * n).keys()].filter(i => !rocks.has(i)); const s = free[Math.floor(Math.random() * free.length)], g = free[Math.floor(Math.random() * free.length)]; if (s === g) continue; const sp = [s % n, Math.floor(s / n)], gp = [g % n, Math.floor(g / n)]; const d = this.solve(n, rocks, sp, gp); if (d >= want[0] && d <= want[1]) { z.rocks = rocks; z.px = sp[0]; z.py = sp[1]; z.fx = z.px; z.fy = z.py; z.sx = sp[0]; z.sy = sp[1]; z.gx = gp[0]; z.gy = gp[1]; z.best = d; z.moves = 0; z.done = false; z.slideT = 0; return; } }
+  },
+  slide(z, d) { if (z.done || z.slideT > 0 || z.finT != null) return; const [dx, dy] = DIRV[d], n = z.n; let x = z.px, y = z.py; while (true) { const nx = x + dx, ny = y + dy; if (nx < 0 || ny < 0 || nx >= n || ny >= n || z.rocks.has(ny * n + nx)) break; x = nx; y = ny; if (x === z.gx && y === z.gy) break; } if (x === z.px && y === z.py) { Sound.tone(220, 0.05, 'square', 0.02); return; } z.px = x; z.py = y; z.moves++; z.slideT = 0.01; Sound.tone(700, 0.08, 'sine', 0.02);
+    if (x === z.gx && y === z.gy) { z.done = true; z.doneT = 1.6; Sound.play('star'); mgDeed(['İyilik: Kızak evine ulaştın!', 'İyilik: Buzlu göl geçildi!', 'İyilik: Bütün buz bulmacaları çözüldü!'][z.round]); if (z.round > 0 && z.moves <= z.best + 1) mgLight(W / 2, H * 0.3); } },
+  update(z, dt) { S.time += dt; const sp = dt * 14; const dx = z.px - z.fx, dy = z.py - z.fy, dd = Math.hypot(dx, dy); if (dd > 0.001) { const st = Math.min(dd, sp); z.fx += dx / dd * st; z.fy += dy / dd * st; } else z.slideT = 0; if (!z.hint && S.time > 3.4) { z.hint = true; toast(isTouch() ? 'Parmağını kaydır: Kerem buzda bir kayaya çarpana kadar kayar. Bayrağa ulaş!' : 'Ok tuşlarıyla kay: Kerem buzda bir kayaya çarpana kadar kayar. Bayrağa ulaş! R: baştan.', 4200); } if (z.done) { z.doneT -= dt; if (z.doneT <= 0) { z.round++; if (z.round >= 3) mgFinish(z, 0.1); else this.newRound(z); } } mgTickFinish(z, dt); },
+  key(z, code) { if (code === 'KeyR') { z.px = z.sx; z.py = z.sy; z.fx = z.px; z.fy = z.py; z.moves++; return true; } const d = KEYDIR[code]; if (!d) return false; this.slide(z, d); return true; },
+  down(z, x, y) { if (mgBtnHit(z, x, y) === 'reset') { z.px = z.sx; z.py = z.sy; z.fx = z.px; z.fy = z.py; z.moves++; return; } mgSwDown(z, x, y); }, move(z, x, y) { const d = mgSwMove(z, x, y, 28); if (d) this.slide(z, d); }, up(z) { mgSwUp(z); },
+  grid(z) { const a = mgArea(); a.y += 30; a.h -= 30 + 60; return mgGrid(z.n, z.n, a, 70); },
+  render(z) {
+    const gr = this.grid(z), cs = gr.cell, n = z.n;
+    mgMsg(`Göl ${Math.min(3, z.round + 1)}/3   ·   Kayış: ${z.moves}   ·   En az: ${z.best}`, gr.y - 10, 15);
+    for (let i = 0; i < n * n; i++) { const x = gr.x + (i % n) * cs, y = gr.y + Math.floor(i / n) * cs; ctx.fillStyle = (i + Math.floor(i / n)) % 2 ? '#cfe8f8' : '#c2dff3'; ctx.fillRect(x, y, cs, cs); ctx.fillStyle = 'rgba(255,255,255,.5)'; ctx.fillRect(x + cs * 0.2, y + cs * 0.25, cs * 0.25, 2); if (z.rocks.has(i)) { ctx.fillStyle = '#8a8e98'; ctx.beginPath(); ctx.ellipse(x + cs / 2, y + cs / 2, cs * 0.4, cs * 0.34, 0.3, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.ellipse(x + cs * 0.45, y + cs * 0.3, cs * 0.22, cs * 0.08, 0, 0, Math.PI * 2); ctx.fill(); } }
+    const fx = gr.x + (z.gx + 0.5) * cs, fy = gr.y + (z.gy + 0.5) * cs; ctx.fillStyle = '#8a8e98'; ctx.fillRect(fx - 2, fy - cs * 0.4, 4, cs * 0.75); ctx.fillStyle = '#e8506a'; ctx.beginPath(); ctx.moveTo(fx + 2, fy - cs * 0.4); ctx.lineTo(fx + cs * 0.35, fy - cs * 0.28); ctx.lineTo(fx + 2, fy - cs * 0.16); ctx.fill();
+    ctx.save(); ctx.translate(gr.x + (z.fx + 0.5) * cs, gr.y + (z.fy + 0.5) * cs); ctx.scale(cs / 34, cs / 34); drawKeremTop(0, 0, -Math.PI / 2, 0); ctx.restore();
+    mgBtn(z, 'reset', W / 2 - 60, gr.y + cs * n + 14, 120, 40, '⟲ Baştan');
+    if (z.done) mgMsg('Bayrağa ulaştın!', gr.y + cs * n / 2, 26, '#2f6fa8');
+  },
+};
+
+// ---------------------------------------------------------------------
+//  50. Resim Bulmaca (sayı ipuçlarıyla kareleri boya)
+// ---------------------------------------------------------------------
+const NONO = [
+  ['Kalp', ['.#.#.', '#####', '#####', '.###.', '..#..']],
+  ['Fener', ['..#..', '.###.', '.#.#.', '.###.', '#####']],
+  ['Ağaç', ['.###.', '#####', '.###.', '..#..', '.###.']],
+  ['Hilal', ['.###.', '##...', '#....', '##...', '.###.']],
+  ['Ev', ['..#..', '.###.', '#####', '#.#.#', '#####']],
+];
+MG.nono = {
+  setup(z) { z.pool = NONO.slice().sort(() => Math.random() - 0.5); z.round = 0; S.datesTotal = 0; S.lightsTotal = 2; S.deedsTotal = 3; S.cardsTotal = 0; S.cardsGot = 0; this.newRound(z); },
+  clue(line) { const out = []; let k = 0; for (const c of line) { if (c) k++; else if (k) { out.push(k); k = 0; } } if (k) out.push(k); return out.length ? out : [0]; },
+  newRound(z) { const [name, rows] = z.pool[z.round]; z.name = name; z.sol = rows.map(r => Array.from(r).map(c => c === '#' ? 1 : 0)); z.n = 5; z.g = z.sol.map(r => r.map(() => 0)); z.rc = z.sol.map(r => this.clue(r)); z.cc = [0, 1, 2, 3, 4].map(c => this.clue(z.sol.map(r => r[c]))); z.taps = 0; z.done = false; },
+  ok(z) { for (let r = 0; r < 5; r++) if (this.clue(z.g[r]).join() !== z.rc[r].join()) return false; for (let c = 0; c < 5; c++) if (this.clue(z.g.map(row => row[c])).join() !== z.cc[c].join()) return false; return true; },
+  geo(z) { const a = mgArea(), cs = Math.min(64, (a.w - 20) / 7.5, (a.h - 120) / 7.5), w = cs * 7.5, x0 = (W - w) / 2 + cs * 2.5, y0 = a.y + 40 + cs * 2.5; return { cs, x0, y0 }; },
+  down(z, x, y) { if (z.done || z.finT != null) return; const G = this.geo(z), c = Math.floor((x - G.x0) / G.cs), r = Math.floor((y - G.y0) / G.cs); if (r < 0 || c < 0 || r >= 5 || c >= 5) return; z.g[r][c] = z.g[r][c] ? 0 : 1; z.taps++; Sound.tone(z.g[r][c] ? 640 : 420, 0.03, 'triangle', 0.02);
+    if (this.ok(z)) { z.done = true; z.doneT = 2.0; Sound.play('star'); mgDeed(['İyilik: İlk resim ortaya çıktı!', 'İyilik: İkinci resim de tamam!', 'İyilik: Bütün resimler tamamlandı!'][z.round]); const need = z.sol.flat().filter(v => v).length; if (z.round > 0 && z.taps <= need + 4) mgLight(W / 2, H * 0.3); } },
+  update(z, dt) { S.time += dt; if (!z.hint && S.time > 3.4) { z.hint = true; toast('Satır ve sütundaki sayılar, art arda kaç kare boyanacağını gösterir. Karelere dokunarak resmi ortaya çıkar!', 4600); } if (z.done) { z.doneT -= dt; if (z.doneT <= 0) { z.round++; if (z.round >= 3) mgFinish(z, 0.1); else this.newRound(z); } } mgTickFinish(z, dt); },
+  render(z) {
+    const G = this.geo(z), cs = G.cs;
+    mgMsg(z.done ? `Resim: ${z.name}!` : `Resim ${Math.min(3, z.round + 1)}/3`, G.y0 - cs * 2.5 - 8, 17, z.done ? '#ffd56b' : '#fffbe8');
+    ctx.fillStyle = 'rgba(255,250,235,.92)'; rr(ctx, G.x0 - cs * 2.5, G.y0 - cs * 2.5, cs * 7.5, cs * 7.5, 12); ctx.fill();
+    ctx.fillStyle = '#3a2a18'; ctx.font = `bold ${Math.round(cs * 0.34)}px "Segoe UI", sans-serif`; ctx.textAlign = 'center';
+    for (let r = 0; r < 5; r++) { const okR = this.clue(z.g[r]).join() === z.rc[r].join(); ctx.fillStyle = okR ? '#3f8a4a' : '#3a2a18'; ctx.textAlign = 'right'; ctx.fillText(z.rc[r].join('  '), G.x0 - 8, G.y0 + (r + 0.62) * cs); }
+    for (let c = 0; c < 5; c++) { const okC = this.clue(z.g.map(row => row[c])).join() === z.cc[c].join(); ctx.fillStyle = okC ? '#3f8a4a' : '#3a2a18'; ctx.textAlign = 'center'; z.cc[c].slice().reverse().forEach((v, k) => ctx.fillText(String(v), G.x0 + (c + 0.5) * cs, G.y0 - 8 - k * cs * 0.42)); }
+    for (let r = 0; r < 5; r++) for (let c = 0; c < 5; c++) { const x = G.x0 + c * cs, y = G.y0 + r * cs; ctx.fillStyle = z.g[r][c] ? (z.done ? '#e8506a' : '#3a5a8a') : '#ffffff'; ctx.fillRect(x + 1, y + 1, cs - 2, cs - 2); ctx.strokeStyle = '#c9b89a'; ctx.lineWidth = 1; ctx.strokeRect(x, y, cs, cs); }
   },
 };
 
