@@ -32,6 +32,62 @@ Bütün bölümler baştan açıktır, kilit yoktur. Bağlantı başta yalnızca
 
 ## Bölümler
 
+Bölümler, farklı oyun türleri art arda gelsin diye **karışık sırada** oynanır. Oyundaki sıra:
+
+1. Çarşı
+2. Meyve Eşleştirme
+3. Dede Evine Yolculuk
+4. Hafıza Kartları
+5. Damlar
+6. Kandil Avı
+7. Kuzular Ağıla
+8. Üç Taş
+9. Uçurtma Bayramı
+10. Kayan Yapboz
+11. Sahura Doğru
+12. Yağmur Kovası
+13. Kursa Giden Yol
+14. Fener Sırası
+15. Mektup Güvercini
+16. Karşıya Geçiş
+17. İftar Sofrası
+18. Kelime Avı
+19. Bereket Bahçesi
+20. Dedeyle Top
+21. Gece Bekçisi Fener
+22. Koli İtme
+23. Engel Atlama
+24. Kadir Gecesi
+25. Su Yolu
+26. Bulut Dağıtma
+27. Kızak Yarışı
+28. Harf Tahmini
+29. Işıkları Yak
+30. Hurma Labirenti
+31. Bayram Sabahı
+32. Dört Fener
+33. Yardım Kolisi
+34. Balon İnişi
+35. Deniz Yolculuğu
+36. Renk Şifresi
+37. Taş Duvar
+38. Ağaç Dikme Şenliği
+39. Tarla Taşları
+40. Bahçe Birleştirme
+41. Pide Dağıtımı
+42. Fener Balonları
+43. Mangala
+44. Fenerleri Yak
+45. Kiremit Boyama
+46. Kutu Kapmaca
+47. Buzda Kayma
+48. Ters Çevir
+49. Resim Bulmaca
+50. Bilgi Yarışması
+
+Aşağıdaki açıklamalar bölümleri yapılış sırasına ve türüne göre gruplar; oradaki numaralar yapılış sırasıdır.
+
+
 1. **Çarşı:** Su tasını bul, susamış kediye götür.
 2. **Damlar:** Kuş yavrusunu kiremitli çatılardan geçirip yuvasına götür.
 3. **Sahura Doğru:** Güvercinlere yem, kediye su götür, gün ağarmadan camiye var.

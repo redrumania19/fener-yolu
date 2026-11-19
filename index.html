@@ -1165,6 +1165,17 @@ const CARD_POS = [
   [],
 ];
 
+// Bölümler oyun türleri karışık gelsin diye bu sırayla oynanır (ilk liste yapım sırasıdır)
+const LEVEL_ORDER = [0, 16, 6, 18, 1, 25, 12, 39, 8, 17, 2, 36, 7, 31, 14, 27, 3, 20, 15, 26, 9, 34, 44, 4, 19, 29, 10, 42, 33, 28, 5, 40, 23, 35, 13, 41, 30, 11, 32, 24, 38, 43, 47, 21, 37, 45, 48, 46, 49, 22];
+(() => {
+  const L0 = LEVELS.slice(), P0 = LEVEL_PAR.slice(), C0 = CARD_POS.slice();
+  LEVEL_ORDER.forEach((o, i) => { LEVELS[i] = L0[o]; LEVEL_PAR[i] = P0[o]; CARD_POS[i] = C0[o] || []; });
+  LEVELS.forEach((l, i) => {
+    l.intro = l.intro.replace(/^Bölüm \d+: /, `Bölüm ${i + 1}: `);
+    l.outro = (l.outro || '').replace(' Bütün bölümleri bitirdin!', '') + (i === LEVELS.length - 1 ? ' Bütün bölümleri bitirdin!' : '');
+  });
+})();
+
 const BADGES = [
   { id: 'ilk', icon: '✦', name: 'İlk Adım', desc: 'Bir bölümü bitir.' },
   { id: 'saglam', icon: '♥', name: 'Sağlam Adım', desc: 'Bir bölümü hiç can kaybetmeden bitir.' },
@@ -6801,6 +6812,15 @@ async function lbAuth() {
   store.set('fbauth', n); return n;
 }
 const myUid = () => (store.get('fbauth', null) || {}).uid || '';
+function migrateOrder() {
+  if (store.get('sira', 1) >= 2) return;
+  for (const k of ['yildiz', 'rekor', 'sure', 'bitti', 'iyilikTam']) {
+    const old = store.get(k, null); if (!old || typeof old !== 'object') continue;
+    const nw = {}; LEVEL_ORDER.forEach((o, i) => { if (old[o] != null) nw[i] = old[o]; }); store.set(k, nw);
+  }
+  store.set('sira', 2);
+}
+migrateOrder();
 const totalScore = () => { const b = store.get('rekor', {}); return LEVELS.reduce((a, _, i) => a + (b[i] || 0), 0); };
 const totalStars = () => { const b = store.get('yildiz', {}); return LEVELS.reduce((a, _, i) => a + (b[i] || 0), 0); };
 const esc = (t) => String(t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -7009,17 +7029,18 @@ function showHelp(back) {
       <li><b>Zıplama minderine</b> basarsan çok yükseğe fırlarsın.</li>
       <li><b>Yıldızlar:</b> ★ Bölümü bitir · ★ Bütün iyilikleri yap · ★ Bütün ışıkları ve hurmaların en az dörtte üçünü de topla.</li>
       <li><b>Kolay mod:</b> 5 can olur, engeller daha yavaş hareket eder. Ana menüden açabilirsin.</li>
-      <li><b>7. bölüm (yarış):</b> Kamera arabanın arkasında, yolda 3 şerit var. Araba kendiliğinden ilerler. ◀ ▶ ile şerit değiştirirsin, ↑ / Boşluk ile zıplarsın (havada bir kez daha), ↓ ile kayarsın. Telefonda tuş yoktur: parmağını sağa-sola kaydırınca şerit değişir, yukarı kaydırınca (ya da dokununca) zıplarsın, aşağı kaydırınca kayarsın. Yüksekte duran bulutların altından kayarak geçilir. Kötü huy bulutlarına çarparsan yavaşlarsın; güzel huyları toplarsan hızlanırsın. Arkadan gelen kara bulut (dikiz aynasında görünür) sana yetişirse bir can gider.</li>
-      <li><b>8. bölüm (labirent):</b> Kuş bakışı bir labirentte ok tuşları ya da W A S D ile dört yöne yürürsün. Telefonda parmağını kaydırırsın: Kerem o yöne duvara kadar yürür. Parmağını kaldırmadan başka yöne çekersen ilk açıklıkta o yöne döner. Dokununca durur. Sağ üstteki harita gezdiğin yerleri ve kursun kapısını gösterir. Kötü huy bulutları labirentte serbestçe dolaşır; can almaz, sadece seni geri iter.</li>
-      <li><b>11. bölüm (kızak):</b> 7. bölüm gibi oynanır; bu sefer Kerem karlı dağdan kızakla iner. Buz parçaları yavaşlatır.</li>
-      <li><b>9. bölüm (uçurtma):</b> ZIPLA / Boşluk tuşuna basılı tutunca yükselirsin, bırakınca süzülürsün. Ağaçlara takılan uçurtmaları kurtarmak iyiliktir.</li>
-      <li><b>10. bölüm (karanlık labirent):</b> Sadece fenerinin ışığı etrafı aydınlatır. Kapı ve kayıp ışıklar uzaktan hafifçe parlar.</li>
-      <li><b>12. bölüm (ağaç dikme):</b> Fidanı al, çukura dik; her dikilen fidanla tepe biraz daha yeşerir.</li>
-      <li><b>14. bölüm (deniz):</b> 7. ve 11. bölüm gibi şeritli bir yolculuk; bu kez Kerem kayıkla limana gider. Dalgalar yavaşlatır.</li>
-      <li><b>15. bölüm (güvercin):</b> Ekrana dokundukça (ya da Boşluk / ↑ tuşuyla) güvercin kanat çırpıp yükselir, bırakınca alçalır. Bacalara, damlara ve kötü huy bulutlarına çarpmadan aradaki boşluklardan geç; 3 mektubu topla.</li>
-      <li><b>16. bölüm (meyve bahçesi):</b> Havaya fırlayan meyveleri parmağınla (bilgisayarda fareye basılı tutarak) üstlerinden kaydırıp kes. Kötü huy bulutlarını kesersen bir can gider. Her 15 meyve bir iyilik sayılır.</li>
-      <li><b>17-26. bölümler:</b> Her biri ayrı bir oyun: meyve eşleştirme, kayan yapboz, hafıza kartları, su yolu bulmacası, kelime avı, fener yakma (top ve raket), bilgi yarışması, yardım kolisi kulesi, bahçe birleştirme ve kandil avı. Her bölümün başında ne yapılacağı kısaca yazar.</li>
-      <li><b>13. bölüm (kuzular):</b> Kerem kendiliğinden yürür; ok tuşlarıyla ya da telefonda parmağını kaydırarak yön verirsin. Topladığın her kuzu arkana dizilir. Çite, taşa, kendi kuzu sırana ya da kötü huy bulutuna çarparsan bir can gider. 12 kuzu toplanınca ağılın kapısı açılır.</li>
+      <li><b>Dede Evine Yolculuk (yarış):</b> Kamera arabanın arkasında, yolda 3 şerit var. Araba kendiliğinden ilerler. ◀ ▶ ile şerit değiştirirsin, ↑ / Boşluk ile zıplarsın (havada bir kez daha), ↓ ile kayarsın. Telefonda tuş yoktur: parmağını sağa-sola kaydırınca şerit değişir, yukarı kaydırınca (ya da dokununca) zıplarsın, aşağı kaydırınca kayarsın. Yüksekte duran bulutların altından kayarak geçilir. Kötü huy bulutlarına çarparsan yavaşlarsın; güzel huyları toplarsan hızlanırsın. Arkadan gelen kara bulut (dikiz aynasında görünür) sana yetişirse bir can gider.</li>
+      <li><b>Kursa Giden Yol (labirent):</b> Kuş bakışı bir labirentte ok tuşları ya da W A S D ile dört yöne yürürsün. Telefonda parmağını kaydırırsın: Kerem o yöne duvara kadar yürür. Parmağını kaldırmadan başka yöne çekersen ilk açıklıkta o yöne döner. Dokununca durur. Sağ üstteki harita gezdiğin yerleri ve kursun kapısını gösterir. Kötü huy bulutları labirentte serbestçe dolaşır; can almaz, sadece seni geri iter.</li>
+      <li><b>Kızak Yarışı:</b> Dede Evine Yolculuk gibi oynanır; bu sefer Kerem karlı dağdan kızakla iner. Buz parçaları yavaşlatır.</li>
+      <li><b>Uçurtma Bayramı:</b> ZIPLA / Boşluk tuşuna basılı tutunca yükselirsin, bırakınca süzülürsün. Ağaçlara takılan uçurtmaları kurtarmak iyiliktir.</li>
+      <li><b>Gece Bekçisi Fener (karanlık labirent):</b> Sadece fenerinin ışığı etrafı aydınlatır. Kapı ve kayıp ışıklar uzaktan hafifçe parlar.</li>
+      <li><b>Ağaç Dikme Şenliği:</b> Fidanı al, çukura dik; her dikilen fidanla tepe biraz daha yeşerir.</li>
+      <li><b>Deniz Yolculuğu:</b> Diğer yarışlar gibi şeritli bir yolculuk; bu kez Kerem kayıkla limana gider. Dalgalar yavaşlatır.</li>
+      <li><b>Mektup Güvercini:</b> Ekrana dokundukça (ya da Boşluk / ↑ tuşuyla) güvercin kanat çırpıp yükselir, bırakınca alçalır. Bacalara, damlara ve kötü huy bulutlarına çarpmadan aradaki boşluklardan geç; 3 mektubu topla.</li>
+      <li><b>Bereket Bahçesi:</b> Havaya fırlayan meyveleri parmağınla (bilgisayarda fareye basılı tutarak) üstlerinden kaydırıp kes. Kötü huy bulutlarını kesersen bir can gider. Her 15 meyve bir iyilik sayılır.</li>
+      <li><b>Karışık sıra:</b> Bölümler farklı oyun türleri art arda gelsin diye karışık sıradadır; menüden istediğin bölümü seçebilirsin.</li>
+      <li><b>Mini oyunlar:</b> Bölümlerin çoğu ayrı bir oyundur: eşleştirme, yapboz, hafıza, bulmaca, kelime, top ve raket, bilgi yarışması, Mangala gibi. Her bölümün başında ne yapılacağı kısaca yazar.</li>
+      <li><b>Kuzular Ağıla:</b> Kerem kendiliğinden yürür; ok tuşlarıyla ya da telefonda parmağını kaydırarak yön verirsin. Topladığın her kuzu arkana dizilir. Çite, taşa, kendi kuzu sırana ya da kötü huy bulutuna çarparsan bir can gider. 12 kuzu toplanınca ağılın kapısı açılır.</li>
       <li><b>Bilgi yaprakları:</b> Oyun sırasında toplanınca oyun durmaz; bölüm sonunda okunur. Her bölümde iki tane parlayan yaprak saklı. Bazılarına ulaşmak için ikinci zıplama gerekir. Topladıkların <b>Bilgi Defteri</b>'nde birikir.</li>
       <li><b>Rozetler ve süre:</b> Hiç can kaybetmeden ya da hızlı bitirerek rozet kazanırsın. Her bölümün en iyi süresi saklanır.</li>
       <li>Yolda gördüğün <b>fenerler</b> yanınca oyun oradan devam eder.</li>
