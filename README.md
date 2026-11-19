@@ -48,6 +48,16 @@ Bütün bölümler baştan açıktır, kilit yoktur. Bağlantı başta yalnızca
 14. **Deniz Yolculuğu:** 7. ve 11. bölümün şeritli yolculuğu, bu kez kayıkla denizde. Kenarlarda deniz fenerleri, yelkenliler ve adacıklar var; dalgalar yavaşlatır. Sonunda liman var.
 15. **Mektup Güvercini:** Dokun ve uç tarzı: ekrana dokundukça (ya da Boşluk / ↑ ile) güvercin kanat çırpar. Bacalar ve kötü huy bulutları arasındaki boşluklardan geçip dedenin evine mektup götürür; yolda yem taneleri ve 3 mektup toplanır.
 16. **Bereket Bahçesi:** Meyve kesme tarzı: Kur'an'da adı geçen meyveler (hurma, üzüm, nar, incir, zeytin) havaya fırlar; parmakla (bilgisayarda fareye basılı tutarak) üstlerinden kaydırınca kesilir. Kötü huy bulutlarını kesmek bir can götürür. Her 15 meyve bir iyilik sayılır.
+17. **Meyve Eşleştirme:** Üçlü eşleştirme: yan yana iki meyveyi yer değiştirip aynı meyvelerden üç (ya da daha fazla) tane dizerek 22 hamlede 100 meyve toplanır. 4'lü eşleşmeler kayıp ışık verir.
+18. **Kayan Yapboz:** Üç resim (cami silueti, iftar sofrası, çayır) karışık parçalardan kaydırılarak tamamlanır.
+19. **Hafıza Kartları:** Üç masada kartlar çevrilir, aynı resimli eşler bulunur.
+20. **Su Yolu:** Borular döndürülerek çeşmeden bahçeye su yolu kurulur; her oyunda yeni bulmaca.
+21. **Kelime Avı:** Harf tablosunda SABIR, ŞÜKÜR, MERHAMET gibi güzel kelimeler sürüklenerek bulunur; iki de gizli kelime var.
+22. **Fenerleri Yak:** Top ve raketle sönük fenerler yakılır; top kaçarsa bir can gider.
+23. **Bilgi Yarışması:** Bilgi Defteri'ndeki kaynaklı sözlerden 10 soru: âyet hangi sûrede, hadis hangi kitapta?
+24. **Yardım Kolisi:** Sallanan koli tam zamanında bırakılarak 12 koli üst üste dizilir.
+25. **Bahçe Birleştirme:** Kaydırarak aynı bitkiler birleştirilir: tohum, filiz, fidan, genç ağaç, ağaç, meyveli ağaç.
+26. **Kandil Avı:** Pencerelerde beliren kandillere çabuk dokunulur; kötü huy bulutlarına dokunmamak gerekir.
 
 ## Kullanıcı adı ve lider tablosu
 
@@ -88,6 +98,7 @@ Her bölüm bitince kaynağıyla birlikte bir âyet ya da hadis gösterilir:
 - “Denizde yüce dağlar gibi yükselen gemiler de O’nundur.” (Rahmân Sûresi, 55/24)
 - “Eğer siz Allah’a hakkıyla tevekkül etseydiniz, kuşları rızıklandırdığı gibi sizi de rızıklandırırdı…” (Tirmizî, Zühd 33; İbn Mâce, Zühd 14)
 - “…Üzüm bağları, zeytin ve nar bahçeleri çıkardık… Meyve verdiği zaman meyvesine ve olgunlaşmasına bakın!…” (En’âm Sûresi, 6/99)
+- 17-26. bölümler: Nahl 16/11 · Âl-i İmrân 3/191 · Tâhâ 20/114 · Enbiyâ 21/30 · Alak 96/1 · İbrâhim 14/1 · Zümer 39/9 · Mâide 5/2 · Bakara 2/261 · En’âm 6/160
 
 Bilgi yapraklarındaki 32 metnin kaynakları: Buhârî, Fezâilü’l-Kur’ân 21 · Zümer 39/9 · Buhârî, Menâkıb 23 · Buhârî, Edeb 69 · Tirmizî, Birr 36 · Ebû Dâvûd, Zekât 41 · Buhârî, Edeb 18 · Buhârî, İlim 11 · Bakara 2/183 · Buhârî, Savm 2 · Buhârî, Savm 45 · Ebû Dâvûd, Savm 21 · Buhârî, Leyletü’l-Kadr 3 · Buhârî, Îmân 25 · Bakara 2/185 · Buhârî, Edeb 28 · Müslim, Îmân 147 · Buhârî, Îmân 4 · Ebû Dâvûd, Salât 50; Tirmizî, Salât 51 · Buhârî, Salât 88; Müslim, Birr 65 · Müslim, Îmân 93 · Müslim, Zikir 38 · Müslim, Tahâret 1 · Rahmân 55/6 · Tirmizî, Birr 16 · Müslim, Sayd 57 · Buhârî, Edeb 76; Müslim, Birr 107 · Bakara 2/153 · Tirmizî, Radâ 11 · Buhârî, Zekât 10; Müslim, Zekât 66 · A’râf 7/31 · Tîn 95/1.
 
