@@ -44,7 +44,7 @@ Bütün bölümler baştan açıktır, kilit yoktur. Bağlantı başta yalnızca
 10. **Gece Bekçisi Fener (karanlık labirent):** 8. bölüm gibi, ama elektrikler gitmiş; yalnızca Kerem'in feneri etrafı aydınlatır. Kapı, kayıp ışıklar ve bilgi yaprakları uzaktan hafifçe parlar. Üç iyilik: yavru kediyi annesine, mumu yaşlı komşunun karanlık evine, battaniyeli kutuyu üşüyen yavru kediye götürmek. Her oyunda yeni labirent.
 11. **Kızak Yarışı:** 7. bölümün kamerası ve şeritleri, bu sefer karlı dağda kızakla. Buz parçaları yavaşlatır; sonunda sıcak çorbalı dağ evi var.
 12. **Ağaç Dikme Şenliği:** Çorak bir tepeye fidan dikilir ve çöp toplanır (hurma yerine çöp). Her dikilen fidanla çimen, tepeler ve çiçekler biraz daha yeşerir. Kuru dal topları yuvarlanır.
-13. **Kuzular Ağıla (yılan tarzı):** Kuş bakışı bir çayırda Kerem kendiliğinden yürür; ok tuşlarıyla ya da telefonda parmak kaydırarak yön verilir. Topladığı her kayıp kuzu arkasına dizilir. Çite, taşa, kendi kuzu sırasına ya da kötü huy bulutuna çarpınca bir can gider. Her 4 kuzu bir iyilik sayılır; 12 kuzu toplanınca ağılın kapısı açılır. Çayır her oyunda yeniden kurulur, telefon dik tutulunca dik bir çayır çıkar.
+13. **Kuzular Ağıla (yılan tarzı):** Kuş bakışı bir çayırda Kerem kendiliğinden yürür; ok tuşlarıyla ya da telefonda parmak kaydırarak yön verilir. Topladığı her kayıp kuzu arkasına dizilir. Çite, taşa, kendi kuzu sırasına ya da kötü huy bulutuna çarpınca bir can gider. Her 4 kuzu bir iyilik sayılır; 12 kuzu toplanınca ağılın kapısı açılır. Bölüm (ve her çarpmadan sonra) **▶ Başla** tuşuyla başlar. Çayır her oyunda yeniden kurulur, telefon dik tutulunca dik bir çayır çıkar.
 14. **Deniz Yolculuğu:** 7. ve 11. bölümün şeritli yolculuğu, bu kez kayıkla denizde. Kenarlarda deniz fenerleri, yelkenliler ve adacıklar var; dalgalar yavaşlatır. Sonunda liman var.
 15. **Mektup Güvercini:** Dokun ve uç tarzı: ekrana dokundukça (ya da Boşluk / ↑ ile) güvercin kanat çırpar. Bacalar ve kötü huy bulutları arasındaki boşluklardan geçip dedenin evine mektup götürür; yolda yem taneleri ve 3 mektup toplanır.
 16. **Bereket Bahçesi:** Meyve kesme tarzı: Kur'an'da adı geçen meyveler (hurma, üzüm, nar, incir, zeytin) havaya fırlar; parmakla (bilgisayarda fareye basılı tutarak) üstlerinden kaydırınca kesilir. Kötü huy bulutlarını kesmek bir can götürür. Her 15 meyve bir iyilik sayılır.
@@ -66,7 +66,7 @@ Bütün bölümler baştan açıktır, kilit yoktur. Bağlantı başta yalnızca
 
 ## Bilgi yaprakları, rozetler, süre
 
-- Her bölümde iki parlayan **bilgi yaprağı** saklı (bazıları için ikinci zıplama gerekir). Toplanınca kaynaklı bir âyet ya da hadis çıkar; hepsi ana menüdeki **Bilgi Defteri**'nde birikir.
+- Her bölümde iki parlayan **bilgi yaprağı** saklı (bazıları için ikinci zıplama gerekir). Toplanınca oyun durmaz; kısa bir yazı çıkar ve yaprak bölüm sonu kartında okunur. Hepsi ana menüdeki **Bilgi Defteri**'nde birikir.
 - 9 **rozet** var (ör. hiç can kaybetmeden bitirmek, hedef sürenin altında bitirmek, bütün bilgi yapraklarını toplamak).
 - Her bölümün **en iyi süresi** saklanır ve menüde görünür.
 
