@@ -25,7 +25,7 @@ Ardından tarayıcıda `http://localhost:8765` adresine gidin.
 
 ## İnternette
 
-Oyun GitHub Pages'te herkese açık olarak yayında: https://redrumania19.github.io/fener-yolu/
+Oyun herkese açık olarak yayında: **https://kandilyolu.com** (GitHub Pages; eski adres https://redrumania19.github.io/fener-yolu/ otomatik olarak buraya yönlenir). Alan adı Cloudflare Registrar'da kayıtlı (yıllık 11,17 $, otomatik yenileme açık). Cloudflare DNS'te dört A kaydı (185.199.108–111.153) ve www için redrumania19.github.io'ya CNAME var; hepsi "DNS only" (Cloudflare proxy kapalı), HTTPS sertifikasını GitHub veriyor. Depodaki `CNAME` dosyası alan adını GitHub'a bildirir; silinmemeli.
 
 Ayrıca Claude üzerinde de bir kopyası var: https://claude.ai/artifact/Y4vJUqVt2ywSxhfa6818Np
 Bütün bölümler baştan açıktır, kilit yoktur. Bağlantı başta yalnızca sahibine açıktır; başkalarının açabilmesi için sayfadaki **Paylaş (Share)** menüsünden herkese açık yapılmalıdır.
